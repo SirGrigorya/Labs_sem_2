@@ -1,9 +1,0 @@
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/lab_01_01.dir
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/install.dir
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/lab_01_01_autogen_timestamp_deps.dir
-C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab1/lab_01_01/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/lab_01_01_autogen.dir
