@@ -53,4 +53,5 @@ int main(int argc, char *argv[])
             printf("\nResult: Point is above the line\n");
         }
     }
+    return 0;
 }

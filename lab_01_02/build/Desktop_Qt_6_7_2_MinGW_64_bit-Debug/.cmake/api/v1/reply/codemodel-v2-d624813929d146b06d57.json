@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-6c7b17b23e0f08d82e25.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "lab_01_02",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "lab_01_02::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lab_01_02-Debug-3e50fdae9b1cc16c0382.json",
+					"name" : "lab_01_02",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lab_01_02_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lab_01_02_autogen-Debug-fc393d616494d9009050.json",
+					"name" : "lab_01_02_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lab_01_02_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lab_01_02_autogen_timestamp_deps-Debug-fca38008e657f4cf5119.json",
+					"name" : "lab_01_02_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_01_02/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug",
+		"source" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_01_02"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
