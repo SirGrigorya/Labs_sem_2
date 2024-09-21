@@ -82,54 +82,53 @@ int main(int argc, char *argv[])
 {
     double x, y;
     int res;
-    printf("\nLine equations:\ny = 2x + 2\ny = -x + 2\ny = 0.5x - 1\nEnter point coordinates:\n");
     if(!read(&x, &y)) {
-        printf("\nResult: Incorrect input\n");
+        return 1;
     }
     else {
         res = isPointOnTheLine(x, y);
         if (res > 0) {
             if(res == 1) {
-                printf("\nResult: Point placed on line 1 and 2\n");
+                printf("\nPoint placed on line 1 and 2\n");
             }
             else if(res == 2) {
-                printf("\nResult: Point placed on line 2 and 3\n");
+                printf("\nPoint placed on line 2 and 3\n");
             }
             else if(res == 3) {
-                printf("\nResult: Point placed on line 1 and 3\n");
+                printf("\nPoint placed on line 1 and 3\n");
             }
             else if(res == 4) {
-                printf("\nResult: Point placed on line 1\n");
+                printf("\nPoint placed on line 1\n");
             }
             else if(res == 5) {
-                printf("\nResult: Point placed on line 2\n");
+                printf("\nPoint placed on line 2\n");
             }
             else if(res == 6) {
-                printf("\nResult: Point placed on line 3\n");
+                printf("\nPoint placed on line 3\n");
             }
         }
         else {
             res = isPointAmidstTheLines(x, y);
             if(res == 7) {
-                printf("\nResult: Point placed in region 1\n");
+                printf("\nPoint placed in region 1\n");
             }
             else if(res == 8) {
-                printf("\nResult: Point placed in region 2\n");
+                printf("\nPoint placed in region 2\n");
             }
             else if(res == 9) {
-                printf("\nResult: Point placed in region 3\n");
+                printf("\nPoint placed in region 3\n");
             }
             else if(res == 10) {
-                printf("\nResult: Point placed in region 4\n");
+                printf("\nPoint placed in region 4\n");
             }
             else if(res == 11) {
-                printf("\nResult: Point placed in region 5\n");
+                printf("\nPoint placed in region 5\n");
             }
             else if(res == 12) {
-                printf("\nResult: Point placed in region 6\n");
+                printf("\nPoint placed in region 6\n");
             }
             else {
-                printf("\nResult: Point placed in region 7\n");
+                printf("\nPoint placed in region 7\n");
             }
         }
     }

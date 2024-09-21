@@ -37,20 +37,19 @@ int main(int argc, char *argv[])
 {
     double x, y;
     int res;
-    printf("Line equation: y = 0.5x + 1\nEnter point coordinates:\n");
     if(!read(&x, &y)) {
-        printf("\nResult: Incorrect input\n");
+        return 1;
     }
     else {
         res = whereIsPoint(x, y);
         if(res == 1) {
-            printf("\nResult: Point is on the line");
+            printf("\nPoint is on the line");
         }
         else if(res == 2) {
-            printf("\nResult: Point is below the line");
+            printf("\nPoint is below the line");
         }
         else {
-            printf("\nResult: Point is above the line");
+            printf("\nPoint is above the line");
         }
     }
     return 0;
