@@ -33,7 +33,7 @@ int whereIsPoint(double x, double y) { //ПРОВЕРКА РАСПОЛОЖЕНИ
     return result;
 }
 
-int main(int argc, char *argv[])
+int main()
 {
     double x, y;
     int res;
@@ -43,13 +43,13 @@ int main(int argc, char *argv[])
     else {
         res = whereIsPoint(x, y);
         if(res == 1) {
-            printf("\nPoint is on the line");
+            printf("Point is on the line");
         }
         else if(res == 2) {
-            printf("\nPoint is below the line");
+            printf("Point is below the line");
         }
         else {
-            printf("\nPoint is above the line");
+            printf("Point is above the line");
         }
     }
     return 0;
