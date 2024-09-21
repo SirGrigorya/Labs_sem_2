@@ -3,6 +3,13 @@
 
 #define EPS 0.000001    //ПОГРЕШНОСТЬ
 
+int read(double *x, double *y);
+double fun1(double x);
+double fun2(double x);
+double fun3(double x);
+int isPointOnTheLine(double x, double y);
+int isPointAmidstTheLines(double x, double y);
+
 int read(double *x, double *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВОДНЫХ
     char err = 1;
     err = scanf("%lf%lf", x, y);
