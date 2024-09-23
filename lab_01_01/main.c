@@ -3,11 +3,11 @@
 
 #define EPS 0.000001
 
-int read(float *x, float *y);
+int readCoordinates(float *x, float *y);
 float fun(float x);
 int whereIsPoint(float x, float y);
 
-int read(float *x, float *y) {
+int readCoordinates(float *x, float *y) {
     int err;
     err = scanf("%lf %lf", x, y);
     if(err != 2) {
@@ -47,7 +47,7 @@ int main()
 {
     float x, y;
     int res;
-    if(!read(&x, &y)) {
+    if(!readCoordinates(&x, &y)) {
         return 1;
     }
     else {
