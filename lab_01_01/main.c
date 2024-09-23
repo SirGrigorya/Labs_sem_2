@@ -1,4 +1,4 @@
-#include <cstdio>
+#include <stdio.h>
 #include <math.h>
 
 #define EPS 0.000001
