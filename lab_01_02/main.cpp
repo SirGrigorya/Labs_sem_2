@@ -11,7 +11,7 @@ int isPointOnTheLine(float x, float y);
 int isPointAmidstTheLines(float x, float y);
 
 int read(float *x, float *y) {
-    char err = 1;
+    int err = 1;
     err = scanf("%lf%lf", x, y);
     if(err != 2) {
         err = 0;
