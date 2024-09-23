@@ -8,10 +8,13 @@ float fun(float x);
 int whereIsPoint(float x, float y);
 
 int read(float *x, float *y) {
-    int err = 1;
-    err = scanf("%lf%lf", x, y);
+    int err;
+    err = scanf("%lf %lf", x, y);
     if(err != 2) {
         err = 0;
+    }
+    else {
+        err = 1;
     }
     return err;
 }
