@@ -8,15 +8,15 @@ float fun(float x);
 int whereIsPoint(float x, float y);
 
 int readCoordinates(float *x, float *y) {
-    int err;
-    err = scanf("%lf %lf", x, y);
-    if(err != 2) {
-        err = 0;
+    int result = 1;
+    char extra;
+    if (scanf("%f %f", x, y) != 2) {
+        result = 0;
     }
-    else {
-        err = 1;
+    if (scanf("%c", &extra) == 1 && extra != '\n') {
+        result = 0;
     }
-    return err;
+    return result;
 }
 
 float fun(float x) {
