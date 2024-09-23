@@ -56,5 +56,4 @@ int main()
             printf("Point is above the line");
         }
     }
-    return 0;
 }
