@@ -143,7 +143,7 @@ int main()
             else {
                 printf("Point placed in region 7");
             }
-            return 0;
+        return 0;
         }
     }
 }
