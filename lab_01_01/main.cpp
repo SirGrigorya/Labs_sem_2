@@ -3,11 +3,11 @@
 
 #define EPS 0.000001    //ПОГРЕШНОСТЬ
 
-int read(double *x, double *y);
-double fun(double x);
-int whereIsPoint(double x, double y);
+int read(float *x, float *y);
+float fun(float x);
+int whereIsPoint(float x, float y);
 
-int read(double *x, double *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВОДНЫХ
+int read(float *x, float *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВОДНЫХ
     char err = 1;
     err = scanf("%lf%lf", x, y);
     if(err != 2) {
@@ -16,14 +16,14 @@ int read(double *x, double *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВ�
     return err;
 }
 
-double fun(double x) {  //ВЫЧИСЛЕНИЕ ФУНКЦИИ
-    double y;
+float fun(float x) {  //ВЫЧИСЛЕНИЕ ФУНКЦИИ
+    float y;
     y = 0.5*x + 1;
     return y;
 }
 
-int whereIsPoint(double x, double y) { //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ
-    double f = fun(x);
+int whereIsPoint(float x, float y) { //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ
+    float f = fun(x);
     int result = 1;
     if (EPS > fabs(f - y)) {
         result = 1;
@@ -39,7 +39,7 @@ int whereIsPoint(double x, double y) { //ПРОВЕРКА РАСПОЛОЖЕНИ
 
 int main()
 {
-    double x, y;
+    float x, y;
     int res;
     if(!read(&x, &y)) {
         return 1;

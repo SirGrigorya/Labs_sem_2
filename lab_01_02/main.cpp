@@ -3,14 +3,14 @@
 
 #define EPS 0.000001    //ПОГРЕШНОСТЬ
 
-int read(double *x, double *y);
-double fun1(double x);
-double fun2(double x);
-double fun3(double x);
-int isPointOnTheLine(double x, double y);
-int isPointAmidstTheLines(double x, double y);
+int read(float *x, float *y);
+float fun1(float x);
+float fun2(float x);
+float fun3(float x);
+int isPointOnTheLine(float x, float y);
+int isPointAmidstTheLines(float x, float y);
 
-int read(double *x, double *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВОДНЫХ
+int read(float *x, float *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВОДНЫХ
     char err = 1;
     err = scanf("%lf%lf", x, y);
     if(err != 2) {
@@ -19,23 +19,23 @@ int read(double *x, double *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВ�
     return err;
 }
 
-double fun1(double x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 1
-    double y = 2 * x + 2;
+float fun1(float x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 1
+    float y = 2 * x + 2;
     return y;
 }
 
-double fun2(double x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 2
-    double y = 0.5 * x - 1;
+float fun2(float x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 2
+    float y = 0.5 * x - 1;
     return y;
 }
 
-double fun3(double x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 3
-    double y = -x + 2;
+float fun3(float x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 3
+    float y = -x + 2;
     return y;
 }
 
-int isPointOnTheLine(double x, double y) {   //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ НА ЛИНИЯХ
-    double f1 = fun1(x), f2 = fun2(x), f3 = fun3(x);
+int isPointOnTheLine(float x, float y) {   //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ НА ЛИНИЯХ
+    float f1 = fun1(x), f2 = fun2(x), f3 = fun3(x);
     int result = 0;
     if (EPS > fabs(f2 - y) and EPS > fabs(f1 - y)) {
         result = 1;
@@ -58,8 +58,8 @@ int isPointOnTheLine(double x, double y) {   //ПРОВЕРКА РАСПОЛОЖ
     return result;
 }
 
-int isPointAmidstTheLines(double x, double y) {   //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ В ОБЛАСТЯХ
-    double f1 = fun1(x), f2 = fun2(x), f3 = fun3(x);
+int isPointAmidstTheLines(float x, float y) {   //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ В ОБЛАСТЯХ
+    float f1 = fun1(x), f2 = fun2(x), f3 = fun3(x);
     int result = 0;
     if((EPS < f1 - y) and (EPS > f2 - y) and (EPS > f1 - y)) {
         result = 7;
@@ -87,7 +87,7 @@ int isPointAmidstTheLines(double x, double y) {   //ПРОВЕРКА РАСПО�
 
 int main()
 {
-    double x, y;
+    float x, y;
     int res;
     if(!read(&x, &y)) {
         return 1;
