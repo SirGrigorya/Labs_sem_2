@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <math.h>
 
-#define EPS 0.000001    //ПОГРЕШНОСТЬ
+#define EPS 0.000001
 
 int read(float *x, float *y);
 float fun1(float x);
@@ -10,7 +10,7 @@ float fun3(float x);
 int isPointOnTheLine(float x, float y);
 int isPointAmidstTheLines(float x, float y);
 
-int read(float *x, float *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВОДНЫХ
+int read(float *x, float *y) {
     char err = 1;
     err = scanf("%lf%lf", x, y);
     if(err != 2) {
@@ -19,22 +19,22 @@ int read(float *x, float *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВО�
     return err;
 }
 
-float fun1(float x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 1
+float fun1(float x) {
     float y = 2 * x + 2;
     return y;
 }
 
-float fun2(float x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 2
+float fun2(float x) {
     float y = 0.5 * x - 1;
     return y;
 }
 
-float fun3(float x) {     //ВЫЧИСЛЕНИЕ ФУНКЦИИ 3
+float fun3(float x) {
     float y = -x + 2;
     return y;
 }
 
-int isPointOnTheLine(float x, float y) {   //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ НА ЛИНИЯХ
+int isPointOnTheLine(float x, float y) {
     float f1 = fun1(x), f2 = fun2(x), f3 = fun3(x);
     int result = 0;
     if (EPS > fabs(f2 - y) and EPS > fabs(f1 - y)) {
@@ -58,7 +58,7 @@ int isPointOnTheLine(float x, float y) {   //ПРОВЕРКА РАСПОЛОЖЕ
     return result;
 }
 
-int isPointAmidstTheLines(float x, float y) {   //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ В ОБЛАСТЯХ
+int isPointAmidstTheLines(float x, float y) {
     float f1 = fun1(x), f2 = fun2(x), f3 = fun3(x);
     int result = 0;
     if((EPS < f1 - y) and (EPS > f2 - y) and (EPS > f1 - y)) {

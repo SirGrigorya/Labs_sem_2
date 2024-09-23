@@ -1,13 +1,13 @@
 #include <cstdio>
 #include <math.h>
 
-#define EPS 0.000001    //ПОГРЕШНОСТЬ
+#define EPS 0.000001
 
 int read(float *x, float *y);
 float fun(float x);
 int whereIsPoint(float x, float y);
 
-int read(float *x, float *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВОДНЫХ
+int read(float *x, float *y) {
     char err = 1;
     err = scanf("%lf%lf", x, y);
     if(err != 2) {
@@ -16,13 +16,13 @@ int read(float *x, float *y) {    //ЧТЕНИЕ И ФИЛЬТРАЦИЯ ВВО�
     return err;
 }
 
-float fun(float x) {  //ВЫЧИСЛЕНИЕ ФУНКЦИИ
+float fun(float x) {
     float y;
     y = 0.5*x + 1;
     return y;
 }
 
-int whereIsPoint(float x, float y) { //ПРОВЕРКА РАСПОЛОЖЕНИЯ ТОЧКИ
+int whereIsPoint(float x, float y) {
     float f = fun(x);
     int result = 1;
     if (EPS > fabs(f - y)) {
