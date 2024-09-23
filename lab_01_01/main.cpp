@@ -24,7 +24,7 @@ float fun(float x) {
 
 int whereIsPoint(float x, float y) {
     float f = fun(x);
-    int result = 1;
+    int result;
     if (EPS > fabs(f - y)) {
         result = 1;
     }
@@ -33,6 +33,9 @@ int whereIsPoint(float x, float y) {
     }
     else if (EPS > f - y) {
         result = 3;
+    }
+    else {
+        result = 0;
     }
     return result;
 }

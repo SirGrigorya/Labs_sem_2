@@ -36,7 +36,7 @@ float fun3(float x) {
 
 int isPointOnTheLine(float x, float y) {
     float f1 = fun1(x), f2 = fun2(x), f3 = fun3(x);
-    int result = 0;
+    int result;
     if (EPS > fabs(f2 - y) and EPS > fabs(f1 - y)) {
         result = 1;
     }
@@ -54,6 +54,9 @@ int isPointOnTheLine(float x, float y) {
     }
     else if (EPS > fabs(f3 - y)) {
         result = 6;
+    }
+    else {
+        result = 0;
     }
     return result;
 }
