@@ -102,13 +102,13 @@ int main()
         res = isPointOnTheLine(x, y);
         if (res > 0) {
             if(res == 1) {
-                printf("Point placed on line 1 && 2");
+                printf("Point placed on line 1 and 2");
             }
             else if(res == 2) {
-                printf("Point placed on line 2 && 3");
+                printf("Point placed on line 2 and 3");
             }
             else if(res == 3) {
-                printf("Point placed on line 1 && 3");
+                printf("Point placed on line 1 and 3");
             }
             else if(res == 4) {
                 printf("Point placed on line 1");
