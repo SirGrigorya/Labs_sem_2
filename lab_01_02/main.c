@@ -46,26 +46,106 @@ float fun3(float x) {
     return y;
 }
 
+int onLine1(float x, float y) {
+    float f1 = fun1(x) - y;
+    float fl = 0;
+    if (EPS > fabs(f1)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int onLine2(float x, float y) {
+    float f2 = fun1(x) - y;
+    float fl = 0;
+    if (EPS > fabs(f2)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int onLine3(float x, float y) {
+    float f3 = fun1(x) - y;
+    float fl = 0;
+    if (EPS > fabs(f3)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int underLine1(float x, float y) {
+    float f1 = fun1(x) - y;
+    float fl = 0;
+    if (EPS > fabs(f1)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int underLine2(float x, float y) {
+    float f2 = fun1(x) - y;
+    float fl = 0;
+    if (EPS > fabs(f2)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int underLine3(float x, float y) {
+    float f3 = fun1(x) - y;
+    float fl = 0;
+    if (EPS > fabs(f3)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int aboveLine1(float x, float y) {
+    float f1 = fun1(x) - y;
+    float fl = 0;
+    if (EPS < fabs(f1)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int aboveLine2(float x, float y) {
+    float f2 = fun1(x) - y;
+    float fl = 0;
+    if (EPS < fabs(f2)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int aboveLine3(float x, float y) {
+    float f3 = fun1(x) - y;
+    float fl = 0;
+    if (EPS < fabs(f3)) {
+        fl = 1;
+    }
+    return fl;
+}
+
 int isPointOnTheLine(float x, float y) {
-    float f1 = fun1(x) - y, f2 = fun2(x) - y, f3 = fun3(x) - y;
     int result;
-    if (EPS > fabs(f2) && EPS > fabs(f1)) {
-        result = 1;
+    if (onLine2(x, y) && onLine1(x, y)) {
+        result = RES_1;
     }
-    else if (EPS > fabs(f2) && EPS > fabs(f3)) {
-        result = 2;
+    else if (onLine2(x, y) && onLine3(x, y)) {
+        result = RES_2;
     }
-    else if (EPS > fabs(f1) && EPS > fabs(f3)) {
-        result = 3;
+    else if (onLine1(x, y) && onLine3(x, y)) {
+        result = RES_3;
     }
-    else if (EPS > fabs(f1)) {
-        result = 4;
+    else if (onLine1(x, y)) {
+        result = RES_4;
     }
-    else if (EPS > fabs(f2)) {
-        result = 5;
+    else if (onLine2(x, y)) {
+        result = RES_5;
     }
-    else if (EPS > fabs(f3)) {
-        result = 6;
+    else if (onLine3(x, y)) {
+        result = RES_6;
     }
     else {
         result = 0;
@@ -74,70 +154,69 @@ int isPointOnTheLine(float x, float y) {
 }
 
 int isPointAmidstTheLines(float x, float y) {
-    float f1 = fun1(x) - y, f2 = fun2(x) - y, f3 = fun3(x) - y;
     int result = 0;
-    if((EPS < f1) && (EPS > f2) && (EPS > f3)) {
-        result = 7;
+    if(underLine1(x, y) && aboveLine2(x, y) && aboveLine3(x, y)) {
+        result = RES_7;
     }
-    else if((EPS < f1) && (EPS < f2) && (EPS > f3)) {
-        result = 8;
+    else if(underLine1(x, y) && underLine2(x, y) && aboveLine3(x, y)) {
+        result = RES_8;
     }
-    else if((EPS < f1) && (EPS < f2) && (EPS < f3)) {
-        result = 9;
+    else if(underLine1(x, y) && underLine2(x, y) && underLine3(x, y)) {
+        result = RES_9;
     }
-    else if((EPS > f1) && (EPS < f2) && (EPS < f3)) {
-        result = 10;
+    else if(aboveLine1(x, y) && underLine2(x, y) && underLine3(x, y)) {
+        result = RES_10;
     }
-    else if((EPS > f1) && (EPS > f2) && (EPS < f3)) {
-        result = 11;
+    else if(aboveLine1(x, y) && aboveLine2(x, y) && underLine3(x, y)) {
+        result = RES_11;
     }
-    else if((EPS > f1) && (EPS > f2) && (EPS > f3)) {
-        result = 12;
+    else if(aboveLine1(x, y) && aboveLine2(x, y) && aboveLine3(x, y)) {
+        result = RES_12;
     }
-    else if((EPS < f1) && (EPS > f2) && (EPS < f3)) {
-        result = 13;
+    else if(underLine1(x, y) && aboveLine2(x, y) && underLine3(x, y)) {
+        result = RES_13;
     }
     return result;
 }
 
 void onLineOutput(int res){
-    if(res == 1) {
+    if(res == RES_1) {
         printf("Point placed on line 1 and 2");
     }
-    else if(res == 2) {
+    else if(res == RES_2) {
         printf("Point placed on line 2 and 3");
     }
-    else if(res == 3) {
+    else if(res == RES_3) {
         printf("Point placed on line 1 and 3");
     }
-    else if(res == 4) {
+    else if(res == RES_4) {
         printf("Point placed on line 1");
     }
-    else if(res == 5) {
+    else if(res == RES_5) {
         printf("Point placed on line 2");
     }
-    else if(res == 6) {
+    else if(res == RES_6) {
         printf("Point placed on line 3");
     }
 }
 
 void amidstLinesOutput(int res) {
-    if(res == 7) {
+    if(res == RES_7) {
         printf("Point placed in region 1");
     }
-    else if(res == 8) {
+    else if(res == RES_8) {
         printf("Point placed in region 2");
     }
-    else if(res == 9) {
+    else if(res == RES_9) {
         printf("Point placed in region 3");
     }
-    else if(res == 10) {
+    else if(res == RES_10) {
         printf("Point placed in region 4");
     }
-    else if(res == 11) {
+    else if(res == RES_11) {
         printf("Point placed in region 5");
     }
-    else if(res == 12) {
+    else if(res == RES_12) {
         printf("Point placed in region 6");
     }
     else {
