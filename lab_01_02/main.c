@@ -46,105 +46,49 @@ float fun3(float x) {
     return y;
 }
 
-int onLine1(float x, float y) {
-    float f1 = fun1(x) - y;
+int onLine(float f) {
     float fl = 0;
-    if (EPS > fabs(f1)) {
+    if (EPS > fabs(f)) {
         fl = 1;
     }
     return fl;
 }
 
-int onLine2(float x, float y) {
-    float f2 = fun1(x) - y;
+int underLine(float f) {
     float fl = 0;
-    if (EPS > fabs(f2)) {
+    if (EPS > f) {
         fl = 1;
     }
     return fl;
 }
 
-int onLine3(float x, float y) {
-    float f3 = fun1(x) - y;
+int aboveLine(float f) {
     float fl = 0;
-    if (EPS > fabs(f3)) {
-        fl = 1;
-    }
-    return fl;
-}
-
-int underLine1(float x, float y) {
-    float f1 = fun1(x) - y;
-    float fl = 0;
-    if (EPS > fabs(f1)) {
-        fl = 1;
-    }
-    return fl;
-}
-
-int underLine2(float x, float y) {
-    float f2 = fun1(x) - y;
-    float fl = 0;
-    if (EPS > fabs(f2)) {
-        fl = 1;
-    }
-    return fl;
-}
-
-int underLine3(float x, float y) {
-    float f3 = fun1(x) - y;
-    float fl = 0;
-    if (EPS > fabs(f3)) {
-        fl = 1;
-    }
-    return fl;
-}
-
-int aboveLine1(float x, float y) {
-    float f1 = fun1(x) - y;
-    float fl = 0;
-    if (EPS < fabs(f1)) {
-        fl = 1;
-    }
-    return fl;
-}
-
-int aboveLine2(float x, float y) {
-    float f2 = fun1(x) - y;
-    float fl = 0;
-    if (EPS < fabs(f2)) {
-        fl = 1;
-    }
-    return fl;
-}
-
-int aboveLine3(float x, float y) {
-    float f3 = fun1(x) - y;
-    float fl = 0;
-    if (EPS < fabs(f3)) {
+    if (EPS < f) {
         fl = 1;
     }
     return fl;
 }
 
 int isPointOnTheLine(float x, float y) {
+    float f1 = fun1(x) - y, f2 = fun2(x) - y, f3 = fun3(x) - y;
     int result;
-    if (onLine2(x, y) && onLine1(x, y)) {
+    if (onLine(f2) && onLine(f1)) {
         result = RES_1;
     }
-    else if (onLine2(x, y) && onLine3(x, y)) {
+    else if (onLine(f2) && onLine(f3)) {
         result = RES_2;
     }
-    else if (onLine1(x, y) && onLine3(x, y)) {
+    else if (onLine(f1) && onLine(f2)) {
         result = RES_3;
     }
-    else if (onLine1(x, y)) {
+    else if (onLine(f1)) {
         result = RES_4;
     }
-    else if (onLine2(x, y)) {
+    else if (onLine(f2)) {
         result = RES_5;
     }
-    else if (onLine3(x, y)) {
+    else if (onLine(f3)) {
         result = RES_6;
     }
     else {
@@ -154,26 +98,27 @@ int isPointOnTheLine(float x, float y) {
 }
 
 int isPointAmidstTheLines(float x, float y) {
+    float f1 = fun1(x) - y, f2 = fun2(x) - y, f3 = fun3(x) - y;
     int result = 0;
-    if(underLine1(x, y) && aboveLine2(x, y) && aboveLine3(x, y)) {
+    if(underLine(f1) && aboveLine(f2) && aboveLine(f3)) {
         result = RES_7;
     }
-    else if(underLine1(x, y) && underLine2(x, y) && aboveLine3(x, y)) {
+    else if(underLine(f1) && underLine(f2) && aboveLine(f3)) {
         result = RES_8;
     }
-    else if(underLine1(x, y) && underLine2(x, y) && underLine3(x, y)) {
+    else if(underLine(f1) && underLine(f2) && underLine(f3)) {
         result = RES_9;
     }
-    else if(aboveLine1(x, y) && underLine2(x, y) && underLine3(x, y)) {
+    else if(aboveLine(f1) && underLine(f2) && underLine(f3)) {
         result = RES_10;
     }
-    else if(aboveLine1(x, y) && aboveLine2(x, y) && underLine3(x, y)) {
+    else if(aboveLine(f1) && aboveLine(f2) && underLine(f3)) {
         result = RES_11;
     }
-    else if(aboveLine1(x, y) && aboveLine2(x, y) && aboveLine3(x, y)) {
+    else if(aboveLine(f1) && aboveLine(f2) && aboveLine(f3)) {
         result = RES_12;
     }
-    else if(underLine1(x, y) && aboveLine2(x, y) && underLine3(x, y)) {
+    else if(underLine(f1) && aboveLine(f2) && underLine(f3)) {
         result = RES_13;
     }
     return result;
