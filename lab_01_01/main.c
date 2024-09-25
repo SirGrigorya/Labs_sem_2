@@ -25,27 +25,15 @@ float fun(float x) {
 }
 
 int onLine(float f) {
-    float fl = 0;
-    if (EPS > fabs(f)) {
-        fl = 1;
-    }
-    return fl;
+    return EPS > fabs(f);
 }
 
 int underLine(float f) {
-    float fl = 0;
-    if (EPS > f) {
-        fl = 1;
-    }
-    return fl;
+    return EPS < f;
 }
 
 int aboveLine(float f) {
-    float fl = 0;
-    if (EPS < f) {
-        fl = 1;
-    }
-    return fl;
+    return EPS > f;
 }
 
 int whereIsPoint(float x, float y) {

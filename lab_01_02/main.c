@@ -2,6 +2,7 @@
 #include <math.h>
 
 #define EPS 0.000001
+#define WRONG_CASE 0
 #define RES_1 1
 #define RES_2 2
 #define RES_3 3
@@ -47,39 +48,27 @@ float fun3(float x) {
 }
 
 int onLine(float f) {
-    float fl = 0;
-    if (EPS > fabs(f)) {
-        fl = 1;
-    }
-    return fl;
+    return EPS > fabs(f);
 }
 
 int underLine(float f) {
-    float fl = 0;
-    if (EPS > f) {
-        fl = 1;
-    }
-    return fl;
+    return EPS < f;
 }
 
 int aboveLine(float f) {
-    float fl = 0;
-    if (EPS < f) {
-        fl = 1;
-    }
-    return fl;
+    return EPS > f;
 }
 
 int isPointOnTheLine(float x, float y) {
     float f1 = fun1(x) - y, f2 = fun2(x) - y, f3 = fun3(x) - y;
     int result;
-    if (onLine(f2) && onLine(f1)) {
+    if (onLine(f1) && onLine(f2)) {
         result = RES_1;
     }
     else if (onLine(f2) && onLine(f3)) {
         result = RES_2;
     }
-    else if (onLine(f1) && onLine(f2)) {
+    else if (onLine(f1) && onLine(f3)) {
         result = RES_3;
     }
     else if (onLine(f1)) {
@@ -92,7 +81,7 @@ int isPointOnTheLine(float x, float y) {
         result = RES_6;
     }
     else {
-        result = 0;
+        result = WRONG_CASE;
     }
     return result;
 }
@@ -178,7 +167,7 @@ int main()
     }
     else {
         res = isPointOnTheLine(x, y);
-        if (res > 0) {
+        if (res != WRONG_CASE) {
                 onLineOutput(res);
         }
         else {
