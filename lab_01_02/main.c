@@ -155,15 +155,11 @@ int main()
     else {
         res = isPointOnTheLine(x, y);
         if (res > 0) {
-            if(res == 1) {
                 onLineOutput(res);
-            }
         }
         else {
             res = isPointAmidstTheLines(x, y);
-            if(res == 7) {
                 amidstLinesOutput(res);
-            }
         return 0;
         }
     }
