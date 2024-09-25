@@ -24,16 +24,40 @@ float fun(float x) {
     return y;
 }
 
+int onLine(float f) {
+    float fl = 0;
+    if (EPS > fabs(f)) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int underLine(float f) {
+    float fl = 0;
+    if (EPS > f) {
+        fl = 1;
+    }
+    return fl;
+}
+
+int aboveLine(float f) {
+    float fl = 0;
+    if (EPS < f) {
+        fl = 1;
+    }
+    return fl;
+}
+
 int whereIsPoint(float x, float y) {
     float f = fun(x);
     int result;
-    if (EPS > fabs(f - y)) {
+    if (onLine(f)) {
         result = RES_1;
     }
-    else if (EPS < f - y) {
+    else if (underLine(f)) {
         result = RES_2;
     }
-    else if (EPS > f - y) {
+    else if (aboveLine(f)) {
         result = RES_3;
     }
     else {
