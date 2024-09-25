@@ -74,7 +74,7 @@ int isPointOnTheLine(float x, float y) {
 }
 
 int isPointAmidstTheLines(float x, float y) {
-    float f1 = fun1(x), f2 = fun2(x), f3 = fun3(x);
+    float f1 = fun1(x) - y, f2 = fun2(x) - y, f3 = fun3(x) - y;
     int result = 0;
     if((EPS < f1) && (EPS > f2) && (EPS > f3)) {
         result = 7;
