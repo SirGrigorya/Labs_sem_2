@@ -2,6 +2,9 @@
 #include <math.h>
 
 #define EPS 0.000001
+#define RES_1 1
+#define RES_2 2
+#define RES_3 3
 
 int readCoordinates(float *x, float *y);
 float fun(float x);
@@ -9,11 +12,7 @@ int whereIsPoint(float x, float y);
 
 int readCoordinates(float *x, float *y) {
     int result = 1;
-    char extra;
     if (scanf("%f %f", x, y) != 2) {
-        result = 0;
-    }
-    if (scanf("%c", &extra) == 1 && extra != '\n') {
         result = 0;
     }
     return result;
@@ -29,13 +28,13 @@ int whereIsPoint(float x, float y) {
     float f = fun(x);
     int result;
     if (EPS > fabs(f - y)) {
-        result = 1;
+        result = RES_1;
     }
     else if (EPS < f - y) {
-        result = 2;
+        result = RES_2;
     }
     else if (EPS > f - y) {
-        result = 3;
+        result = RES_3;
     }
     else {
         result = 0;
@@ -43,8 +42,21 @@ int whereIsPoint(float x, float y) {
     return result;
 }
 
+void finalOutput(int res) {
+    if(res == RES_1) {
+        printf("Point is on the line");
+    }
+    else if(res == RES_2) {
+        printf("Point is below the line");
+    }
+    else {
+        printf("Point is above the line");
+    }
+}
+
 int main()
 {
+
     float x, y;
     int res;
     if(!readCoordinates(&x, &y)) {
@@ -52,15 +64,7 @@ int main()
     }
     else {
         res = whereIsPoint(x, y);
-        if(res == 1) {
-            printf("Point is on the line");
-        }
-        else if(res == 2) {
-            printf("Point is below the line");
-        }
-        else {
-            printf("Point is above the line");
-        }
+        finalOutput(res);
         return 0;
     }
 }
