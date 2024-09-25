@@ -47,16 +47,16 @@ float fun3(float x) {
     return y;
 }
 
-int onLine(float f) {
-    return EPS > fabs(f);
+int onLine(float diff) {
+    return EPS > fabs(diff);
 }
 
-int underLine(float f) {
-    return EPS < f;
+int underLine(float diff) {
+    return EPS < diff;
 }
 
-int aboveLine(float f) {
-    return EPS > f;
+int aboveLine(float diff) {
+    return EPS > diff;
 }
 
 int isPointOnTheLine(float x, float y) {

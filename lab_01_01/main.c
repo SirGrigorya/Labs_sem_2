@@ -7,7 +7,7 @@
 #define RES_3 3
 
 int readCoordinates(float *x, float *y);
-float fun(float x);
+float diffun(float x);
 int whereIsPoint(float x, float y);
 
 int readCoordinates(float *x, float *y) {
@@ -24,16 +24,16 @@ float fun(float x) {
     return y;
 }
 
-int onLine(float f) {
-    return EPS > fabs(f);
+int onLine(float diff) {
+    return EPS > fabs(diff);
 }
 
-int underLine(float f) {
-    return EPS < f;
+int underLine(float diff) {
+    return EPS < diff;
 }
 
-int aboveLine(float f) {
-    return EPS > f;
+int aboveLine(float diff) {
+    return EPS > diff;
 }
 
 int whereIsPoint(float x, float y) {
