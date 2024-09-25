@@ -49,7 +49,7 @@ int aboveLine(float f) {
 }
 
 int whereIsPoint(float x, float y) {
-    float f = fun(x);
+    float f = fun(x) - y;
     int result;
     if (onLine(f)) {
         result = RES_1;
