@@ -159,7 +159,7 @@ int main()
         }
         else {
             res = isPointAmidstTheLines(x, y);
-                amidstLinesOutput(res);
+            amidstLinesOutput(res);
         return 0;
         }
     }
