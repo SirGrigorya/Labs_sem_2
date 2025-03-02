@@ -80,17 +80,17 @@ void MainWindow::addRectangle() {
 void MainWindow::addTriangle() {
     try {
         bool ok;
-        double x1 = QInputDialog::getDouble(this, "Треугольник", "X1:", 0, -1000, 1000, 2, &ok);
+        double x1 = QInputDialog::getDouble(this, "Треугольник", "X1:", 0, -1000, 1000, 2, &ok); // -1000 и 1000 - диапазон корректных данных
         if (!ok) return;
         double y1 = QInputDialog::getDouble(this, "Треугольник", "Y1:", 0, -1000, 1000, 2, &ok);
         if (!ok) return;
-        double x2 = QInputDialog::getDouble(this, "Треугольник", "X2:", 1, -1000, 1000, 2, &ok);
+        double x2 = QInputDialog::getDouble(this, "Треугольник", "X2:", 0, -1000, 1000, 2, &ok);
         if (!ok) return;
         double y2 = QInputDialog::getDouble(this, "Треугольник", "Y2:", 0, -1000, 1000, 2, &ok);
         if (!ok) return;
-        double x3 = QInputDialog::getDouble(this, "Треугольник", "X3:", 0.5, -1000, 1000, 2, &ok);
+        double x3 = QInputDialog::getDouble(this, "Треугольник", "X3:", 0, -1000, 1000, 2, &ok);
         if (!ok) return;
-        double y3 = QInputDialog::getDouble(this, "Треугольник", "Y3:", 1, -1000, 1000, 2, &ok);
+        double y3 = QInputDialog::getDouble(this, "Треугольник", "Y3:", 0, -1000, 1000, 2, &ok);
         if (!ok) return;
 
         memoryManager.addFigure(std::make_shared<Triangle>("Треугольник", x1, y1, x2, y2, x3, y3));

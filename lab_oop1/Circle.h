@@ -2,19 +2,18 @@
 #define CIRCLE_H
 
 #include "Shape.h"
-#include <string>
 
 class Circle : public Shape {
 private:
-    std::string name;
     double centerX, centerY;
     double radius;
 
 public:
     Circle(const std::string& name, double centerX, double centerY, double radius);
 
-    std::string getName() const override;
+    // Реализация виртуальных методов
     double getArea() const override;
+    double getPerimeter() const override;
     std::string getInfo() const override;
 };
 

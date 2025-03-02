@@ -2,19 +2,18 @@
 #define RECTANGLE_H
 
 #include "Shape.h"
-#include <string>
 
 class Rectangle : public Shape {
 private:
-    std::string name;
     double topLeftX, topLeftY;
     double bottomRightX, bottomRightY;
 
 public:
     Rectangle(const std::string& name, double topLeftX, double topLeftY, double bottomRightX, double bottomRightY);
 
-    std::string getName() const override;
+    // Реализация виртуальных методов
     double getArea() const override;
+    double getPerimeter() const override;
     std::string getInfo() const override;
 };
 

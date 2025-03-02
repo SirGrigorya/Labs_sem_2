@@ -7,14 +7,14 @@
 
 class ConvexPolygon : public Shape {
 private:
-    std::string name;
     std::vector<std::pair<double, double>> vertices;
 
 public:
     ConvexPolygon(const std::string& name, const std::vector<std::pair<double, double>>& vertices);
 
-    std::string getName() const override;
+    // Реализация виртуальных методов
     double getArea() const override;
+    double getPerimeter() const override;
     std::string getInfo() const override;
 };
 
