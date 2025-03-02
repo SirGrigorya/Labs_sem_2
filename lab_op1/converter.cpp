@@ -4,7 +4,7 @@
 #include <limits.h>
 #include <ctype.h>
 #include <string.h>
-#include <climits> // Для INT_MIN и INT_MAX
+#include <climits>
 #include <cerrno>
 
 bool isValidInput(const char *input, int base) {

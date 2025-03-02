@@ -1,10 +1,9 @@
 #include "entrypoint.h"
 #include "design.h"
 #include "converter.h"
-#include "memory.h"
+#include <cstdlib>
 
 void runApplication() {
-    // Создаем главное окно в динамической памяти
     QWidget *window = new QWidget();
     setupUI(window);
 
@@ -18,22 +17,33 @@ void runApplication() {
 
     // Подключение обработчика кнопки
     QObject::connect(convertButton, &QPushButton::clicked, [=]() {
-        const char *input = inputField->text().toStdString().c_str();
+        // Получаем ввод пользователя
+        QString inputText = inputField->text();
         int fromBase = fromBaseComboBox->currentData().toInt();
         int toBase = toBaseComboBox->currentData().toInt();
 
-        char *result = allocateMemory(100);
+        char *result = (char *)malloc(100 * sizeof(char));
+        if (!result) {
+            errorLabel->setText("Ошибка выделения памяти.");
+            return;
+        }
+
+        // Преобразуем QString в const char*
+        const char *input = inputText.toStdString().c_str();
+
+        // Выполняем конвертацию
         const char *error = convertNumber(input, fromBase, toBase, result);
 
         if (error) {
             errorLabel->setText(error); // Выводим ошибку
-            outputField->clear();      // Очищаем результат
+            outputField->clear();      // Очищаем поле результата
         } else {
-            outputField->setText(result);
+            outputField->setText(result); // Выводим результат
             errorLabel->clear();
         }
 
-        deallocateMemory(result);
+        // Освобождаем выделенную память
+        free(result);
     });
 
     window->show();

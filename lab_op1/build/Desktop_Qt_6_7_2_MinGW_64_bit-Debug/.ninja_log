@@ -70,3 +70,10 @@
 120	181	7624694204147588	CMakeFiles/lab_op1.dir/converter.cpp.obj	1f788c6b42c8181b
 125	1857	7624694204192523	CMakeFiles/lab_op1.dir/entrypoint.cpp.obj	9d4789ea06ce1841
 1857	2008	7624694221506506	lab_op1.exe	be9522ef8ddb65c9
+47	167	7626153216041789	lab_op1_autogen/timestamp	73a585f85d1c599b
+47	167	7626153216041789	lab_op1_autogen/mocs_compilation.cpp	73a585f85d1c599b
+47	167	7626153216041789	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/timestamp	73a585f85d1c599b
+47	167	7626153216041789	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/mocs_compilation.cpp	73a585f85d1c599b
+169	246	7626153217262068	CMakeFiles/lab_op1.dir/converter.cpp.obj	1f788c6b42c8181b
+172	1958	7626153217292070	CMakeFiles/lab_op1.dir/entrypoint.cpp.obj	9d4789ea06ce1841
+1958	2183	7626153235154403	lab_op1.exe	be9522ef8ddb65c9
