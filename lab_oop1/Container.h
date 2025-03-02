@@ -1,5 +1,5 @@
-#ifndef MEMORYMANAGER_H
-#define MEMORYMANAGER_H
+#ifndef CONTAINER_H
+#define CONTAINER_H
 
 #include "Shape.h"
 #include <vector>
@@ -29,4 +29,4 @@ public:
     size_t getFigureCount() const;
 };
 
-#endif // MEMORYMANAGER_H
+#endif // CONTAINER_H

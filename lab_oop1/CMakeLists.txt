@@ -33,8 +33,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ConvexPolygon.cpp
         Shape.h
         Errors.h
-        MemoryManager.h
-        MemoryManager.cpp
+        Container.h
+        Container.cpp
         Shape.cpp
     )
 # Define target properties for Android with Qt 6 as:

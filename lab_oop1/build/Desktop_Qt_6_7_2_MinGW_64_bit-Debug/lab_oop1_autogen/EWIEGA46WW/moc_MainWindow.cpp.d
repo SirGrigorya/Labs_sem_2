@@ -369,5 +369,5 @@ C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
-  C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_oop1/MemoryManager.h \
+  C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_oop1/Container.h \
   C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_oop1/Shape.h
