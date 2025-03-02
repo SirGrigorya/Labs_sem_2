@@ -2,12 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QVector>
-#include "shape.h"
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+#include <QTextEdit>
+#include <QMenuBar>
+#include <QInputDialog>
+#include <QMessageBox>
+#include "MemoryManager.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -17,12 +16,22 @@ public:
     ~MainWindow();
 
 private slots:
-    void onAddButtonClicked();
-    void onDeleteButtonClicked();
-    void updateShapesList();
+    void addCircle();
+    void addRectangle();
+    void addTriangle();
+    void addConvexPolygon();
+    void showFigures();
+    void showAreas();
+    void showTotalArea();
+    void sortFigures();
+    void deleteFigure();
+    void deleteFiguresByArea();
 
 private:
-    Ui::MainWindow *ui;
-    QVector<Shape*> shapes;
+    QTextEdit *textEdit;
+    MemoryManager memoryManager; // Используем MemoryManager для управления памятью
+
+    void updateTextEdit();
 };
-#endif
+
+#endif // MAINWINDOW_H
