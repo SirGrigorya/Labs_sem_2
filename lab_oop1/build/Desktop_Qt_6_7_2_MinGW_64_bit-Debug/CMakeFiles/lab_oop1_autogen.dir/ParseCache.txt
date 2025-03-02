@@ -388,3 +388,4 @@ C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich
 C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_oop1/Errors.h
 C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_oop1/MemoryManager.h
 C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_oop1/MemoryManager.cpp
+C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_oop1/Shape.cpp

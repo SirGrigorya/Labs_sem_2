@@ -6,7 +6,7 @@ Triangle::Triangle(const std::string& name, double x1, double y1, double x2, dou
     : Shape(name), x1(x1), y1(y1), x2(x2), y2(y2), x3(x3), y3(y3) {}
 
 double Triangle::getArea() const {
-    return std::abs((x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)) / 2.0;
+    return std::abs((x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)) / 2.0);
 }
 
 double Triangle::getPerimeter() const {
