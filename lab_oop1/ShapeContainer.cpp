@@ -1,4 +1,4 @@
-#include "Container.h"
+#include "ShapeContainer.h"
 #include <algorithm> // Подключаем заголовочный файл
 
 // Добавление фигуры

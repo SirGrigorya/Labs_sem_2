@@ -6,7 +6,7 @@
 #include <QMenuBar>
 #include <QInputDialog>
 #include <QMessageBox>
-#include "Container.h"
+#include "ShapeContainer.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

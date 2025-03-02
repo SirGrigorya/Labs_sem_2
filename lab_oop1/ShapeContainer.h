@@ -1,5 +1,5 @@
-#ifndef CONTAINER_H
-#define CONTAINER_H
+#ifndef SHAPECONTAINER_H
+#define SHAPECONTAINER_H
 
 #include "Shape.h"
 #include <vector>
@@ -29,4 +29,4 @@ public:
     size_t getFigureCount() const;
 };
 
-#endif // CONTAINER_H
+#endif // SHAPECONTAINER_H
