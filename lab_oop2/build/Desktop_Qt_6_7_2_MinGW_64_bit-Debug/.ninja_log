@@ -1,4 +1,5 @@
 # ninja log v6
-16	327	7639287999930917	CMakeFiles/lab_oop2.dir/main.cpp.obj	e92ae298a4c9def3
-21	227	7639285688064980	CMakeFiles/lab_oop2.dir/list.cpp.obj	1bff1907a8dd1870
-14	104	7639288751214935	lab_oop2.exe	2fd466990d8721e1
+2	898	7645226112630884	CMakeFiles/lab_oop2.dir/main.cpp.obj	b0df53270fc1bd6
+900	1158	7645226121602908	lab_oop2.exe	2fd466990d8721e1
+5	868	7645317180745159	CMakeFiles/lab_oop2.dir/main.cpp.obj	b0df53270fc1bd6
+869	1113	7645317189386997	lab_oop2.exe	2fd466990d8721e1

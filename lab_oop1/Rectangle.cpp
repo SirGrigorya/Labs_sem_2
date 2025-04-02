@@ -1,24 +1,25 @@
-#include "Rectangle.h"
-#include <sstream>
+#include "rectangle.h"
+#include "app_errors.h"
 
-Rectangle::Rectangle(const std::string& name, double topLeftX, double topLeftY, double bottomRightX, double bottomRightY)
-    : Shape(name), topLeftX(topLeftX), topLeftY(topLeftY), bottomRightX(bottomRightX), bottomRightY(bottomRightY) {}
-
-double Rectangle::getArea() const {
-    double width = bottomRightX - topLeftX;
-    double height = topLeftY - bottomRightY;
-    return std::abs(width * height);
+// Конструктор вызывает конструктор базового класса Shape для инициализации name
+Rectangle::Rectangle(const std::string& name, double l, double t, double r, double b)
+    : Shape(name), left(l), top(t), right(r), bottom(b) {
+    if(left >= right || top <= bottom)
+        throw InvalidRectangle(); // Проверка корректности координат
 }
 
-double Rectangle::getPerimeter() const {
-    double width = bottomRightX - topLeftX;
-    double height = topLeftY - bottomRightY;
-    return 2 * (width + height);
+// Реализация метода area()
+double Rectangle::area() const {
+    return (right - left) * (top - bottom);
 }
 
-std::string Rectangle::getInfo() const {
-    std::ostringstream oss;
-    oss << getName() << ", Верхний Левый: (" << topLeftX << ", " << topLeftY
-        << "), Нижний Правый: (" << bottomRightX << ", " << bottomRightY << ")";
-    return oss.str();
+// Реализация метода get_type()
+std::string Rectangle::get_type() const {
+    return "Rectangle";
+}
+
+// Реализация метода print_parameters()
+void Rectangle::print_parameters(std::ostream& os) const {
+    os << "Name: " << get_name() << ", Left-Top: (" << left << ", " << top
+       << "), Right-Bottom: (" << right << ", " << bottom << ")";
 }

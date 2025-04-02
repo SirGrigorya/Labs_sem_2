@@ -166,20 +166,20 @@ lab_op1_autogen/timestamp: \
 	C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/CMakeLists.txt \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/converter.cpp \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/converter.h \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/design.cpp \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/design.h \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/entrypoint.cpp \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/entrypoint.h \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/errors.cpp \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/errors.h \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/main.cpp \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/memory.cpp \
-	C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/memory.h \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/CMakeLists.txt \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converter.cpp \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converter.h \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/design.cpp \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/design.h \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/entrypoint.cpp \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/entrypoint.h \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/errors.cpp \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/errors.h \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/main.cpp \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/memory.c \
+	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/memory.h \
 	C:/Qt/Tools/CMake_64/bin/cmake.exe

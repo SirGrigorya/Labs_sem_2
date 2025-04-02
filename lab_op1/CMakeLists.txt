@@ -24,11 +24,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         converter.h
-        converter.c
+        converter.cpp
         errors.h
         errors.cpp
         memory.h
-        memory.cpp
+        memory.c
         entrypoint.cpp
         entrypoint.h
         lab_op1.pro

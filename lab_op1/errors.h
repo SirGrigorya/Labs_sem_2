@@ -2,11 +2,13 @@
 #define ERRORS_H
 
 typedef enum {
-    NoError,
+    NoError = 0,
     InvalidInput,
-    OutOfRange
+    OutOfRange,
+    NullPointer,
+    InvalidBase,
 } ErrorCode;
 
-const char *getErrorMessage(ErrorCode code);
+const char* getErrorMessage(ErrorCode code);
 
 #endif // ERRORS_H

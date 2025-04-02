@@ -1,0 +1,15 @@
+# ninja log v6
+25	135	7646005306762542	lab_op2_autogen/timestamp	fbf6d49a7d499eb4
+25	135	7646005306762542	lab_op2_autogen/mocs_compilation.cpp	fbf6d49a7d499eb4
+25	135	7646005306762542	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/timestamp	fbf6d49a7d499eb4
+25	135	7646005306762542	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/mocs_compilation.cpp	fbf6d49a7d499eb4
+136	2374	7646005307872786	CMakeFiles/lab_op2.dir/mainwindow.cpp.obj	f191e24fd624c4c8
+507	2408	7646004688595649	CMakeFiles/lab_op2.dir/lab_op2_autogen/mocs_compilation.cpp.obj	60be929243b8be59
+509	2460	7646004688615651	CMakeFiles/lab_op2.dir/main.cpp.obj	8f9b0b7e67cb65ef
+22	181	7646007333220105	lab_op2_autogen/timestamp	fbf6d49a7d499eb4
+22	181	7646007333220105	lab_op2_autogen/mocs_compilation.cpp	fbf6d49a7d499eb4
+22	181	7646007333220105	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/timestamp	fbf6d49a7d499eb4
+22	181	7646007333220105	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/mocs_compilation.cpp	fbf6d49a7d499eb4
+185	246	7646007334845301	CMakeFiles/lab_op2.dir/entry.cpp.obj	bcfc0c0038a33b25
+182	447	7646007334815294	CMakeFiles/lab_op2.dir/logic.cpp.obj	1c390dbdb45ab456
+448	654	7646007337469445	lab_op2.exe	63ffbb4685637d45
