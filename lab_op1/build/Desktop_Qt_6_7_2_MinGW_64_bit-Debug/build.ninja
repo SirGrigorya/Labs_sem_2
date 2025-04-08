@@ -89,9 +89,9 @@ build CMakeFiles/lab_op1.dir/errors.cpp.obj: CXX_COMPILER__lab_op1_unscanned_Deb
   OBJECT_DIR = CMakeFiles\lab_op1.dir
   OBJECT_FILE_DIR = CMakeFiles\lab_op1.dir
 
-build CMakeFiles/lab_op1.dir/entrypoint.cpp.obj: CXX_COMPILER__lab_op1_unscanned_Debug C$:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/entrypoint.cpp || cmake_object_order_depends_target_lab_op1
+build CMakeFiles/lab_op1.dir/converterwidget.cpp.obj: CXX_COMPILER__lab_op1_unscanned_Debug C$:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converterwidget.cpp || cmake_object_order_depends_target_lab_op1
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\lab_op1.dir\entrypoint.cpp.obj.d
+  DEP_FILE = CMakeFiles\lab_op1.dir\converterwidget.cpp.obj.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/include -isystem C:/Qt/6.7.2/mingw_64/include/QtCore -isystem C:/Qt/6.7.2/mingw_64/include -isystem C:/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem C:/Qt/6.7.2/mingw_64/include/QtWidgets -isystem C:/Qt/6.7.2/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\lab_op1.dir
@@ -105,7 +105,7 @@ build CMakeFiles/lab_op1.dir/entrypoint.cpp.obj: CXX_COMPILER__lab_op1_unscanned
 #############################################
 # Link the executable lab_op1.exe
 
-build lab_op1.exe: CXX_EXECUTABLE_LINKER__lab_op1_Debug CMakeFiles/lab_op1.dir/lab_op1_autogen/mocs_compilation.cpp.obj CMakeFiles/lab_op1.dir/main.cpp.obj CMakeFiles/lab_op1.dir/design.cpp.obj CMakeFiles/lab_op1.dir/converter.cpp.obj CMakeFiles/lab_op1.dir/errors.cpp.obj CMakeFiles/lab_op1.dir/entrypoint.cpp.obj | C$:/Qt/6.7.2/mingw_64/lib/libQt6Widgets.a C$:/Qt/6.7.2/mingw_64/lib/libQt6Gui.a C$:/Qt/6.7.2/mingw_64/lib/libQt6Core.a C$:/Qt/6.7.2/mingw_64/lib/libQt6EntryPoint.a || lab_op1_autogen lab_op1_autogen_timestamp_deps
+build lab_op1.exe: CXX_EXECUTABLE_LINKER__lab_op1_Debug CMakeFiles/lab_op1.dir/lab_op1_autogen/mocs_compilation.cpp.obj CMakeFiles/lab_op1.dir/main.cpp.obj CMakeFiles/lab_op1.dir/design.cpp.obj CMakeFiles/lab_op1.dir/converter.cpp.obj CMakeFiles/lab_op1.dir/errors.cpp.obj CMakeFiles/lab_op1.dir/converterwidget.cpp.obj | C$:/Qt/6.7.2/mingw_64/lib/libQt6Widgets.a C$:/Qt/6.7.2/mingw_64/lib/libQt6Gui.a C$:/Qt/6.7.2/mingw_64/lib/libQt6Core.a C$:/Qt/6.7.2/mingw_64/lib/libQt6EntryPoint.a || lab_op1_autogen lab_op1_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
   LINK_FLAGS = -mwindows
   LINK_LIBRARIES = C:/Qt/6.7.2/mingw_64/lib/libQt6Widgets.a  C:/Qt/6.7.2/mingw_64/lib/libQt6Gui.a  C:/Qt/6.7.2/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -lmingw32  C:/Qt/6.7.2/mingw_64/lib/libQt6EntryPoint.a  -lshell32  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32

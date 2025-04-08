@@ -7,131 +7,252 @@
 #include <stdio.h>
 #include <errno.h>
 
-bool isValidInput(const char *input, int base) {
-    if (input == NULL || *input == '\0') {
-        return false;
-    }
+#define MAX_BIN_LENGTH      32
+#define MAX_DEC_LENGTH      12
+#define MAX_HEX_LENGTH      8
+#define BIT_LENGTH          32
+#define HEX_NEGATIVE_ONE    "FFFFFFFF"
+#define BIN_NEGATIVE_ONE    "11111111111111111111111111111111"
+#define HEX_FORMAT          "%08lX"
+#define DEC_FORMAT          "%ld"
+#define HEX_SIGNED_FORMAT   "%08X"
+#define DEC 10
+#define BIN 2
+#define HEX 16
 
-    size_t len = strlen(input);
-
-    if (base == 2) {
-        if (len > 32) return false;
-        for (size_t i = 0; i < len; i++) {
-            if (input[i] != '0' && input[i] != '1') return false;
-        }
+static bool isBinaryString(const char *str) {
+    bool valid = true;
+    for (size_t i = 0; str[i] && valid; i++) {
+        valid = (str[i] == '0' || str[i] == '1');
     }
-    else if (base == 10) {
-        size_t start = 0;
-        if (input[0] == '-') {
-            start = 1;
-            if (len == 1) return false;
-        }
-        for (size_t i = start; i < len; i++) {
-            if (!isdigit(input[i])) return false;
-        }
-    }
-    else if (base == 16) {
-        for (size_t i = 0; i < len; i++) {
-            if (!isxdigit(input[i])) return false;
-        }
-    }
-
-    return true;
+    return valid;
 }
 
-const char *convertNumber(const char *input, int fromBase, int toBase, char *result) {
-    if (input == NULL || result == NULL) {
-        return getErrorMessage(NullPointer);
+static bool isDecimalString(const char *str) {
+    bool valid = true;
+    size_t start = 0;
+
+    if (str[0] == '-') start = 1;
+
+    for (size_t i = start; str[i] && valid; i++) {
+        valid = isdigit(str[i]);
+    }
+    return valid;
+}
+
+static bool isHexadecimalString(const char *str) {
+    bool valid = true;
+    for (size_t i = 0; str[i] && valid; i++) {
+        valid = isxdigit(str[i]);
+    }
+    return valid;
+}
+
+bool isValidInput(const char *input, int base) {
+    bool valid = false;
+
+    if (input && *input) {
+        const size_t len = strlen(input);
+
+        if (base == BIN) {
+            valid = (len <= MAX_BIN_LENGTH) && isBinaryString(input);
+        }
+        else if (base == DEC) {
+            valid = (len <= MAX_DEC_LENGTH) && isDecimalString(input);
+        }
+        else if (base == HEX) {
+            valid = (len <= MAX_HEX_LENGTH) && isHexadecimalString(input);
+        }
     }
 
-    if (!isValidInput(input, fromBase)) {
-        return getErrorMessage(InvalidInput);
-    }
+    return valid;
+}
 
-    // Специальная обработка FFFFFFFF (16-ричное -1)
-    if (fromBase == 16 && strcmp(input, "FFFFFFFF") == 0) {
-        if (toBase == 10) {
+static bool handleSpecialCases(const char *input, int fromBase, int toBase, char *result) {
+    bool handled = false;
+
+    if (fromBase == HEX && strcmp(input, HEX_NEGATIVE_ONE) == 0) {
+        if (toBase == DEC) {
             strcpy(result, "-1");
-            return NULL;
+            handled = true;
         }
-        else if (toBase == 2) {
-            strcpy(result, "11111111111111111111111111111111");
-            return NULL;
+        else if (toBase == BIN) {
+            strcpy(result, BIN_NEGATIVE_ONE);
+            handled = true;
         }
     }
-
-    // Специальная обработка 32 единиц (двоичное -1)
-    if (fromBase == 2 && strlen(input) == 32) {
+    else if (fromBase == BIN && strlen(input) == BIT_LENGTH) {
         bool allOnes = true;
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < BIT_LENGTH; i++) {
             if (input[i] != '1') {
                 allOnes = false;
                 break;
             }
         }
         if (allOnes) {
-            if (toBase == 10) {
+            if (toBase == DEC) {
                 strcpy(result, "-1");
-                return NULL;
+                handled = true;
             }
-            else if (toBase == 16) {
-                strcpy(result, "FFFFFFFF");
-                return NULL;
+            else if (toBase == HEX) {
+                strcpy(result, HEX_NEGATIVE_ONE);
+                handled = true;
             }
         }
     }
+
+    return handled;
+}
+
+static void convertUnsignedNumber(unsigned long number, int toBase, char *result) {
+    if (toBase == BIN) {
+        for (int i = BIT_LENGTH - 1; i >= 0; i--) {
+            result[BIT_LENGTH - 1 - i] = (number & (1UL << i)) ? '1' : '0';
+        }
+        result[BIT_LENGTH] = '\0';
+    }
+    else if (toBase == DEC) {
+        snprintf(result, MAX_DEC_LENGTH + 1, DEC_FORMAT, number);
+    }
+    else if (toBase == HEX) {
+        snprintf(result, MAX_HEX_LENGTH + 1, HEX_FORMAT, number);
+    }
+}
+
+
+static const char *validateInputs(const char *input, char *result, int fromBase) {
+    const char *error = NULL;
+
+    if (input == NULL || result == NULL) {
+        error = getErrorMessage(NullPointer);
+    }
+    else if (!isValidInput(input, fromBase)) {
+        error = getErrorMessage(InvalidInput);
+    }
+
+    return error;
+}
+
+static const char *parseNumber(
+    const char *input,
+    int fromBase,
+    unsigned long *number,
+    char **endPtr
+    ) {
+    const char *error = NULL;
 
     errno = 0;
-    char *endPtr;
-    unsigned long number = strtoul(input, &endPtr, fromBase);
+    *number = strtoul(input, endPtr, fromBase);
 
-    if (*endPtr != '\0') {
-        return getErrorMessage(InvalidInput);
+    if (**endPtr != '\0') {
+        error = getErrorMessage(InvalidInput);
+    }
+    else if (errno == ERANGE) {
+        error = getErrorMessage(OutOfRange);
     }
 
-    if (errno == ERANGE) {
-        return getErrorMessage(OutOfRange);
+    return error;
+}
+
+static const char *handleHexOverflow(
+    unsigned long number,
+    int toBase,
+    char *result
+    ) {
+    const int signedNumber = (int)(number - UINT_MAX - 1);
+    const char *error = getErrorMessage(InvalidBase); // default error
+
+    if (toBase == DEC) {
+        snprintf(result, MAX_DEC_LENGTH + 1, "%d", signedNumber);
+        error = NULL;
+    }
+    else if (toBase == BIN) {
+        convertUnsignedNumber((unsigned int)signedNumber, toBase, result);
+        error = NULL;
+    }
+    else if (toBase == HEX) {
+        snprintf(result, MAX_HEX_LENGTH + 1, HEX_SIGNED_FORMAT,
+                 (unsigned int)signedNumber);
+        error = NULL;
     }
 
-    // Обработка отрицательных чисел в дополнительном коде
-    if (fromBase == 16 && number > INT_MAX) {
-        int signedNumber = (int)(number - UINT_MAX - 1);
+    return error;
+}
+
+static const char *performConversion(
+    unsigned long number,
+    int toBase,
+    char *result
+    ) {
+    const char *error = NULL;
+    if (toBase < BIN || toBase > HEX) {
+        error = getErrorMessage(InvalidBase);
+    } else {
+        convertUnsignedNumber(number, toBase, result);
+    }
+    return error;
+}
+
+static bool tryHandleSpecialCases(
+    const char *input,
+    int fromBase,
+    int toBase,
+    char *result
+    ) {
+    bool handled = false;
+    if (!handled && fromBase == HEX && strcmp(input, HEX_NEGATIVE_ONE) == 0) {
         if (toBase == 10) {
-            snprintf(result, 12, "%d", signedNumber);
+            strcpy(result, "-1");
+            handled = true;
         }
-        else if (toBase == 2) {
-            unsigned int uvalue = (unsigned int)signedNumber;
-            for (int i = 31; i >= 0; i--) {
-                result[31 - i] = (uvalue & (1 << i)) ? '1' : '0';
+        else if (toBase == BIN) {
+            strcpy(result, BIN_NEGATIVE_ONE);
+            handled = true;
+        }
+    }
+    if (!handled && fromBase == BIN && strlen(input) == BIT_LENGTH) {
+        bool all_ones = true;
+
+        for (int i = 0; i < BIT_LENGTH; i++) {
+            if (input[i] != '1') {
+                all_ones = false;
+                break;
             }
-            result[32] = '\0';
         }
-        else if (toBase == 16) {
-            snprintf(result, 9, "%08X", (unsigned int)signedNumber);
+        if (all_ones) {
+            if (toBase == DEC) {
+                strcpy(result, "-1");
+                handled = true;
+            }
+            else if (toBase == HEX) {
+                strcpy(result, HEX_NEGATIVE_ONE);
+                handled = true;
+            }
         }
-        else {
-            return getErrorMessage(InvalidBase);
-        }
-        return NULL;
     }
+    return handled;
+}
 
-    // Обычная конвертация
-    if (toBase == 2) {
-        unsigned int uvalue = (unsigned int)number;
-        for (int i = 31; i >= 0; i--) {
-            result[31 - i] = (uvalue & (1 << i)) ? '1' : '0';
-        }
-        result[32] = '\0';
-    }
-    else if (toBase == 10) {
-        snprintf(result, 12, "%ld", number);
-    }
-    else if (toBase == 16) {
-        snprintf(result, 9, "%08lX", number);
-    }
-    else {
-        return getErrorMessage(InvalidBase);
-    }
+const char *convertNumber(const char *input, int fromBase, int toBase, char *result) {
+    const char *error = NULL;
+    unsigned long number = 0;
+    char *endPtr = NULL;
+    bool specialCaseHandled = false;
+    error = validateInputs(input, result, fromBase);
+    if (!error) {
+        specialCaseHandled = tryHandleSpecialCases(input, fromBase, toBase, result);
+        if (!specialCaseHandled) {
+            error = parseNumber(input, fromBase, &number, &endPtr);
 
-    return NULL;
+            if (!error) {
+                if (fromBase == HEX && number > INT_MAX) {
+                    error = handleHexOverflow(number, toBase, result);
+                }
+                else {
+                    error = performConversion(number, toBase, result);
+                }
+            }
+        }
+    }
+    return error;
 }

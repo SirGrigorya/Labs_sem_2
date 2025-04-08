@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(lab_oop2 main.cpp
     vector.h
+    m_vector_iterator.h
+    m_vector_const_iterator.h
 )
 
 include(GNUInstallDirs)

@@ -1,11 +1,11 @@
 #include <QApplication>
-#include "entrypoint.h"
+#include "converterwidget.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    // Запуск программы через единую точку входа
-    runApplication();
+    ConverterWidget *window = new ConverterWidget();
+    window->show();
 
     return app.exec();
 }

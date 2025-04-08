@@ -263,27 +263,21 @@
 			null
 		],
 		[
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converterwidget.h",
+			"MU",
+			"EWIEGA46WW/moc_converterwidget.cpp",
+			null
+		],
+		[
 			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/design.h",
 			"MU",
 			"EWIEGA46WW/moc_design.cpp",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/entrypoint.h",
-			"MU",
-			"EWIEGA46WW/moc_entrypoint.cpp",
-			null
-		],
-		[
 			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/errors.h",
 			"MU",
 			"EWIEGA46WW/moc_errors.cpp",
-			null
-		],
-		[
-			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/memory.h",
-			"MU",
-			"EWIEGA46WW/moc_memory.cpp",
 			null
 		]
 	],
@@ -364,12 +358,12 @@
 			null
 		],
 		[
-			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/design.cpp",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converterwidget.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/entrypoint.cpp",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/design.cpp",
 			"MU",
 			null
 		],
@@ -380,11 +374,6 @@
 		],
 		[
 			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/main.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/memory.c",
 			"MU",
 			null
 		]
