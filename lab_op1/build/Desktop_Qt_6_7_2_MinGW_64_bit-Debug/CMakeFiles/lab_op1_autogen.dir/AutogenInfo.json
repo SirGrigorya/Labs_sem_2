@@ -1,18 +1,18 @@
 {
 	"AUTOGEN_COMMAND_LINE_LENGTH_MAX" : 32000,
-	"BUILD_DIR" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen",
-	"CMAKE_BINARY_DIR" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1",
+	"BUILD_DIR" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1",
 	"CMAKE_EXECUTABLE" : "C:/Qt/Tools/CMake_64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/CMakeLists.txt",
-		"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
-		"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake",
+		"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/CMakeLists.txt",
+		"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
+		"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake",
-		"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake",
+		"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake",
@@ -25,7 +25,7 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake",
-		"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake",
+		"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeRCInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
@@ -250,46 +250,40 @@
 		"C:/Qt/6.7.2/mingw_64/lib/cmake/Qt6Widgets/Qt6QModernWindowsStylePluginAdditionalTargetInfo.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/GNUInstallDirs.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1",
+	"CMAKE_SOURCE_DIR" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/deps",
+	"DEP_FILE" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "lab_op1_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/converter.h",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converter.h",
 			"MU",
 			"EWIEGA46WW/moc_converter.cpp",
 			null
 		],
 		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/design.h",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converterwidget.h",
+			"MU",
+			"EWIEGA46WW/moc_converterwidget.cpp",
+			null
+		],
+		[
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/design.h",
 			"MU",
 			"EWIEGA46WW/moc_design.cpp",
 			null
 		],
 		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/entrypoint.h",
-			"MU",
-			"EWIEGA46WW/moc_entrypoint.cpp",
-			null
-		],
-		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/errors.h",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/errors.h",
 			"MU",
 			"EWIEGA46WW/moc_errors.cpp",
-			null
-		],
-		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/memory.h",
-			"MU",
-			"EWIEGA46WW/moc_memory.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/include",
-	"MOC_COMPILATION_FILE" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/include",
+	"MOC_COMPILATION_FILE" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -345,46 +339,41 @@
 		"-c",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op1_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 12,
-	"PARSE_CACHE_FILE" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/lab_op1_autogen.dir/ParseCache.txt",
+	"PARALLEL" : 6,
+	"PARSE_CACHE_FILE" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/lab_op1_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "C:/Qt/6.7.2/mingw_64/./bin/moc.exe",
 	"QT_UIC_EXECUTABLE" : "C:/Qt/6.7.2/mingw_64/./bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 7,
-	"SETTINGS_FILE" : "C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/lab_op1_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/lab_op1_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
 		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/converter.c",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converter.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/design.cpp",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/converterwidget.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/entrypoint.cpp",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/design.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/errors.cpp",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/errors.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/main.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/User/Desktop/Projects/sgn3-cprog-labs-2024-sirenko-grigorij-dmitrievich/lab_op1/memory.cpp",
+			"C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op1/main.cpp",
 			"MU",
 			null
 		]

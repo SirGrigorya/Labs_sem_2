@@ -1,20 +1,24 @@
-#include "Circle.h"
+#include "circle.h"
+#include "app_errors.h"
 #include <cmath>
-#include <sstream>
 
-Circle::Circle(const std::string& name, double centerX, double centerY, double radius)
-    : Shape(name), centerX(centerX), centerY(centerY), radius(radius) {}
+// Конструктор вызывает конструктор базового класса Shape для инициализации name
+Circle::Circle(const std::string& name, double x, double y, double radius)
+    : Shape(name), x(x), y(y), radius(radius) {
+    if (radius <= 0) throw InvalidCircle(); // Проверка корректности радиуса
+}
 
-double Circle::getArea() const {
+// Реализация метода area()
+double Circle::area() const {
     return M_PI * radius * radius;
 }
 
-double Circle::getPerimeter() const {
-    return 2 * M_PI * radius;
+// Реализация метода get_type()
+std::string Circle::get_type() const {
+    return "Circle";
 }
 
-std::string Circle::getInfo() const {
-    std::ostringstream oss;
-    oss << getName() << ", Центр: (" << centerX << ", " << centerY << "), Радиус: " << radius;
-    return oss.str();
+// Реализация метода print_parameters()
+void Circle::print_parameters(std::ostream& os) const {
+    os << "Name: " << get_name() << ", Center: (" << x << ", " << y << "), Radius: " << radius;
 }

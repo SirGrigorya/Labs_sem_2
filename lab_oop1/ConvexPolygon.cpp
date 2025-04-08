@@ -1,42 +1,61 @@
-#include "ConvexPolygon.h"
+#include "convexpolygon.h"
 #include <cmath>
-#include <sstream>
+#include "app_errors.h"
 
-ConvexPolygon::ConvexPolygon(const std::string& name, const std::vector<std::pair<double, double>>& vertices)
-    : Shape(name), vertices(vertices) {
-    if (vertices.size() < 3) {
-        throw std::invalid_argument("Многоугольник должен иметь как минимум 3 вершины.");
+// Проверка, является ли многоугольник выпуклым
+bool ConvexPolygon::is_convex(const std::vector<std::pair<double, double>>& points) {
+    int n = points.size();
+    if(n < 3) return false;
+    int sign = 0;
+
+    for(int i = 0; i < n; ++i) {
+        const auto& p1 = points[i];
+        const auto& p2 = points[(i+1)%n];
+        const auto& p3 = points[(i+2)%n];
+
+        double cross = (p2.first - p1.first) * (p3.second - p2.second)
+                       - (p2.second - p1.second) * (p3.first - p2.first);
+
+        if(cross == 0) continue;
+        if(sign == 0) sign = cross > 0 ? 1 : -1;
+        else if((cross > 0 && sign == -1) || (cross < 0 && sign == 1))
+            return false;
     }
+    return true;
 }
 
-double ConvexPolygon::getArea() const {
-    double area = 0.0;
-    size_t n = vertices.size();
-    for (size_t i = 0; i < n; ++i) {
-        size_t j = (i + 1) % n; // Следующая вершина (с учетом замыкания на первую)
-        area += vertices[i].first * vertices[j].second; // x_i * y_{i+1}
-        area -= vertices[j].first * vertices[i].second; // x_{i+1} * y_i
-    }
-    return std::abs(area) / 2.0; // Берем модуль и делим на 2
+// Конструктор вызывает конструктор базового класса Shape для инициализации name
+ConvexPolygon::ConvexPolygon(const std::string& name,
+                             const std::vector<std::pair<double, double>>& points)
+    : Shape(name), vertices(points) {
+    if(points.size() < 3)
+        throw InvalidPolygon();
+    if(!is_convex(points))
+        throw InvalidPolygon();
 }
 
-double ConvexPolygon::getPerimeter() const {
-    double perimeter = 0.0;
-    size_t n = vertices.size();
-    for (size_t i = 0; i < n; ++i) {
-        size_t j = (i + 1) % n; // Следующая вершина (с учетом замыкания на первую)
-        double dx = vertices[j].first - vertices[i].first;
-        double dy = vertices[j].second - vertices[i].second;
-        perimeter += std::sqrt(dx * dx + dy * dy); // Длина стороны
+// Реализация метода area()
+double ConvexPolygon::area() const {
+    double a = 0.0;
+    int n = vertices.size();
+    for(int i = 0; i < n; ++i) {
+        const auto& p1 = vertices[i];
+        const auto& p2 = vertices[(i+1)%n];
+        a += (p1.first * p2.second - p2.first * p1.second);
     }
-    return perimeter;
+    return std::abs(a) / 2.0;
 }
 
-std::string ConvexPolygon::getInfo() const {
-    std::ostringstream oss;
-    oss << getName() << ", Вершины: ";
-    for (const auto& vertex : vertices) {
-        oss << "(" << vertex.first << ", " << vertex.second << ") ";
+// Реализация метода get_type()
+std::string ConvexPolygon::get_type() const {
+    return "ConvexPolygon";
+}
+
+// Реализация метода print_parameters()
+void ConvexPolygon::print_parameters(std::ostream& os) const {
+    os << "Name: " << get_name() << ", Vertices: ";
+    for(size_t i = 0; i < vertices.size(); ++i) {
+        os << "(" << vertices[i].first << ", " << vertices[i].second << ")";
+        if(i < vertices.size() - 1) os << ", ";
     }
-    return oss.str();
 }

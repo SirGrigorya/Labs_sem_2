@@ -1,20 +1,27 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
-#include "Shape.h"
+#include "shape.h"
+#include <string>
 
 class Circle : public Shape {
 private:
-    double centerX, centerY;
-    double radius;
+    double x, y; // Координаты центра
+    double radius; // Радиус
 
 public:
-    Circle(const std::string& name, double centerX, double centerY, double radius);
+    // Конструктор
+    Circle(const std::string& name, double x, double y, double radius);
 
-    // Реализация виртуальных методов
-    double getArea() const override;
-    double getPerimeter() const override;
-    std::string getInfo() const override;
+    // Реализация чисто виртуальных методов
+    double area() const override;
+    std::string get_type() const override;
+    void print_parameters(std::ostream& os) const override;
+
+    // Геттеры
+    double get_x() const { return x; }
+    double get_y() const { return y; }
+    double get_radius() const { return radius; }
 };
 
 #endif // CIRCLE_H
