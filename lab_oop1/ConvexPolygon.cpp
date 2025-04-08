@@ -2,7 +2,6 @@
 #include <cmath>
 #include "app_errors.h"
 
-// Проверка, является ли многоугольник выпуклым
 bool ConvexPolygon::is_convex(const std::vector<std::pair<double, double>>& points) {
     int n = points.size();
     if(n < 3) return false;
@@ -24,7 +23,6 @@ bool ConvexPolygon::is_convex(const std::vector<std::pair<double, double>>& poin
     return true;
 }
 
-// Конструктор вызывает конструктор базового класса Shape для инициализации name
 ConvexPolygon::ConvexPolygon(const std::string& name,
                              const std::vector<std::pair<double, double>>& points)
     : Shape(name), vertices(points) {
@@ -34,7 +32,6 @@ ConvexPolygon::ConvexPolygon(const std::string& name,
         throw InvalidPolygon();
 }
 
-// Реализация метода area()
 double ConvexPolygon::area() const {
     double a = 0.0;
     int n = vertices.size();
@@ -46,12 +43,10 @@ double ConvexPolygon::area() const {
     return std::abs(a) / 2.0;
 }
 
-// Реализация метода get_type()
 std::string ConvexPolygon::get_type() const {
     return "ConvexPolygon";
 }
 
-// Реализация метода print_parameters()
 void ConvexPolygon::print_parameters(std::ostream& os) const {
     os << "Name: " << get_name() << ", Vertices: ";
     for(size_t i = 0; i < vertices.size(); ++i) {

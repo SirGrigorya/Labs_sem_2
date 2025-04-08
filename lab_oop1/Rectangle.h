@@ -6,19 +6,16 @@
 
 class Rectangle : public Shape {
 private:
-    double left, top; // Левый верхний угол
-    double right, bottom; // Правый нижний угол
+    double left, top;
+    double right, bottom;
 
 public:
-    // Конструктор
     Rectangle(const std::string& name, double left, double top, double right, double bottom);
 
-    // Реализация чисто виртуальных методов
     double area() const override;
     std::string get_type() const override;
     void print_parameters(std::ostream& os) const override;
 
-    // Геттеры
     double get_left() const { return left; }
     double get_top() const { return top; }
     double get_right() const { return right; }

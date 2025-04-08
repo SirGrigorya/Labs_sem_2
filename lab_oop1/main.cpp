@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    // Установка кодировки консоли на UTF-8 (для Windows)
+
 #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);

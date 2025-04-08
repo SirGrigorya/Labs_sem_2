@@ -1,15 +1,11 @@
 # ninja log v6
-25	135	7646005306762542	lab_op2_autogen/timestamp	fbf6d49a7d499eb4
-25	135	7646005306762542	lab_op2_autogen/mocs_compilation.cpp	fbf6d49a7d499eb4
-25	135	7646005306762542	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/timestamp	fbf6d49a7d499eb4
-25	135	7646005306762542	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/mocs_compilation.cpp	fbf6d49a7d499eb4
-136	2374	7646005307872786	CMakeFiles/lab_op2.dir/mainwindow.cpp.obj	f191e24fd624c4c8
-507	2408	7646004688595649	CMakeFiles/lab_op2.dir/lab_op2_autogen/mocs_compilation.cpp.obj	60be929243b8be59
-509	2460	7646004688615651	CMakeFiles/lab_op2.dir/main.cpp.obj	8f9b0b7e67cb65ef
-22	181	7646007333220105	lab_op2_autogen/timestamp	fbf6d49a7d499eb4
-22	181	7646007333220105	lab_op2_autogen/mocs_compilation.cpp	fbf6d49a7d499eb4
-22	181	7646007333220105	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/timestamp	fbf6d49a7d499eb4
-22	181	7646007333220105	C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/mocs_compilation.cpp	fbf6d49a7d499eb4
-185	246	7646007334845301	CMakeFiles/lab_op2.dir/entry.cpp.obj	bcfc0c0038a33b25
-182	447	7646007334815294	CMakeFiles/lab_op2.dir/logic.cpp.obj	1c390dbdb45ab456
-448	654	7646007337469445	lab_op2.exe	63ffbb4685637d45
+8	563	7658403048548545	lab_op2_autogen/timestamp	258423421410f340
+8	563	7658403048548545	lab_op2_autogen/mocs_compilation.cpp	258423421410f340
+8	563	7658403048548545	C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/timestamp	258423421410f340
+8	563	7658403048548545	C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/mocs_compilation.cpp	258423421410f340
+576	623	7658403049306037	CMakeFiles/lab_op2.dir/entry.cpp.obj	1394a01259cf5fc7
+574	761	7658403049276031	CMakeFiles/lab_op2.dir/logic.cpp.obj	25f80169b2e80f8b
+570	2473	7658403049246022	CMakeFiles/lab_op2.dir/main.cpp.obj	f06559b66b566cd6
+568	2491	7658403049216018	CMakeFiles/lab_op2.dir/lab_op2_autogen/mocs_compilation.cpp.obj	115ec195fe062bee
+572	2854	7658403049256026	CMakeFiles/lab_op2.dir/mainwindow.cpp.obj	36d4c9dadf519720
+2855	3139	7658403072085335	lab_op2.exe	63ffbb4685637d45

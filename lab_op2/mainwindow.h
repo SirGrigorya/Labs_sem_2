@@ -20,7 +20,6 @@ private slots:
     void on_calculateButton_clicked();
 
 private:
-    // Виджеты ввода
     QLineEdit *fileEdit;
     QLineEdit *regionEdit;
     QLineEdit *columnEdit;
@@ -29,11 +28,7 @@ private:
     QPushButton *browseButton;
     QPushButton *loadButton;
     QPushButton *calculateButton;
-
-    // Таблица данных
     QTableWidget *tableWidget;
-
-    // Метки для результатов
     QLabel *minLabel;
     QLabel *maxLabel;
     QLabel *medianLabel;

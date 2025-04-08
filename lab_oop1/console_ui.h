@@ -1,15 +1,10 @@
 #ifndef CONSOLE_UI_H
 #define CONSOLE_UI_H
 
-#include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
-#include "shape.h" // Базовый класс Shape
-#include "circle.h" // Класс Circle
-#include "rectangle.h" // Класс Rectangle
-#include "triangle.h" // Класс Triangle
-#include "convexpolygon.h" // Класс ConvexPolygon
+#include "shape.h"
 
 class ConsoleUI {
 public:
