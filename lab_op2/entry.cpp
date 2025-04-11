@@ -10,7 +10,7 @@ void init_context(Context* ctx) {
 }
 
 int load_data(Context* ctx, const char* filename, const char* region) {
-    int status = SUCCESS;  // По умолчанию успех
+    int status = SUCCESS;
 
     free_context(ctx);
     ctx->all_data = create_list();

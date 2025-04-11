@@ -7,15 +7,12 @@
 #include <QHeaderView>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-    // Настройка главного окна
-    setWindowTitle("CSV Data Analyzer");
-    resize(800, 600);
-
-    // Создание центрального виджета и основного layout
+    // 1. Создаем центральный виджет и основной layout
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
 
-    // 1. Секция выбора файла
+    // 2. Создаем и настраиваем элементы интерфейса
+    // Секция выбора файла
     QHBoxLayout *fileLayout = new QHBoxLayout();
     fileEdit = new QLineEdit(this);
     fileEdit->setPlaceholderText("Select CSV file...");
@@ -23,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     fileLayout->addWidget(fileEdit);
     fileLayout->addWidget(browseButton);
 
-    // 2. Секция фильтров
+    // Секция фильтров
     QHBoxLayout *filterLayout = new QHBoxLayout();
     regionEdit = new QLineEdit(this);
     regionEdit->setPlaceholderText("Enter region (optional)");
@@ -34,14 +31,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     filterLayout->addWidget(new QLabel("Column:"));
     filterLayout->addWidget(columnEdit);
 
-    // 3. Кнопки действий
+    // Кнопки действий
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     loadButton = new QPushButton("Load Data", this);
     calculateButton = new QPushButton("Calculate Metrics", this);
     buttonLayout->addWidget(loadButton);
     buttonLayout->addWidget(calculateButton);
 
-    // 4. Таблица данных
+    // Таблица данных
     tableWidget = new QTableWidget(this);
     tableWidget->setColumnCount(7);
     tableWidget->setHorizontalHeaderLabels({
@@ -51,22 +48,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     });
     tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    // 5. Секция результатов
+    // Секция результатов
     QHBoxLayout *resultLayout = new QHBoxLayout();
-
-    // Создаем метки перед их использованием
-    minLabel = new QLabel("N/A");
-    maxLabel = new QLabel("N/A");
-    medianLabel = new QLabel("N/A");
-
     resultLayout->addWidget(new QLabel("Min:"));
+    minLabel = new QLabel("N/A");
     resultLayout->addWidget(minLabel);
     resultLayout->addWidget(new QLabel("Max:"));
+    maxLabel = new QLabel("N/A");
     resultLayout->addWidget(maxLabel);
     resultLayout->addWidget(new QLabel("Median:"));
+    medianLabel = new QLabel("N/A");
     resultLayout->addWidget(medianLabel);
 
-    // Сборка всех компонентов
+    // Собираем все компоненты
     mainLayout->addLayout(fileLayout);
     mainLayout->addLayout(filterLayout);
     mainLayout->addLayout(buttonLayout);
@@ -75,16 +69,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     setCentralWidget(centralWidget);
 
-    // Подключение сигналов
+    // Подключаем сигналы
     connect(browseButton, &QPushButton::clicked, this, &MainWindow::on_browseButton_clicked);
     connect(loadButton, &QPushButton::clicked, this, &MainWindow::on_loadButton_clicked);
     connect(calculateButton, &QPushButton::clicked, this, &MainWindow::on_calculateButton_clicked);
 
     init_context(&context);
-}
-
-MainWindow::~MainWindow() {
-    free_context(&context);
 }
 
 void MainWindow::on_browseButton_clicked() {
@@ -171,4 +161,8 @@ void MainWindow::updateTable() {
         tableWidget->setItem(row, 6, new QTableWidgetItem(QString::number(data->urbanization)));
         row++;
     }
+}
+
+MainWindow::~MainWindow() {
+    free_context(&context);
 }
