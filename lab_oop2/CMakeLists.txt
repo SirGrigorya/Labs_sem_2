@@ -9,6 +9,7 @@ add_executable(lab_oop2 main.cpp
     vector.h
     m_vector_iterator.h
     m_vector_const_iterator.h
+    vector_tests.h
 )
 
 include(GNUInstallDirs)

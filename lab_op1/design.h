@@ -8,10 +8,8 @@
 #include <QLabel>
 #include <QFormLayout>
 
-// Настройка интерфейса
 void setupUI(QWidget *window);
 
-// Получение виджетов
 QLineEdit *getInputField(QWidget *window);
 QComboBox *getFromBaseComboBox(QWidget *window);
 QComboBox *getToBaseComboBox(QWidget *window);

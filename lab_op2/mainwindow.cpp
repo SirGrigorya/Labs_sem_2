@@ -7,12 +7,9 @@
 #include <QHeaderView>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-    // 1. Создаем центральный виджет и основной layout
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
 
-    // 2. Создаем и настраиваем элементы интерфейса
-    // Секция выбора файла
     QHBoxLayout *fileLayout = new QHBoxLayout();
     fileEdit = new QLineEdit(this);
     fileEdit->setPlaceholderText("Select CSV file...");
@@ -20,7 +17,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     fileLayout->addWidget(fileEdit);
     fileLayout->addWidget(browseButton);
 
-    // Секция фильтров
     QHBoxLayout *filterLayout = new QHBoxLayout();
     regionEdit = new QLineEdit(this);
     regionEdit->setPlaceholderText("Enter region (optional)");
@@ -31,14 +27,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     filterLayout->addWidget(new QLabel("Column:"));
     filterLayout->addWidget(columnEdit);
 
-    // Кнопки действий
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     loadButton = new QPushButton("Load Data", this);
     calculateButton = new QPushButton("Calculate Metrics", this);
     buttonLayout->addWidget(loadButton);
     buttonLayout->addWidget(calculateButton);
 
-    // Таблица данных
     tableWidget = new QTableWidget(this);
     tableWidget->setColumnCount(7);
     tableWidget->setHorizontalHeaderLabels({
@@ -48,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     });
     tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    // Секция результатов
     QHBoxLayout *resultLayout = new QHBoxLayout();
     resultLayout->addWidget(new QLabel("Min:"));
     minLabel = new QLabel("N/A");
@@ -60,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     medianLabel = new QLabel("N/A");
     resultLayout->addWidget(medianLabel);
 
-    // Собираем все компоненты
     mainLayout->addLayout(fileLayout);
     mainLayout->addLayout(filterLayout);
     mainLayout->addLayout(buttonLayout);
@@ -69,7 +61,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     setCentralWidget(centralWidget);
 
-    // Подключаем сигналы
     connect(browseButton, &QPushButton::clicked, this, &MainWindow::on_browseButton_clicked);
     connect(loadButton, &QPushButton::clicked, this, &MainWindow::on_loadButton_clicked);
     connect(calculateButton, &QPushButton::clicked, this, &MainWindow::on_calculateButton_clicked);

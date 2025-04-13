@@ -1,12 +1,10 @@
-// CalculatorCore.h
-#ifndef CALCULATORCORE_H
-#define CALCULATORCORE_H
+#ifndef CALCULATOR_CORE_H
+#define CALCULATOR_CORE_H
 
+#include "Tokenizer.h"
+#include "InfixToPostfixConverter.h"
+#include "PostfixEvaluator.h"
 #include <string>
-#include <vector>
-#include <stack>
-#include <map>
-#include <stdexcept>
 
 class CalculatorCore {
 public:
@@ -14,21 +12,11 @@ public:
     double calculate(const std::string& expression);
 
 private:
-    std::vector<std::string> tokenize(const std::string& expression);
-    std::vector<std::string> infixToPostfix(const std::vector<std::string>& tokens);
-    double evaluatePostfix(const std::vector<std::string>& postfix);
+    void validateExpression(const std::string& expression) const;
 
-    bool isOperator(const std::string& token) const;
-    bool isNumber(const std::string& token) const;
-    bool isLeftParenthesis(const std::string& token) const;
-    bool isRightParenthesis(const std::string& token) const;
-
-    int getPrecedence(const std::string& op) const;
-
-    std::map<std::string, int> precedence = {
-        {"+", 1}, {"-", 1},
-        {"*", 2}, {"/", 2}
-    };
+    Tokenizer tokenizer;
+    InfixToPostfixConverter converter;
+    PostfixEvaluator evaluator;
 };
 
-#endif // CALCULATORCORE_H
+#endif // CALCULATOR_CORE_H

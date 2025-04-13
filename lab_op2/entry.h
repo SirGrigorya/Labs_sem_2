@@ -1,7 +1,7 @@
 #ifndef ENTRY_H
 #define ENTRY_H
 
-#include "logic.h"
+#include "data_structures.h"
 
 typedef struct {
     List* all_data;

@@ -1,4 +1,8 @@
 #include "entry.h"
+#include "data_structures.h"
+#include "csv_parser.h"
+#include "filters.h"
+#include "statistics.h"
 #include <string.h>
 
 #define INITIALIZED_VALUE 0

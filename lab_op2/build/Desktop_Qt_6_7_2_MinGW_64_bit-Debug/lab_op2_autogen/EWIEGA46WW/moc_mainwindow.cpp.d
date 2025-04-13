@@ -383,5 +383,5 @@ C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_6
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/entry.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/logic.h
+  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/data_structures.h \
+  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/entry.h

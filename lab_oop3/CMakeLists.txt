@@ -29,6 +29,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CalculatorWindow.cpp
         CalculatorFacade.cpp
         CalculatorCore.cpp
+        Tokenizer.h
+        Tokenizer.cpp
+        InfixToPostfixConverter.h
+        InfixToPostfixConverter.cpp
+        PostfixEvaluator.h
+        PostfixEvaluator.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET lab_oop3 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

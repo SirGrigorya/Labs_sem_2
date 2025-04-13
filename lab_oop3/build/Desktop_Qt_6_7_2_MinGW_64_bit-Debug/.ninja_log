@@ -1,0 +1,14 @@
+# ninja log v6
+6	787	7662478832364170	lab_oop3_autogen/timestamp	34dda608e1f354f
+6	787	7662478832364170	lab_oop3_autogen/mocs_compilation.cpp	34dda608e1f354f
+6	787	7662478832364170	C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_oop3_autogen/timestamp	34dda608e1f354f
+6	787	7662478832364170	C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_oop3_autogen/mocs_compilation.cpp	34dda608e1f354f
+800	1761	7662478833248167	CMakeFiles/lab_oop3.dir/CalculatorFacade.cpp.obj	43130c184500d40c
+805	1763	7662478833298179	CMakeFiles/lab_oop3.dir/Tokenizer.cpp.obj	cd881cd87e7661e3
+810	1766	7662478833359389	CMakeFiles/lab_oop3.dir/PostfixEvaluator.cpp.obj	4c74fc6895b440af
+802	1779	7662478833278173	CMakeFiles/lab_oop3.dir/CalculatorCore.cpp.obj	2a118b26a647ae84
+808	1780	7662478833329375	CMakeFiles/lab_oop3.dir/InfixToPostfixConverter.cpp.obj	4577a3e7479cb739
+792	2737	7662478833168153	CMakeFiles/lab_oop3.dir/lab_oop3_autogen/mocs_compilation.cpp.obj	162fe3306285f260
+794	2739	7662478833198160	CMakeFiles/lab_oop3.dir/main.cpp.obj	55b61769fbd51f93
+797	2870	7662478833228166	CMakeFiles/lab_oop3.dir/CalculatorWindow.cpp.obj	c9578a7488a51890
+2870	3351	7662478853957792	lab_oop3.exe	89041cc3194098a6
