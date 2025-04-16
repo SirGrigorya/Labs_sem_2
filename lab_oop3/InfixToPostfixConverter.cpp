@@ -58,7 +58,7 @@ std::vector<std::string> InfixToPostfixConverter::convert(const std::vector<std:
 
     while (!opStack.empty()) {
         if (isLeftParenthesis(opStack.top())) {
-            throw std::invalid_argument("Mismatched parentheses");
+            throw std::invalid_argument("ERR_MISMATCHED_PARENTHESES");
         }
         postfix.push_back(opStack.top());
         opStack.pop();
