@@ -19,9 +19,12 @@ private:
     int getPrecedence(const std::string& op) const;
 
     const std::unordered_map<std::string, int> precedence {
-        {"u+", 4}, {"u-", 4},
-        {"*", 3}, {"/", 3},
-        {"+", 2}, {"-", 2}
+          {"u+", 4},
+          {"u-", 4},
+          {"*", 3},
+          {"/", 3},
+          {"+", 2},
+          {"-", 2}
     };
 };
 

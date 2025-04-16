@@ -3,33 +3,38 @@
 #include "app_errors.h"
 
 bool ConvexPolygon::is_convex(const std::vector<std::pair<double, double>>& points) {
+    bool result = true;
     int n = points.size();
-    if(n < 3) return false;
-    int sign = 0;
+    if(n < 3) {
+        result = false;
+    } else {
+        int sign = 0;
+        for(int i = 0; i < n; ++i) {
+            const auto& p1 = points[i];
+            const auto& p2 = points[(i+1)%n];
+            const auto& p3 = points[(i+2)%n];
 
-    for(int i = 0; i < n; ++i) {
-        const auto& p1 = points[i];
-        const auto& p2 = points[(i+1)%n];
-        const auto& p3 = points[(i+2)%n];
+            double cross = (p2.first - p1.first) * (p3.second - p2.second)
+                           - (p2.second - p1.second) * (p3.first - p2.first);
 
-        double cross = (p2.first - p1.first) * (p3.second - p2.second)
-                       - (p2.second - p1.second) * (p3.first - p2.first);
-
-        if(cross == 0) continue;
-        if(sign == 0) sign = cross > 0 ? 1 : -1;
-        else if((cross > 0 && sign == -1) || (cross < 0 && sign == 1))
-            return false;
+            if(cross == 0) continue;
+            if(sign == 0) {
+                sign = cross > 0 ? 1 : -1;
+            } else if((cross > 0 && sign == -1) || (cross < 0 && sign == 1)) {
+                result = false;
+                break;
+            }
+        }
     }
-    return true;
+    return result;
 }
 
 ConvexPolygon::ConvexPolygon(const std::string& name,
                              const std::vector<std::pair<double, double>>& points)
     : Shape(name), vertices(points) {
-    if(points.size() < 3)
+    if(points.size() < 3 || !is_convex(points)) {
         throw InvalidPolygon();
-    if(!is_convex(points))
-        throw InvalidPolygon();
+    }
 }
 
 double ConvexPolygon::area() const {
@@ -44,7 +49,8 @@ double ConvexPolygon::area() const {
 }
 
 std::string ConvexPolygon::get_type() const {
-    return "ConvexPolygon";
+    std::string type = "ConvexPolygon";
+    return type;
 }
 
 void ConvexPolygon::print_parameters(std::ostream& os) const {

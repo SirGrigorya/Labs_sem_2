@@ -3,6 +3,16 @@
 #include <stdexcept>
 #include <cctype>
 
+#define OP_PLUS          "+"
+#define OP_MINUS         "-"
+#define OP_MULTIPLY      "*"
+#define OP_DIVIDE        "/"
+#define UNARY_PREFIX     "u"
+#define PAREN_OPEN       "("
+#define PAREN_CLOSE      ")"
+
+#define ERR_MISMATCHED_PARENTHESES "Mismatched parentheses"
+
 std::vector<std::string> InfixToPostfixConverter::convert(const std::vector<std::string>& tokens) {
     std::vector<std::string> postfix;
     std::stack<std::string> opStack;
@@ -10,24 +20,35 @@ std::vector<std::string> InfixToPostfixConverter::convert(const std::vector<std:
     for (const auto& token : tokens) {
         if (isNumber(token)) {
             postfix.push_back(token);
-        } else if (isUnaryOperator(token)) {
+        }
+        else if (isUnaryOperator(token)) {
             opStack.push(token);
-        } else if (isLeftParenthesis(token)) {
+        }
+        else if (isLeftParenthesis(token)) {
             opStack.push(token);
-        } else if (isRightParenthesis(token)) {
+        }
+        else if (isRightParenthesis(token)) {
             while (!opStack.empty() && !isLeftParenthesis(opStack.top())) {
                 postfix.push_back(opStack.top());
                 opStack.pop();
             }
 
             if (opStack.empty()) {
-                throw std::invalid_argument("Mismatched parentheses");
+                throw std::invalid_argument(ERR_MISMATCHED_PARENTHESES);
             }
 
             opStack.pop();
-        } else if (isOperator(token)) {
-            while (!opStack.empty() && isOperator(opStack.top()) &&
-                   getPrecedence(opStack.top()) >= getPrecedence(token)) {
+
+            if (!opStack.empty() && isUnaryOperator(opStack.top())) {
+                postfix.push_back(opStack.top());
+                opStack.pop();
+            }
+        }
+        else if (isOperator(token)) {
+            while (!opStack.empty() &&
+                   !isLeftParenthesis(opStack.top()) &&
+                   (isUnaryOperator(opStack.top()) ||
+                    getPrecedence(opStack.top()) >= getPrecedence(token))) {
                 postfix.push_back(opStack.top());
                 opStack.pop();
             }
@@ -62,15 +83,15 @@ bool InfixToPostfixConverter::isNumber(const std::string& token) const {
 }
 
 bool InfixToPostfixConverter::isLeftParenthesis(const std::string& token) const {
-    return token == "(";
+    return token == PAREN_OPEN;
 }
 
 bool InfixToPostfixConverter::isRightParenthesis(const std::string& token) const {
-    return token == ")";
+    return token == PAREN_CLOSE;
 }
 
 bool InfixToPostfixConverter::isOperator(const std::string& token) const {
-    return token == "+" || token == "-" || token == "*" || token == "/";
+    return token == OP_PLUS || token == OP_MINUS || token == OP_MULTIPLY || token == OP_DIVIDE;
 }
 
 bool InfixToPostfixConverter::isUnaryOperator(const std::string& token) const {

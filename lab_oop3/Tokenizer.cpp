@@ -2,6 +2,17 @@
 #include <cctype>
 #include <stdexcept>
 
+// Operator and symbol definitions
+#define OP_PLUS          '+'
+#define OP_MINUS         '-'
+#define OP_MULTIPLY      '*'
+#define OP_DIVIDE        '/'
+#define PAREN_OPEN       '('
+#define PAREN_CLOSE      ')'
+#define UNARY_PREFIX     "u"
+
+#define ERR_INVALID_CHAR "Invalid character in expression"
+
 std::vector<std::string> Tokenizer::tokenize(const std::string& expression) {
     std::vector<std::string> tokens;
     std::string currentToken;
@@ -23,13 +34,19 @@ std::vector<std::string> Tokenizer::tokenize(const std::string& expression) {
                 currentToken.clear();
             }
 
-            if (isOperator(c) || c == '(' || c == ')') {
-                if ((c == '+' || c == '-') && expectUnary) {
-                    tokens.push_back(std::string(1, 'u') + c);
+            if (c == '(') {
+                tokens.push_back(std::string(1, c));
+                expectUnary = true;
+            } else if (c == ')') {
+                tokens.push_back(std::string(1, c));
+                expectUnary = false;
+            } else if (isOperator(c)) {
+                if (expectUnary && (c == '+' || c == '-')) {
+                    tokens.push_back(std::string("u") + c);
                 } else {
                     tokens.push_back(std::string(1, c));
                 }
-                expectUnary = (c == '(');
+                expectUnary = true;
             } else {
                 throw std::invalid_argument("Invalid character in expression");
             }
@@ -44,7 +61,7 @@ std::vector<std::string> Tokenizer::tokenize(const std::string& expression) {
 }
 
 bool Tokenizer::isOperator(char c) const {
-    return c == '+' || c == '-' || c == '*' || c == '/';
+    return c == OP_PLUS || c == OP_MINUS || c == OP_MULTIPLY || c == OP_DIVIDE;
 }
 
 bool Tokenizer::isUnaryOperatorExpected(bool expectUnary, const std::string& currentToken) const {

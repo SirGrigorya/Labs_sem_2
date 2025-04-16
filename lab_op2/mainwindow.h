@@ -24,7 +24,6 @@ private:
     QLineEdit *regionEdit;
     QLineEdit *columnEdit;
 
-    // Кнопки
     QPushButton *browseButton;
     QPushButton *loadButton;
     QPushButton *calculateButton;

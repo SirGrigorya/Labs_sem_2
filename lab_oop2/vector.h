@@ -48,7 +48,7 @@ private:
     void ensure_capacity(size_t required_size) {
         if (required_size <= capacity) return;
 
-        size_t new_capacity = capacity == 0 ? 1 : capacity * 2;
+        size_t new_capacity = capacity == 0 ? 16 : capacity * 2;
         if (new_capacity < required_size) {
             new_capacity = required_size;
         }
@@ -155,11 +155,16 @@ public:
     size_t get_length() const { return length; }
 
     bool operator==(const m_vector<T>& other) const {
-        if (length != other.length) return false;
-        for (size_t i = 0; i < length; ++i) {
-            if (data[i] != other.data[i]) return false;
+        bool result = (length == other.length);
+        if (result) {
+            for (size_t i = 0; i < length; ++i) {
+                if (data[i] != other.data[i]) {
+                    result = false;
+                    break;
+                }
+            }
         }
-        return true;
+        return result;
     }
 
     bool operator!=(const m_vector<T>& other) const {

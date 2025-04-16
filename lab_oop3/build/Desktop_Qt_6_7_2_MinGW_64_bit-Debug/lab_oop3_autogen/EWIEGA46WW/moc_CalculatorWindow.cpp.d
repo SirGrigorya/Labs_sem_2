@@ -1,5 +1,5 @@
-C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_oop3_autogen/EWIEGA46WW/moc_CalculatorWindow.cpp: C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/CalculatorWindow.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_oop3_autogen/moc_predefs.h \
+C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_oop3_autogen/EWIEGA46WW/moc_CalculatorWindow.cpp: C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/CalculatorWindow.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_oop3_autogen/moc_predefs.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/QString \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20memory.h \
@@ -373,8 +373,8 @@ C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/build/Desktop_Qt_6_7_2_MinGW_
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/CalculatorCore.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/CalculatorFacade.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/InfixToPostfixConverter.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/PostfixEvaluator.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_oop3/Tokenizer.h
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/CalculatorCore.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/CalculatorFacade.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/InfixToPostfixConverter.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/PostfixEvaluator.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/Tokenizer.h

@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "filters.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QVBoxLayout>
@@ -92,9 +93,20 @@ void MainWindow::on_loadButton_clicked() {
     const char* regionPtr = region.isEmpty() ? nullptr : region.toUtf8().constData();
 
     free_context(&context);
-    if (load_data(&context, filePath.toUtf8().constData(), regionPtr) != 0) {
+
+    if (load_data(&context, filePath.toUtf8().constData(), nullptr) != 0) {
         showError(context.error);
         return;
+    }
+
+    if (regionPtr) {
+        List* filtered = filter_by_region(context.filtered_data, regionPtr);
+        if (filtered) {
+            if (context.filtered_data) {
+                free_list(context.filtered_data);
+            }
+            context.filtered_data = filtered;
+        }
     }
 
     QMessageBox::information(

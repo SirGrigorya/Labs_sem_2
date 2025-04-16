@@ -4,16 +4,17 @@
 #include <stdlib.h>
 
 static int compare_doubles(const void* a, const void* b) {
+    int result = COMPARE_EQUAL;
     double diff = *(const double*)a - *(const double*)b;
+
     if (diff > 0.0) {
-        return COMPARE_GREATER;
+        result = COMPARE_GREATER;
     }
     else if (diff < 0.0) {
-        return COMPARE_LESS;
+        result = COMPARE_LESS;
     }
-    else {
-        return COMPARE_EQUAL;
-    }
+
+    return result;
 }
 
 static double* get_column_values(const List* list, int column, int* count) {
@@ -92,11 +93,8 @@ double calculate_median(const List* list, int column) {
     double* values = get_column_values(list, column, &count);
 
     if (values && count > 0) {
-        if (count % 2) {
-            result = values[count / 2];
-        } else {
-            result = (values[count / 2 - 1] + values[count / 2]) / 2.0;
-        }
+        int middle = count / 2;
+        result = count % 2 ? values[middle] : (values[middle - 1] + values[middle]) / 2.0;
     }
     free(values);
     return result;
