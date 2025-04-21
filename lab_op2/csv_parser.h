@@ -1,8 +1,9 @@
 #ifndef CSV_PARSER_H
 #define CSV_PARSER_H
 
+#include <stdbool.h>
 #include "data_structures.h"
 
-int parse_csv(const char* filename, List* list, int* totalRows, int* errorRows);
+bool parse_csv_line(const char* line, DataEntry* entry);
 
 #endif // CSV_PARSER_H

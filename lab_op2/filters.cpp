@@ -1,21 +1,28 @@
 #include "filters.h"
-#include "data_structures.h"
 #include <string.h>
 
-List* filter_by_region(const List* list, const char* region) {
-    List* filtered = NULL;
+bool is_valid_entry(const DataEntry* entry) {
+    bool result = false;
 
-    if (list && region) {
-        filtered = create_list();
-        if (filtered) {
-            Node* node = list->head;
-            while (node) {
-                if (strcmp(node->data.region, region) == 0) {
-                    append_to_list(filtered, &node->data);
-                }
-                node = node->next;
-            }
+    if (entry) {
+        if (strlen(entry->region) > 0 && entry->year > 0) {
+            result = true;
         }
     }
-    return filtered;
+
+    return result;
+}
+
+bool is_region_match(const DataEntry* entry, const char* region) {
+    bool result = false;
+
+    if (entry) {
+        if (!region || strlen(region) == 0) {
+            result = true;
+        } else {
+            result = strcmp(entry->region, region) == 0;
+        }
+    }
+
+    return result;
 }

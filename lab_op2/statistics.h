@@ -1,11 +1,16 @@
 #ifndef STATISTICS_H
 #define STATISTICS_H
 
+#include <stdbool.h>
 #include "data_structures.h"
-#include <math.h>
 
-double calculate_min(const List* list, int column);
-double calculate_max(const List* list, int column);
-double calculate_median(const List* list, int column);
+bool calculate_statistics(
+    const DataArray* array,
+    const char* region,
+    int column_index,
+    float* min,
+    float* max,
+    float* median
+    );
 
 #endif // STATISTICS_H

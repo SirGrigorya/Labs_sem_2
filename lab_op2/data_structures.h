@@ -1,34 +1,37 @@
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 
+#include <stdbool.h>
+
+#define MAX_REGION_LENGTH 128
+
 typedef struct {
     int year;
-    char* region;
-    double natural_population_growth;
-    double birth_rate;
-    double death_rate;
-    double general_demographic_weight;
-    double urbanization;
-} DemographicData;
-
-typedef struct Node {
-    DemographicData data;
-    struct Node* next;
-} Node;
+    char region[MAX_REGION_LENGTH];
+    float natural_population_growth;
+    float birth_rate;
+    float death_rate;
+    float general_demographic_weight;
+    float urbanization;
+} DataEntry;
 
 typedef struct {
-    Node* head;
-    Node* tail;
-} List;
+    DataEntry* entries;
+    int size;
+    int capacity;
+} DataArray;
 
 typedef struct {
-    Node* current;
-} Iterator;
+    DataArray* array;
+    int current_index;
+} DataIterator;
 
-List* create_list();
-void free_list(List* list);
-void append_to_list(List* list, const DemographicData* data);
-Iterator get_iterator(const List* list);
-DemographicData* next(Iterator* it);
+void init_data_array(DataArray* array);
+void free_data_array(DataArray* array);
+bool add_data_entry(DataArray* array, DataEntry entry);
+
+void init_iterator(DataIterator* iterator, DataArray* array);
+bool has_next(DataIterator* iterator);
+DataEntry* next(DataIterator* iterator);
 
 #endif // DATA_STRUCTURES_H

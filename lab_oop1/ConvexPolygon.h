@@ -1,24 +1,22 @@
-#ifndef CONVEXPOLYGON_H
-#define CONVEXPOLYGON_H
+#pragma once
 
-#include "shape.h"
+#include "Shape.h"
+#include "Point.h"
 #include <vector>
-#include <utility>
 
 class ConvexPolygon : public Shape {
 private:
-    std::vector<std::pair<double, double>> vertices;
+    std::vector<Point> vertices;
+    std::vector<Point> points;
 
 public:
-    ConvexPolygon(const std::string& name, const std::vector<std::pair<double, double>>& points);
+    ConvexPolygon(const std::string& name, const std::vector<Point>& points);
 
     double area() const override;
-    std::string get_type() const override;
-    void print_parameters(std::ostream& os) const override;
+    std::string type() const override;
+    std::string parameters() const override;
+    std::string info() const override;
 
-    const std::vector<std::pair<double, double>>& get_vertices() const { return vertices; }
 
-    static bool is_convex(const std::vector<std::pair<double, double>>& points);
+    const std::vector<Point>& getVertices() const { return vertices; }
 };
-
-#endif // CONVEXPOLYGON_H

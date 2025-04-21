@@ -1,28 +1,22 @@
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
+#pragma once
 
-#include "shape.h"
-#include <string>
+#include "Shape.h"
+#include "Point.h"
 
 class Triangle : public Shape {
 private:
-    double x1, y1;
-    double x2, y2;
-    double x3, y3;
+    Point a, b, c;
 
 public:
-    Triangle(const std::string& name, double x1, double y1, double x2, double y2, double x3, double y3);
+    Triangle(const std::string& name, const Point& a, const Point& b, const Point& c);
 
     double area() const override;
-    std::string get_type() const override;
-    void print_parameters(std::ostream& os) const override;
+    std::string type() const override;
+    std::string parameters() const override;
+    std::string info() const override;
 
-    double get_x1() const { return x1; }
-    double get_y1() const { return y1; }
-    double get_x2() const { return x2; }
-    double get_y2() const { return y2; }
-    double get_x3() const { return x3; }
-    double get_y3() const { return y3; }
+
+    const Point& getA() const { return a; }
+    const Point& getB() const { return b; }
+    const Point& getC() const { return c; }
 };
-
-#endif // TRIANGLE_H

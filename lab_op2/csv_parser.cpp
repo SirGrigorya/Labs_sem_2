@@ -1,73 +1,56 @@
 #include "csv_parser.h"
-#include "data_structures.h"
-#include "constants.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-int parse_csv(const char* filename, List* list, int* totalRows, int* errorRows) {
-    FILE* file = NULL;
-    char line[CSV_LINE_BUFFER_SIZE];
-    int result = PARSE_ERROR;
+#define MAX_LINE_LENGTH 1024
+#define CSV_FIELDS_COUNT 7
 
-    if (filename && list && totalRows && errorRows) {
-        file = fopen(filename, "r");
-        if (file) {
-            if (fgets(line, sizeof(line), file)) {
-                result = PARSE_SUCCESS;
-                *totalRows = 0;
-                *errorRows = 0;
+bool parse_csv_line(const char* line, DataEntry* entry) {
+    bool success = false;
 
-                while (fgets(line, sizeof(line), file)) {
-                    DemographicData data = {0};
-                    char* token = NULL;
-                    int column = 0;
-                    int error = 0;
+    if (line && entry) {
+        size_t line_length = strlen(line);
+        if (line_length >= MAX_LINE_LENGTH) {
+            return false;
+        }
 
-                    (*totalRows)++;
-                    token = strtok(line, ",\n");
+        char* line_copy = (char*)malloc(line_length + 1);
+        if (line_copy) {
+            strcpy(line_copy, line);
 
-                    while (token && column < CSV_COLUMNS_COUNT) {
-                        if (column == COLUMN_YEAR) {
-                            error |= (sscanf(token, "%d", &data.year) != 1);
-                        }
-                        else if (column == COLUMN_REGION) {
-                            data.region = strdup(token);
-                            error |= (data.region == NULL);
-                        }
-                        else if (column == COLUMN_NATURAL_GROWTH) {
-                            error |= (sscanf(token, "%lf", &data.natural_population_growth) != 1);
-                        }
-                        else if (column == COLUMN_BIRTH_RATE) {
-                            error |= (sscanf(token, "%lf", &data.birth_rate) != 1);
-                        }
-                        else if (column == COLUMN_DEATH_RATE) {
-                            error |= (sscanf(token, "%lf", &data.death_rate) != 1);
-                        }
-                        else if (column == COLUMN_DEMO_WEIGHT) {
-                            error |= (sscanf(token, "%lf", &data.general_demographic_weight) != 1);
-                        }
-                        else if (column == COLUMN_URBANIZATION) {
-                            error |= (sscanf(token, "%lf", &data.urbanization) != 1);
-                        }
+            char* token = strtok(line_copy, ",");
+            int field_index = 0;
 
-                        token = strtok(NULL, ",\n");
-                        column++;
-                    }
-
-                    if (column != CSV_COLUMNS_COUNT || error) {
-                        (*errorRows)++;
-                        if (column > COLUMN_REGION && data.region) {
-                            free(data.region);
-                        }
-                    } else {
-                        append_to_list(list, &data);
-                        free(data.region);
-                    }
+            while (token && field_index < CSV_FIELDS_COUNT) {
+                if (field_index == 0) {
+                    entry->year = atoi(token);
+                } else if (field_index == 1) {
+                    strncpy(entry->region, token, MAX_REGION_LENGTH);
+                    entry->region[MAX_REGION_LENGTH - 1] = '\0';
+                } else if (field_index == 2) {
+                    entry->natural_population_growth = strtof(token, NULL);
+                } else if (field_index == 3) {
+                    entry->birth_rate = strtof(token, NULL);
+                } else if (field_index == 4) {
+                    entry->death_rate = strtof(token, NULL);
+                } else if (field_index == 5) {
+                    entry->general_demographic_weight = strtof(token, NULL);
+                } else if (field_index == 6) {
+                    entry->urbanization = strtof(token, NULL);
                 }
+
+                token = strtok(NULL, ",");
+                field_index++;
             }
-            fclose(file);
+
+            if (field_index == CSV_FIELDS_COUNT) {
+                success = true;
+            }
+
+            free(line_copy);
         }
     }
-    return result;
+
+    return success;
 }

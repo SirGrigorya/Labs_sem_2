@@ -1,171 +1,163 @@
 #include "mainwindow.h"
 #include "filters.h"
-#include <QFileDialog>
-#include <QMessageBox>
+
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QLabel>
+#include <QFileDialog>
+#include <QMessageBox>
 #include <QHeaderView>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-    QWidget *centralWidget = new QWidget(this);
-    QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
+#define COLUMN_COUNT 7
+#define COLUMN_INDEX_MIN 1
+#define COLUMN_INDEX_MAX 5
 
-    QHBoxLayout *fileLayout = new QHBoxLayout();
-    fileEdit = new QLineEdit(this);
-    fileEdit->setPlaceholderText("Select CSV file...");
-    browseButton = new QPushButton("Browse...", this);
-    fileLayout->addWidget(fileEdit);
-    fileLayout->addWidget(browseButton);
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+{
+    QWidget *central = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout(central);
 
-    QHBoxLayout *filterLayout = new QHBoxLayout();
-    regionEdit = new QLineEdit(this);
-    regionEdit->setPlaceholderText("Enter region (optional)");
-    columnEdit = new QLineEdit(this);
-    columnEdit->setPlaceholderText("Column number (1-5)");
-    filterLayout->addWidget(new QLabel("Region:"));
-    filterLayout->addWidget(regionEdit);
-    filterLayout->addWidget(new QLabel("Column:"));
-    filterLayout->addWidget(columnEdit);
+    QHBoxLayout *fileLayout = new QHBoxLayout;
+    chooseFileButton = new QPushButton("Выбрать файл");
+    fileLabel = new QLabel("Файл не выбран");
+    fileLayout->addWidget(chooseFileButton);
+    fileLayout->addWidget(fileLabel);
 
-    QHBoxLayout *buttonLayout = new QHBoxLayout();
-    loadButton = new QPushButton("Load Data", this);
-    calculateButton = new QPushButton("Calculate Metrics", this);
+    QHBoxLayout *inputLayout = new QHBoxLayout;
+    regionInput = new QLineEdit();
+    columnInput = new QLineEdit();
+    regionInput->setPlaceholderText("Название региона");
+    columnInput->setPlaceholderText("Номер колонки (1-5)");
+    inputLayout->addWidget(regionInput);
+    inputLayout->addWidget(columnInput);
+
+    QHBoxLayout *buttonLayout = new QHBoxLayout;
+    loadButton = new QPushButton("Load Data");
+    calcButton = new QPushButton("Calculate Metrics");
     buttonLayout->addWidget(loadButton);
-    buttonLayout->addWidget(calculateButton);
+    buttonLayout->addWidget(calcButton);
 
-    tableWidget = new QTableWidget(this);
-    tableWidget->setColumnCount(7);
-    tableWidget->setHorizontalHeaderLabels({
-        "Year", "Region", "Natural Growth",
-        "Birth Rate", "Death Rate",
-        "Demographic Weight", "Urbanization"
+    table = new QTableWidget();
+    table->setColumnCount(COLUMN_COUNT);
+    table->setHorizontalHeaderLabels({
+        "Year", "Region", "Nat.Pop.Growth", "Birth Rate",
+        "Death Rate", "Dem.Weight", "Urbanization"
     });
-    tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QHBoxLayout *resultLayout = new QHBoxLayout();
-    resultLayout->addWidget(new QLabel("Min:"));
-    minLabel = new QLabel("N/A");
-    resultLayout->addWidget(minLabel);
-    resultLayout->addWidget(new QLabel("Max:"));
-    maxLabel = new QLabel("N/A");
-    resultLayout->addWidget(maxLabel);
-    resultLayout->addWidget(new QLabel("Median:"));
-    medianLabel = new QLabel("N/A");
-    resultLayout->addWidget(medianLabel);
+    QHBoxLayout *statLayout = new QHBoxLayout;
+    minLabel = new QLabel("Min: ");
+    maxLabel = new QLabel("Max: ");
+    medianLabel = new QLabel("Median: ");
+    statLayout->addWidget(minLabel);
+    statLayout->addWidget(maxLabel);
+    statLayout->addWidget(medianLabel);
 
     mainLayout->addLayout(fileLayout);
-    mainLayout->addLayout(filterLayout);
+    mainLayout->addLayout(inputLayout);
     mainLayout->addLayout(buttonLayout);
-    mainLayout->addWidget(tableWidget);
-    mainLayout->addLayout(resultLayout);
+    mainLayout->addWidget(table, 1);
+    mainLayout->addLayout(statLayout);
 
-    setCentralWidget(centralWidget);
-
-    connect(browseButton, &QPushButton::clicked, this, &MainWindow::on_browseButton_clicked);
-    connect(loadButton, &QPushButton::clicked, this, &MainWindow::on_loadButton_clicked);
-    connect(calculateButton, &QPushButton::clicked, this, &MainWindow::on_calculateButton_clicked);
+    setCentralWidget(central);
+    setWindowTitle("CSV Visualizer");
 
     init_context(&context);
-}
 
-void MainWindow::on_browseButton_clicked() {
-    QString file = QFileDialog::getOpenFileName(
-        this,
-        "Open CSV File",
-        "",
-        "CSV Files (*.csv);;All Files (*)"
-        );
-
-    if (!file.isEmpty()) {
-        fileEdit->setText(file);
-    }
-}
-
-void MainWindow::on_loadButton_clicked() {
-    QString filePath = fileEdit->text();
-    if (filePath.isEmpty()) {
-        showError("Please select a CSV file first");
-        return;
-    }
-
-    QString region = regionEdit->text().trimmed();
-    const char* regionPtr = region.isEmpty() ? nullptr : region.toUtf8().constData();
-
-    free_context(&context);
-
-    if (load_data(&context, filePath.toUtf8().constData(), nullptr) != 0) {
-        showError(context.error);
-        return;
-    }
-
-    if (regionPtr) {
-        List* filtered = filter_by_region(context.filtered_data, regionPtr);
-        if (filtered) {
-            if (context.filtered_data) {
-                free_list(context.filtered_data);
-            }
-            context.filtered_data = filtered;
-        }
-    }
-
-    QMessageBox::information(
-        this,
-        "Load Complete",
-        QString("Total rows: %1\nError rows: %2\nValid rows: %3")
-            .arg(context.total_rows)
-            .arg(context.error_rows)
-            .arg(context.valid_rows)
-        );
-
-    updateTable();
-}
-
-void MainWindow::on_calculateButton_clicked() {
-    if (!context.filtered_data) {
-        showError("No data loaded. Please load data first");
-        return;
-    }
-
-    bool ok;
-    int column = columnEdit->text().toInt(&ok);
-    if (!ok || column < 1 || column > 5) {
-        showError("Invalid column number. Please enter value between 1 and 5");
-        return;
-    }
-
-    double min, max, median;
-    calculate_metrics(&context, column, &min, &max, &median);
-
-    minLabel->setText(QString::number(min));
-    maxLabel->setText(QString::number(max));
-    medianLabel->setText(QString::number(median));
-}
-
-void MainWindow::showError(const QString &message) {
-    QMessageBox::critical(this, "Error", message);
-}
-
-void MainWindow::updateTable() {
-    tableWidget->setRowCount(0);
-    if (!context.filtered_data) return;
-
-    Iterator it = get_iterator(context.filtered_data);
-    int row = 0;
-
-    while (DemographicData* data = next(&it)) {
-        tableWidget->insertRow(row);
-        tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(data->year)));
-        tableWidget->setItem(row, 1, new QTableWidgetItem(data->region));
-        tableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(data->natural_population_growth)));
-        tableWidget->setItem(row, 3, new QTableWidgetItem(QString::number(data->birth_rate)));
-        tableWidget->setItem(row, 4, new QTableWidgetItem(QString::number(data->death_rate)));
-        tableWidget->setItem(row, 5, new QTableWidgetItem(QString::number(data->general_demographic_weight)));
-        tableWidget->setItem(row, 6, new QTableWidgetItem(QString::number(data->urbanization)));
-        row++;
-    }
+    connect(chooseFileButton, &QPushButton::clicked, this, &MainWindow::chooseFile);
+    connect(loadButton, &QPushButton::clicked, this, &MainWindow::loadData);
+    connect(calcButton, &QPushButton::clicked, this, &MainWindow::calculateMetrics);
 }
 
 MainWindow::~MainWindow() {
     free_context(&context);
+}
+
+void MainWindow::chooseFile() {
+    QString path = QFileDialog::getOpenFileName(this, "Выбрать CSV", "", "CSV (*.csv)");
+    bool fileSelected = false;
+
+    if (!path.isEmpty()) {
+        selectedFile = path;
+        fileLabel->setText(path);
+        fileSelected = true;
+    }
+
+    if (!fileSelected) {
+        fileLabel->setText("Файл не выбран");
+    }
+}
+
+void MainWindow::loadData() {
+    free_context(&context);
+    init_context(&context);
+
+    bool success = false;
+
+    if (!selectedFile.isEmpty()) {
+        success = load_csv_file(&context, selectedFile.toStdString().c_str());
+        if (success) {
+            updateTable();
+            showInfoMessage();
+        }
+    }
+
+    if (!success) {
+        showError(selectedFile.isEmpty() ? "Файл не выбран" : context.last_error);
+    }
+}
+
+void MainWindow::updateTable() {
+    table->setRowCount(0);
+    QString region = regionInput->text();
+    int row = 0;
+
+    for (int i = 0; i < context.data.size; ++i) {
+        DataEntry *e = &context.data.entries[i];
+        if (!is_region_match(e, region.toStdString().c_str())) continue;
+
+        table->insertRow(row);
+        table->setItem(row, 0, new QTableWidgetItem(QString::number(e->year)));
+        table->setItem(row, 1, new QTableWidgetItem(e->region));
+        table->setItem(row, 2, new QTableWidgetItem(QString::number(e->natural_population_growth)));
+        table->setItem(row, 3, new QTableWidgetItem(QString::number(e->birth_rate)));
+        table->setItem(row, 4, new QTableWidgetItem(QString::number(e->death_rate)));
+        table->setItem(row, 5, new QTableWidgetItem(QString::number(e->general_demographic_weight)));
+        table->setItem(row, 6, new QTableWidgetItem(QString::number(e->urbanization)));
+        ++row;
+    }
+}
+
+void MainWindow::showInfoMessage() {
+    QString message = QString("Всего строк: %1\nОшибочных: %2\nУспешно считано: %3")
+                          .arg(context.total_lines)
+                          .arg(context.error_lines)
+                          .arg(context.valid_lines);
+    QMessageBox::information(this, "Загрузка завершена", message);
+}
+
+void MainWindow::showError(const QString& message) {
+    QMessageBox::critical(this, "Ошибка", message);
+}
+
+void MainWindow::calculateMetrics() {
+    QString region = regionInput->text();
+    bool ok = false;
+    int column = columnInput->text().toInt(&ok);
+    bool success = false;
+
+    if (ok && column >= COLUMN_INDEX_MIN && column <= COLUMN_INDEX_MAX) {
+        success = calculate_metrics(&context, region.toStdString().c_str(), column);
+        if (success) {
+            minLabel->setText(QString("Min: %1").arg(context.min));
+            maxLabel->setText(QString("Max: %1").arg(context.max));
+            medianLabel->setText(QString("Median: %1").arg(context.median));
+        }
+    }
+
+    if (!success) {
+        showError(!ok ? "Неверный номер колонки" : context.last_error);
+    }
 }

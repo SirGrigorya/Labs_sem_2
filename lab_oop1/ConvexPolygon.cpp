@@ -1,62 +1,114 @@
-#include "convexpolygon.h"
+#include "ConvexPolygon.h"
+#include "AppErrors.h"
+#include <sstream>
 #include <cmath>
-#include "app_errors.h"
+#include <memory>
 
-bool ConvexPolygon::is_convex(const std::vector<std::pair<double, double>>& points) {
+#define EPS 1e-10
+#define MIN_POLY_VERTICES 3
+#define ZERO_AREA EPS
+
+static bool isConvex(const std::vector<Point>& pts) {
     bool result = true;
-    int n = points.size();
-    if(n < 3) {
+    size_t n = pts.size();
+
+    if (n < MIN_POLY_VERTICES) {
         result = false;
     } else {
-        int sign = 0;
-        for(int i = 0; i < n; ++i) {
-            const auto& p1 = points[i];
-            const auto& p2 = points[(i+1)%n];
-            const auto& p3 = points[(i+2)%n];
+        bool sign = false;
+        for (size_t i = 0; i < n && result; ++i) {
+            const Point& a = pts[i];
+            const Point& b = pts[(i + 1) % n];
+            const Point& c = pts[(i + 2) % n];
 
-            double cross = (p2.first - p1.first) * (p3.second - p2.second)
-                           - (p2.second - p1.second) * (p3.first - p2.first);
+            double dx1 = b.x - a.x;
+            double dy1 = b.y - a.y;
+            double dx2 = c.x - b.x;
+            double dy2 = c.y - b.y;
 
-            if(cross == 0) continue;
-            if(sign == 0) {
-                sign = cross > 0 ? 1 : -1;
-            } else if((cross > 0 && sign == -1) || (cross < 0 && sign == 1)) {
+            double cross = dx1 * dy2 - dy1 * dx2;
+
+            if (i == 0) {
+                sign = cross > EPS;
+            } else if ((cross > EPS) != sign) {
                 result = false;
-                break;
             }
         }
     }
+
     return result;
 }
 
-ConvexPolygon::ConvexPolygon(const std::string& name,
-                             const std::vector<std::pair<double, double>>& points)
-    : Shape(name), vertices(points) {
-    if(points.size() < 3 || !is_convex(points)) {
-        throw InvalidPolygon();
+static double shoelaceArea(const std::vector<Point>& pts) {
+    size_t n = pts.size();
+    double* sum = new double;
+    *sum = 0.0;
+
+    for (size_t i = 0; i < n; ++i) {
+        const Point& p1 = pts[i];
+        const Point& p2 = pts[(i + 1) % n];
+        *sum += (p1.x * p2.y - p2.x * p1.y);
     }
+
+    double area = std::abs(*sum) / 2.0;
+    delete sum;
+    return area;
+}
+
+ConvexPolygon::ConvexPolygon(const std::string& name, const std::vector<Point>& points)
+    : Shape(name), vertices(points) {
+
+    bool valid = true;
+
+    if (points.size() < MIN_POLY_VERTICES) {
+        valid = false;
+        throw InvalidShapeParameters("Polygon must have at least 3 vertices.");
+    }
+
+    if (!isConvex(points)) {
+        valid = false;
+        throw InvalidShapeParameters("Polygon is not convex.");
+    }
+
+    if (shoelaceArea(points) <= ZERO_AREA) {
+        valid = false;
+        throw InvalidShapeParameters("Polygon area is zero.");
+    }
+
+    // `valid` unused further — retained for logical clarity if expanded.
 }
 
 double ConvexPolygon::area() const {
-    double a = 0.0;
-    int n = vertices.size();
-    for(int i = 0; i < n; ++i) {
-        const auto& p1 = vertices[i];
-        const auto& p2 = vertices[(i+1)%n];
-        a += (p1.first * p2.second - p2.first * p1.second);
-    }
-    return std::abs(a) / 2.0;
+    double result = shoelaceArea(vertices);
+    return result;
 }
 
-std::string ConvexPolygon::get_type() const {
-    std::string type = "ConvexPolygon";
-    return type;
+std::string ConvexPolygon::type() const {
+    std::string result = "Convex Polygon";
+    return result;
 }
 
-void ConvexPolygon::print_parameters(std::ostream& os) const {
-    os << "Name: " << get_name() << ", Vertices: ";
-    for(size_t i = 0; i < vertices.size(); ++i) {
-        os << "(" << vertices[i].first << ", " << vertices[i].second << ")";
-        if(i < vertices.size() - 1) os << ", ";
+std::string ConvexPolygon::info() const {
+    std::ostringstream* oss = new std::ostringstream;
+    *oss << "Convex Polygon \"" << name << "\" | Vertices:";
+    for (const auto& p : vertices) {
+        *oss << " (" << p.x << ", " << p.y << ")";
     }
+
+    std::string result = oss->str();
+    delete oss;
+    return result;
+}
+
+std::string ConvexPolygon::parameters() const {
+    std::ostringstream* oss = new std::ostringstream;
+    *oss << "Vertices: ";
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        *oss << vertices[i].toString();
+        if (i != vertices.size() - 1) *oss << ", ";
+    }
+
+    std::string result = oss->str();
+    delete oss;
+    return result;
 }

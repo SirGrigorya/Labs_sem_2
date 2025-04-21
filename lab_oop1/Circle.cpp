@@ -1,20 +1,47 @@
-#include "circle.h"
-#include "app_errors.h"
+#include "Circle.h"
+#include "AppErrors.h"
 #include <cmath>
+#include <sstream>
 
-Circle::Circle(const std::string& name, double x, double y, double radius)
-    : Shape(name), x(x), y(y), radius(radius) {
-    if (radius <= 0) throw InvalidCircle();
+#define EPS 1e-9
+#define MIN_RADIUS EPS
+
+Circle::Circle(const std::string& name, const Point& center, double radius)
+    : Shape(name), center(new Point(center)), radius(new double(radius)) {
+
+    if (radius <= MIN_RADIUS) {
+        throw InvalidShapeParameters("Radius must be positive.");
+    }
 }
 
 double Circle::area() const {
-    return M_PI * radius * radius;
+    double result = M_PI * (*radius) * (*radius);
+    return result;
 }
 
-std::string Circle::get_type() const {
-    return "Circle";
+std::string Circle::type() const {
+    std::string result = "Circle";
+    return result;
 }
 
-void Circle::print_parameters(std::ostream& os) const {
-    os << "Name: " << get_name() << ", Center: (" << x << ", " << y << "), Radius: " << radius;
+std::string Circle::info() const {
+    std::ostringstream* oss = new std::ostringstream();
+    *oss << "Circle \"" << name << "\" | Center: (" << center->x << ", " << center->y
+         << ") | Radius: " << *radius;
+    std::string result = oss->str();
+    delete oss;
+    return result;
+}
+
+std::string Circle::parameters() const {
+    std::ostringstream* oss = new std::ostringstream();
+    *oss << "Center: " << center->toString() << ", radius: " << *radius;
+    std::string result = oss->str();
+    delete oss;
+    return result;
+}
+
+Circle::~Circle() {
+    delete center;
+    delete radius;
 }

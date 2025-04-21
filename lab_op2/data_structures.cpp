@@ -2,70 +2,63 @@
 #include <stdlib.h>
 #include <string.h>
 
-List* create_list() {
-    List* list = (List*)malloc(sizeof(List));
-    if (list) {
-        list->head = NULL;
-        list->tail = NULL;
-    }
-    return list;
+#define INITIAL_CAPACITY 32
+#define CAPACITY_GROWTH_FACTOR 2
+#define INVALID_INDEX -1
+
+void init_data_array(DataArray* array) {
+    array->entries = (DataEntry*)malloc(INITIAL_CAPACITY * sizeof(DataEntry));
+    array->size = 0;
+    array->capacity = INITIAL_CAPACITY;
 }
 
-void free_list(List* list) {
-    Node* current = NULL;
-    Node* next = NULL;
-
-    if (list) {
-        current = list->head;
-        while (current) {
-            next = current->next;
-            free(current->data.region);
-            free(current);
-            current = next;
-        }
-        free(list);
+void free_data_array(DataArray* array) {
+    if (array->entries) {
+        free(array->entries);
+        array->entries = NULL;
     }
+    array->size = 0;
+    array->capacity = 0;
 }
 
-void append_to_list(List* list, const DemographicData* data) {
-    Node* node = NULL;
+bool add_data_entry(DataArray* array, DataEntry entry) {
+    bool result = true;
 
-    if (list && data) {
-        node = (Node*)malloc(sizeof(Node));
-        if (node) {
-            node->data.year = data->year;
-            node->data.region = strdup(data->region);
-            node->data.natural_population_growth = data->natural_population_growth;
-            node->data.birth_rate = data->birth_rate;
-            node->data.death_rate = data->death_rate;
-            node->data.general_demographic_weight = data->general_demographic_weight;
-            node->data.urbanization = data->urbanization;
-            node->next = NULL;
-
-            if (!list->head) {
-                list->head = node;
-                list->tail = node;
-            } else {
-                list->tail->next = node;
-                list->tail = node;
-            }
+    if (array->size >= array->capacity) {
+        int new_capacity = array->capacity * CAPACITY_GROWTH_FACTOR;
+        DataEntry* new_entries = (DataEntry*)realloc(array->entries, new_capacity * sizeof(DataEntry));
+        if (new_entries) {
+            array->entries = new_entries;
+            array->capacity = new_capacity;
+        } else {
+            result = false;
         }
     }
-}
 
-Iterator get_iterator(const List* list) {
-    Iterator it = {NULL};
-    if (list) {
-        it.current = list->head;
+    if (result) {
+        array->entries[array->size++] = entry;
     }
-    return it;
+
+    return result;
 }
 
-DemographicData* next(Iterator* it) {
-    DemographicData* result = NULL;
-    if (it && it->current) {
-        result = &it->current->data;
-        it->current = it->current->next;
+void init_iterator(DataIterator* iterator, DataArray* array) {
+    iterator->array = array;
+    iterator->current_index = 0;
+}
+
+bool has_next(DataIterator* iterator) {
+    bool result = false;
+    if (iterator->current_index < iterator->array->size) {
+        result = true;
+    }
+    return result;
+}
+
+DataEntry* next(DataIterator* iterator) {
+    DataEntry* result = NULL;
+    if (iterator->current_index < iterator->array->size) {
+        result = &iterator->array->entries[iterator->current_index++];
     }
     return result;
 }

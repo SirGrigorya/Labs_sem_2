@@ -1,5 +1,6 @@
 C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/mainwindow.h \
   C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op2_autogen/moc_predefs.h \
+  C:/Qt/6.7.2/mingw_64/include/QtCore/QString \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20type_traits.h \

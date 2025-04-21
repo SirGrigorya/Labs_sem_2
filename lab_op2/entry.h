@@ -4,17 +4,21 @@
 #include "data_structures.h"
 
 typedef struct {
-    List* all_data;
-    List* filtered_data;
-    int total_rows;
-    int error_rows;
-    int valid_rows;
-    char error[256];
-} Context;
+    DataArray data;
+    int total_lines;
+    int error_lines;
+    int valid_lines;
+    float min;
+    float max;
+    float median;
+    char last_error[256];
+} AppContext;
 
-void init_context(Context* ctx);
-int load_data(Context* ctx, const char* filename, const char* region);
-void calculate_metrics(Context* ctx, int column, double* min, double* max, double* median);
-void free_context(Context* ctx);
+void init_context(AppContext* ctx);
+void free_context(AppContext* ctx);
+
+bool load_csv_file(AppContext* ctx, const char* filepath);
+
+bool calculate_metrics(AppContext* ctx, const char* region, int column_index);
 
 #endif // ENTRY_H

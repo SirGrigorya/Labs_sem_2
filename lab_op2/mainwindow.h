@@ -2,38 +2,46 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTableWidget>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QTableWidget>
 #include <QLabel>
+#include <QString>
 #include "entry.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
+
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
-    void on_browseButton_clicked();
-    void on_loadButton_clicked();
-    void on_calculateButton_clicked();
+    void chooseFile();
+    void loadData();
+    void calculateMetrics();
 
 private:
-    QLineEdit *fileEdit;
-    QLineEdit *regionEdit;
-    QLineEdit *columnEdit;
+    void updateTable();
+    void showInfoMessage();
+    void showError(const QString& message);
 
-    QPushButton *browseButton;
+    AppContext context;
+
+    QString selectedFile;
+
+    QLineEdit *regionInput;
+    QLineEdit *columnInput;
+    QPushButton *chooseFileButton;
     QPushButton *loadButton;
-    QPushButton *calculateButton;
-    QTableWidget *tableWidget;
+    QPushButton *calcButton;
+
+    QTableWidget *table;
+
+    QLabel *fileLabel;
     QLabel *minLabel;
     QLabel *maxLabel;
     QLabel *medianLabel;
-
-    Context context;
-    void showError(const QString &message);
-    void updateTable();
 };
+
 #endif // MAINWINDOW_H

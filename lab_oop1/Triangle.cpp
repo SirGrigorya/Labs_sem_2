@@ -1,25 +1,78 @@
-#include "triangle.h"
-#include "app_errors.h"
+#include "Triangle.h"
+#include "AppErrors.h"
+#include <sstream>
 #include <cmath>
 
-Triangle::Triangle(const std::string& name,
-                   double x1, double y1,
-                   double x2, double y2,
-                   double x3, double y3)
-    : Shape(name), x1(x1), y1(y1), x2(x2), y2(y2), x3(x3), y3(y3) {
-    double area_val = (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1);
-    if(area_val == 0) throw InvalidTriangle();
+#define EPS 1e-10
+
+static double distance(const Point& p1, const Point& p2) {
+    return std::hypot(p1.x - p2.x, p1.y - p2.y);
+}
+
+Triangle::Triangle(const std::string& name, const Point& a, const Point& b, const Point& c)
+    : Shape(name), a(a), b(b), c(c) {
+
+    double* ab = new double(distance(a, b));
+    double* bc = new double(distance(b, c));
+    double* ca = new double(distance(c, a));
+
+    double* s = new double((*ab + *bc + *ca) / 2.0);
+    double* area = new double(std::sqrt(*s * (*s - *ab) * (*s - *bc) * (*s - *ca)));
+
+    bool invalid = (*area < EPS);
+
+    delete ab;
+    delete bc;
+    delete ca;
+    delete s;
+
+    if (invalid) {
+        delete area;
+        throw InvalidShapeParameters("Degenerate triangle (zero area).");
+    }
+
+    delete area;
+}
+
+std::string Triangle::info() const {
+    std::ostringstream* oss = new std::ostringstream();
+    *oss << "Triangle \"" << name << "\" | Vertices: ("
+         << a.x << ", " << a.y << "), ("
+         << b.x << ", " << b.y << "), ("
+         << c.x << ", " << c.y << ")";
+    std::string result = oss->str();
+    delete oss;
+    return result;
 }
 
 double Triangle::area() const {
-    return 0.5 * std::abs((x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1));
+    double* ab = new double(distance(a, b));
+    double* bc = new double(distance(b, c));
+    double* ca = new double(distance(c, a));
+
+    double* s = new double((*ab + *bc + *ca) / 2.0);
+    double* area = new double(std::sqrt(*s * (*s - *ab) * (*s - *bc) * (*s - *ca)));
+
+    double result = *area;
+
+    delete ab;
+    delete bc;
+    delete ca;
+    delete s;
+    delete area;
+
+    return result;
 }
 
-std::string Triangle::get_type() const {
-    return "Triangle";
+std::string Triangle::type() const {
+    std::string result = "Triangle";
+    return result;
 }
 
-void Triangle::print_parameters(std::ostream& os) const {
-    os << "Name: " << get_name() << ", Points: (" << x1 << ", " << y1 << "), ("
-       << x2 << ", " << y2 << "), (" << x3 << ", " << y3 << ")";
+std::string Triangle::parameters() const {
+    std::ostringstream* oss = new std::ostringstream();
+    *oss << "Vertices: " << a.toString() << ", " << b.toString() << ", " << c.toString();
+    std::string result = oss->str();
+    delete oss;
+    return result;
 }

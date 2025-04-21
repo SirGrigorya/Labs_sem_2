@@ -1,21 +1,49 @@
-#include "rectangle.h"
-#include "app_errors.h"
+#include "Rectangle.h"
+#include "AppErrors.h"
+#include <sstream>
 
-Rectangle::Rectangle(const std::string& name, double l, double t, double r, double b)
-    : Shape(name), left(l), top(t), right(r), bottom(b) {
-    if(left >= right || top <= bottom)
-        throw InvalidRectangle();
+#define EPS 1e-10
+
+Rectangle::Rectangle(const std::string& name, const Point& topLeft, const Point& bottomRight)
+    : Shape(name), topLeft(topLeft), bottomRight(bottomRight) {
+
+    double width = bottomRight.x - topLeft.x;
+    double height = topLeft.y - bottomRight.y;
+
+    if (width <= EPS || height <= EPS) {
+        throw InvalidShapeParameters("Rectangle must have positive width and height.");
+    }
 }
 
 double Rectangle::area() const {
-    return (right - left) * (top - bottom);
+    double* width = new double(bottomRight.x - topLeft.x);
+    double* height = new double(topLeft.y - bottomRight.y);
+    double result = (*width) * (*height);
+    delete width;
+    delete height;
+    return result;
 }
 
-std::string Rectangle::get_type() const {
-    return "Rectangle";
+std::string Rectangle::type() const {
+    std::string result = "Rectangle";
+    return result;
 }
 
-void Rectangle::print_parameters(std::ostream& os) const {
-    os << "Name: " << get_name() << ", Left-Top: (" << left << ", " << top
-       << "), Right-Bottom: (" << right << ", " << bottom << ")";
+std::string Rectangle::info() const {
+    std::ostringstream* oss = new std::ostringstream;
+    *oss << "Rectangle \"" << name << "\" | Top-left: ("
+         << topLeft.x << ", " << topLeft.y << ") | Bottom-right: ("
+         << bottomRight.x << ", " << bottomRight.y << ")";
+    std::string result = oss->str();
+    delete oss;
+    return result;
+}
+
+std::string Rectangle::parameters() const {
+    std::ostringstream* oss = new std::ostringstream;
+    *oss << "Top-left corner: " << topLeft.toString()
+         << ", bottom-right corner: " << bottomRight.toString();
+    std::string result = oss->str();
+    delete oss;
+    return result;
 }

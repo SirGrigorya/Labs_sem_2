@@ -1,101 +1,84 @@
 #include "statistics.h"
-#include "data_structures.h"
-#include "constants.h"
+#include "filters.h"
 #include <stdlib.h>
 
-static int compare_doubles(const void* a, const void* b) {
-    int result = COMPARE_EQUAL;
-    double diff = *(const double*)a - *(const double*)b;
+#define MAX_VALUES       10000
+#define COLUMN_MIN_INDEX 1
+#define COLUMN_MAX_INDEX 5
+#define FIELD_COUNT      5
 
-    if (diff > 0.0) {
-        result = COMPARE_GREATER;
-    }
-    else if (diff < 0.0) {
-        result = COMPARE_LESS;
-    }
-
-    return result;
+static int float_compare(const void* a, const void* b) {
+    float fa = *(const float*)a;
+    float fb = *(const float*)b;
+    return (fa > fb) - (fa < fb);
 }
 
-static double* get_column_values(const List* list, int column, int* count) {
-    double* values = NULL;
-    *count = 0;
+static bool get_column_value(const DataEntry* entry, int index, float* out) {
+    bool success = false;
 
-    if (list && column >= COLUMN_NATURAL_GROWTH && column <= COLUMN_URBANIZATION) {
-        Node* node = list->head;
-        int size = 0;
+    if (entry && out && index >= COLUMN_MIN_INDEX && index <= COLUMN_MAX_INDEX) {
+        const float* fields[FIELD_COUNT] = {
+            &entry->natural_population_growth,
+            &entry->birth_rate,
+            &entry->death_rate,
+            &entry->general_demographic_weight,
+            &entry->urbanization
+        };
 
-        while (node) {
-            size++;
-            node = node->next;
-        }
+        *out = *fields[index - 1];
+        success = true;
+    }
 
-        if (size > 0) {
-            values = (double*)malloc(size * sizeof(double));
-            if (values) {
-                node = list->head;
-                int i = 0;
-                while (node) {
-                    if (column == COLUMN_NATURAL_GROWTH) {
-                        values[i] = node->data.natural_population_growth;
-                    }
-                    else if (column == COLUMN_BIRTH_RATE) {
-                        values[i] = node->data.birth_rate;
-                    }
-                    else if (column == COLUMN_DEATH_RATE) {
-                        values[i] = node->data.death_rate;
-                    }
-                    else if (column == COLUMN_DEMO_WEIGHT) {
-                        values[i] = node->data.general_demographic_weight;
-                    }
-                    else if (column == COLUMN_URBANIZATION) {
-                        values[i] = node->data.urbanization;
-                    }
+    return success;
+}
 
-                    i++;
-                    node = node->next;
+bool calculate_statistics(
+    const DataArray* array,
+    const char* region,
+    int column_index,
+    float* min,
+    float* max,
+    float* median
+    ) {
+    bool result = false;
+
+    if (array && min && max && median &&
+        column_index >= COLUMN_MIN_INDEX &&
+        column_index <= COLUMN_MAX_INDEX)
+    {
+        float* values = (float*)malloc(sizeof(float) * MAX_VALUES);
+        if (values) {
+            int count = 0;
+
+            for (int i = 0; i < array->size && count < MAX_VALUES; ++i) {
+                const DataEntry* entry = &array->entries[i];
+
+                if (is_valid_entry(entry) && is_region_match(entry, region)) {
+                    float value;
+                    if (get_column_value(entry, column_index, &value)) {
+                        values[count++] = value;
+                    }
                 }
-                qsort(values, size, sizeof(double), compare_doubles);
-                *count = size;
             }
+
+            if (count > 0) {
+                qsort(values, count, sizeof(float), float_compare);
+
+                *min = values[0];
+                *max = values[count - 1];
+
+                if (count % 2 == 1) {
+                    *median = values[count / 2];
+                } else {
+                    *median = (values[count / 2 - 1] + values[count / 2]) / 2.0f;
+                }
+
+                result = true;
+            }
+
+            free(values);
         }
     }
-    return values;
-}
 
-double calculate_min(const List* list, int column) {
-    double result = NAN;
-    int count = 0;
-    double* values = get_column_values(list, column, &count);
-
-    if (values && count > 0) {
-        result = values[0];
-    }
-    free(values);
-    return result;
-}
-
-double calculate_max(const List* list, int column) {
-    double result = NAN;
-    int count = 0;
-    double* values = get_column_values(list, column, &count);
-
-    if (values && count > 0) {
-        result = values[count - 1];
-    }
-    free(values);
-    return result;
-}
-
-double calculate_median(const List* list, int column) {
-    double result = NAN;
-    int count = 0;
-    double* values = get_column_values(list, column, &count);
-
-    if (values && count > 0) {
-        int middle = count / 2;
-        result = count % 2 ? values[middle] : (values[middle - 1] + values[middle]) / 2.0;
-    }
-    free(values);
     return result;
 }
