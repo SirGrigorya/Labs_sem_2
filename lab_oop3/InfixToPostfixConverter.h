@@ -1,31 +1,20 @@
 #ifndef INFIX_TO_POSTFIX_CONVERTER_H
 #define INFIX_TO_POSTFIX_CONVERTER_H
 
+#include <memory>
 #include <vector>
-#include <string>
-#include <stack>
-#include <unordered_map>
+#include "Token.h"
 
 class InfixToPostfixConverter {
 public:
-    std::vector<std::string> convert(const std::vector<std::string>& tokens);
+    std::vector<std::unique_ptr<Token>> convert(const std::vector<std::unique_ptr<Token>>& tokens);
+
 
 private:
-    bool isNumber(const std::string& token) const;
-    bool isLeftParenthesis(const std::string& token) const;
-    bool isRightParenthesis(const std::string& token) const;
-    bool isOperator(const std::string& token) const;
-    bool isUnaryOperator(const std::string& token) const;
-    int getPrecedence(const std::string& op) const;
-
-    const std::unordered_map<std::string, int> precedence {
-          {"u+", 4},
-          {"u-", 4},
-          {"*", 3},
-          {"/", 3},
-          {"+", 2},
-          {"-", 2}
-    };
+    bool isBinaryOperator(const Token& token) const;
+    bool isUnaryOperator(const Token& token) const;
+    int getPrecedence(const Token& token) const;
+    std::unique_ptr<Token> cloneToken(const Token& token);
 };
 
 #endif // INFIX_TO_POSTFIX_CONVERTER_H

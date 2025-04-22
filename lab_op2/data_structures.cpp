@@ -4,7 +4,6 @@
 
 #define INITIAL_CAPACITY 32
 #define CAPACITY_GROWTH_FACTOR 2
-#define INVALID_INDEX -1
 
 void init_data_array(DataArray* array) {
     array->entries = (DataEntry*)malloc(INITIAL_CAPACITY * sizeof(DataEntry));
@@ -39,26 +38,5 @@ bool add_data_entry(DataArray* array, DataEntry entry) {
         array->entries[array->size++] = entry;
     }
 
-    return result;
-}
-
-void init_iterator(DataIterator* iterator, DataArray* array) {
-    iterator->array = array;
-    iterator->current_index = 0;
-}
-
-bool has_next(DataIterator* iterator) {
-    bool result = false;
-    if (iterator->current_index < iterator->array->size) {
-        result = true;
-    }
-    return result;
-}
-
-DataEntry* next(DataIterator* iterator) {
-    DataEntry* result = NULL;
-    if (iterator->current_index < iterator->array->size) {
-        result = &iterator->array->entries[iterator->current_index++];
-    }
     return result;
 }

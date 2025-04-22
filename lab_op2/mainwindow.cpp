@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "filters.h"
+#include "app_runner.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -77,15 +78,10 @@ MainWindow::~MainWindow() {
 
 void MainWindow::chooseFile() {
     QString path = QFileDialog::getOpenFileName(this, "Выбрать CSV", "", "CSV (*.csv)");
-    bool fileSelected = false;
-
     if (!path.isEmpty()) {
         selectedFile = path;
         fileLabel->setText(path);
-        fileSelected = true;
-    }
-
-    if (!fileSelected) {
+    } else {
         fileLabel->setText("Файл не выбран");
     }
 }
@@ -94,10 +90,13 @@ void MainWindow::loadData() {
     free_context(&context);
     init_context(&context);
 
+    QString region = regionInput->text();
+    bool ok = false;
+    int column = columnInput->text().toInt(&ok);
     bool success = false;
 
-    if (!selectedFile.isEmpty()) {
-        success = load_csv_file(&context, selectedFile.toStdString().c_str());
+    if (!selectedFile.isEmpty() && ok) {
+        success = run_app(&context, selectedFile.toStdString().c_str(), region.toStdString().c_str(), column);
         if (success) {
             updateTable();
             showInfoMessage();
@@ -105,7 +104,7 @@ void MainWindow::loadData() {
     }
 
     if (!success) {
-        showError(selectedFile.isEmpty() ? "Файл не выбран" : context.last_error);
+        showError(!ok ? "Неверный номер колонки" : (selectedFile.isEmpty() ? "Файл не выбран" : context.last_error));
     }
 }
 
@@ -114,8 +113,8 @@ void MainWindow::updateTable() {
     QString region = regionInput->text();
     int row = 0;
 
-    for (int i = 0; i < context.data.size; ++i) {
-        DataEntry *e = &context.data.entries[i];
+    for (int i = 0; i < context.data->size; ++i) {
+        DataEntry *e = &context.data->entries[i];
         if (!is_region_match(e, region.toStdString().c_str())) continue;
 
         table->insertRow(row);
@@ -143,21 +142,4 @@ void MainWindow::showError(const QString& message) {
 }
 
 void MainWindow::calculateMetrics() {
-    QString region = regionInput->text();
-    bool ok = false;
-    int column = columnInput->text().toInt(&ok);
-    bool success = false;
-
-    if (ok && column >= COLUMN_INDEX_MIN && column <= COLUMN_INDEX_MAX) {
-        success = calculate_metrics(&context, region.toStdString().c_str(), column);
-        if (success) {
-            minLabel->setText(QString("Min: %1").arg(context.min));
-            maxLabel->setText(QString("Max: %1").arg(context.max));
-            medianLabel->setText(QString("Median: %1").arg(context.median));
-        }
-    }
-
-    if (!success) {
-        showError(!ok ? "Неверный номер колонки" : context.last_error);
-    }
 }

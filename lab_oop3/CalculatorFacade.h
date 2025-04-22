@@ -1,4 +1,3 @@
-// CalculatorFacade.h
 #ifndef CALCULATORFACADE_H
 #define CALCULATORFACADE_H
 

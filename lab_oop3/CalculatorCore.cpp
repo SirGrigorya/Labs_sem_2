@@ -1,8 +1,7 @@
 #include "CalculatorCore.h"
-#include "Tokenizer.h"
-#include "InfixToPostfixConverter.h"
-#include "PostfixEvaluator.h"
 #include <stdexcept>
+
+#define ERR_EMPTY_EXPRESSION "Empty expression"
 
 CalculatorCore::CalculatorCore() {}
 
@@ -16,6 +15,6 @@ double CalculatorCore::calculate(const std::string& expression) {
 
 void CalculatorCore::validateExpression(const std::string& expression) const {
     if (expression.empty()) {
-        throw std::invalid_argument("Empty expression");
+        throw std::invalid_argument(ERR_EMPTY_EXPRESSION);
     }
 }

@@ -4,8 +4,8 @@
 
 class Circle : public Shape {
 private:
-    Point* center;
-    double* radius;
+    Point center;
+    double radius;
 
 public:
     Circle(const std::string& name, const Point& center, double radius);

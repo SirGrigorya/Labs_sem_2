@@ -15,7 +15,7 @@ bool parse_csv_line(const char* line, DataEntry* entry) {
             return false;
         }
 
-        char* line_copy = (char*)malloc(line_length + 1);
+        char* line_copy = (char*)malloc((line_length + 1) * sizeof(char));
         if (line_copy) {
             strcpy(line_copy, line);
 

@@ -13,12 +13,12 @@ const std::vector<std::shared_ptr<Shape>>& ShapeContainer::all() const {
 }
 
 bool ShapeContainer::removeAt(size_t index) {
-    bool success = false;
+    bool result = false;
     if (index < shapes.size()) {
         shapes.erase(shapes.begin() + index);
-        success = true;
+        result = true;
     }
-    return success;
+    return result;
 }
 
 void ShapeContainer::removeByAreaGreaterThan(double threshold) {
@@ -37,11 +37,9 @@ void ShapeContainer::sortByArea() {
 }
 
 double ShapeContainer::totalArea() const {
-    double* total = new double(0.0);
+    double result = 0.0;
     for (const auto& shape : shapes) {
-        *total += shape->area();
+        result += shape->area();
     }
-    double result = *total;
-    delete total;
     return result;
 }

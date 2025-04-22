@@ -1,76 +1,91 @@
 #include "Tokenizer.h"
 #include <cctype>
+#include <memory>
 #include <stdexcept>
-
-// Operator and symbol definitions
-#define OP_PLUS          '+'
-#define OP_MINUS         '-'
-#define OP_MULTIPLY      '*'
-#define OP_DIVIDE        '/'
-#define PAREN_OPEN       '('
-#define PAREN_CLOSE      ')'
-#define UNARY_PREFIX     "u"
+#include <cstdlib>
+#include "Constants.h"
+#include "NumberToken.h"
 
 #define ERR_INVALID_CHAR "Invalid character in expression"
 
-std::vector<std::string> Tokenizer::tokenize(const std::string& expression) {
-    std::vector<std::string> tokens;
-    std::string currentToken;
+std::vector<std::unique_ptr<Token>> Tokenizer::tokenize(const std::string& expression) {
+    std::vector<std::unique_ptr<Token>> tokens;
+    std::string current;
     bool expectUnary = true;
 
-    for (size_t i = 0; i < expression.size(); ++i) {
+    for (size_t i = 0; i < expression.length(); ++i) {
         char c = expression[i];
 
-        if (isspace(c)) {
-            continue;
-        }
+        if (isspace(c)) continue;
 
         if (isdigit(c) || c == '.') {
-            currentToken += c;
+            current += c;
             expectUnary = false;
         } else {
-            if (!currentToken.empty()) {
-                tokens.push_back(currentToken);
-                currentToken.clear();
+            if (!current.empty()) {
+                double num = std::stod(current);
+                tokens.push_back(std::make_unique<NumberToken>(num));
+                current.clear();
             }
 
-            if (c == '(') {
-                tokens.push_back(std::string(1, c));
+            if (c == PAREN_OPEN_CHAR) {
+                tokens.push_back(std::make_unique<Token>(TOKEN_LPAREN));
                 expectUnary = true;
-            } else if (c == ')') {
-                tokens.push_back(std::string(1, c));
+            } else if (c == PAREN_CLOSE_CHAR) {
+                tokens.push_back(std::make_unique<Token>(TOKEN_RPAREN));
                 expectUnary = false;
             } else if (isOperator(c)) {
-                if (expectUnary && (c == '+' || c == '-')) {
-                    tokens.push_back(std::string("u") + c);
+                TokenType type = TOKEN_INVALID;
+                if (expectUnary && (c == OP_PLUS_CHAR || c == OP_MINUS_CHAR)) {
+                    type = getUnaryTokenType(c);
                 } else {
-                    tokens.push_back(std::string(1, c));
+                    type = getBinaryTokenType(c);
                 }
+                tokens.push_back(std::make_unique<Token>(type));
                 expectUnary = true;
             } else {
-                throw std::invalid_argument("Invalid character in expression");
+                throw std::invalid_argument(ERR_INVALID_CHAR);
             }
         }
     }
 
-    if (!currentToken.empty()) {
-        tokens.push_back(currentToken);
+    if (!current.empty()) {
+        double num = std::stod(current);
+        tokens.push_back(std::make_unique<NumberToken>(num));
     }
 
     return tokens;
 }
 
 bool Tokenizer::isOperator(char c) const {
-    return c == OP_PLUS || c == OP_MINUS || c == OP_MULTIPLY || c == OP_DIVIDE;
-}
-
-bool Tokenizer::isUnaryOperatorExpected(bool expectUnary, const std::string& currentToken) const {
-    return expectUnary && currentToken.empty();
-}
-
-void Tokenizer::flushCurrentToken(std::string& currentToken, std::vector<std::string>& tokens) {
-    if (!currentToken.empty()) {
-        tokens.push_back(currentToken);
-        currentToken.clear();
+    bool result = false;
+    if (c == OP_PLUS_CHAR || c == OP_MINUS_CHAR ||
+        c == OP_MULTIPLY_CHAR || c == OP_DIVIDE_CHAR) {
+        result = true;
     }
+    return result;
+}
+
+TokenType Tokenizer::getUnaryTokenType(char c) const {
+    TokenType type = TOKEN_INVALID;
+    if (c == OP_PLUS_CHAR) {
+        type = TOKEN_UNARY_PLUS;
+    } else if (c == OP_MINUS_CHAR) {
+        type = TOKEN_UNARY_MINUS;
+    }
+    return type;
+}
+
+TokenType Tokenizer::getBinaryTokenType(char c) const {
+    TokenType type = TOKEN_INVALID;
+    if (c == OP_PLUS_CHAR) {
+        type = TOKEN_PLUS;
+    } else if (c == OP_MINUS_CHAR) {
+        type = TOKEN_MINUS;
+    } else if (c == OP_MULTIPLY_CHAR) {
+        type = TOKEN_MULTIPLY;
+    } else if (c == OP_DIVIDE_CHAR) {
+        type = TOKEN_DIVIDE;
+    }
+    return type;
 }

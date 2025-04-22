@@ -1,4 +1,3 @@
-// CalculatorWindow.h
 #ifndef CALCULATORWINDOW_H
 #define CALCULATORWINDOW_H
 

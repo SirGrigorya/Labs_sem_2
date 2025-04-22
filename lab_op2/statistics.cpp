@@ -36,13 +36,11 @@ bool calculate_statistics(
     const DataArray* array,
     const char* region,
     int column_index,
-    float* min,
-    float* max,
-    float* median
+    StatisticsResult* stats
     ) {
     bool result = false;
 
-    if (array && min && max && median &&
+    if (array && stats &&
         column_index >= COLUMN_MIN_INDEX &&
         column_index <= COLUMN_MAX_INDEX)
     {
@@ -64,13 +62,13 @@ bool calculate_statistics(
             if (count > 0) {
                 qsort(values, count, sizeof(float), float_compare);
 
-                *min = values[0];
-                *max = values[count - 1];
+                stats->min = values[0];
+                stats->max = values[count - 1];
 
                 if (count % 2 == 1) {
-                    *median = values[count / 2];
+                    stats->median = values[count / 2];
                 } else {
-                    *median = (values[count / 2 - 1] + values[count / 2]) / 2.0f;
+                    stats->median = (values[count / 2 - 1] + values[count / 2]) / 2.0f;
                 }
 
                 result = true;

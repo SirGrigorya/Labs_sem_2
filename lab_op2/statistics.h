@@ -4,13 +4,17 @@
 #include <stdbool.h>
 #include "data_structures.h"
 
+typedef struct {
+    float min;
+    float max;
+    float median;
+} StatisticsResult;
+
 bool calculate_statistics(
     const DataArray* array,
     const char* region,
     int column_index,
-    float* min,
-    float* max,
-    float* median
+    StatisticsResult* result
     );
 
 #endif // STATISTICS_H

@@ -21,17 +21,8 @@ typedef struct {
     int capacity;
 } DataArray;
 
-typedef struct {
-    DataArray* array;
-    int current_index;
-} DataIterator;
-
 void init_data_array(DataArray* array);
 void free_data_array(DataArray* array);
 bool add_data_entry(DataArray* array, DataEntry entry);
-
-void init_iterator(DataIterator* iterator, DataArray* array);
-bool has_next(DataIterator* iterator);
-DataEntry* next(DataIterator* iterator);
 
 #endif // DATA_STRUCTURES_H

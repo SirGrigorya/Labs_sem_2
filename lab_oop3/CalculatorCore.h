@@ -1,10 +1,10 @@
 #ifndef CALCULATOR_CORE_H
 #define CALCULATOR_CORE_H
 
+#include <string>
 #include "Tokenizer.h"
 #include "InfixToPostfixConverter.h"
 #include "PostfixEvaluator.h"
-#include <string>
 
 class CalculatorCore {
 public:

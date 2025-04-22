@@ -1,35 +1,30 @@
 #include "InfixToPostfixConverter.h"
+#include "NumberToken.h"
+#include "Token.h"
 #include <stack>
 #include <stdexcept>
-#include <cctype>
-
-#define OP_PLUS          "+"
-#define OP_MINUS         "-"
-#define OP_MULTIPLY      "*"
-#define OP_DIVIDE        "/"
-#define UNARY_PREFIX     "u"
-#define PAREN_OPEN       "("
-#define PAREN_CLOSE      ")"
 
 #define ERR_MISMATCHED_PARENTHESES "Mismatched parentheses"
 
-std::vector<std::string> InfixToPostfixConverter::convert(const std::vector<std::string>& tokens) {
-    std::vector<std::string> postfix;
-    std::stack<std::string> opStack;
+std::vector<std::unique_ptr<Token>> InfixToPostfixConverter::convert(const std::vector<std::unique_ptr<Token>>& tokens) {
+    std::vector<std::unique_ptr<Token>> postfix;
+    std::stack<std::unique_ptr<Token>> opStack;
 
-    for (const auto& token : tokens) {
-        if (isNumber(token)) {
-            postfix.push_back(token);
-        }
-        else if (isUnaryOperator(token)) {
-            opStack.push(token);
-        }
-        else if (isLeftParenthesis(token)) {
-            opStack.push(token);
-        }
-        else if (isRightParenthesis(token)) {
-            while (!opStack.empty() && !isLeftParenthesis(opStack.top())) {
-                postfix.push_back(opStack.top());
+    for (const auto& tokenPtr : tokens) {
+        const Token& token = *tokenPtr;
+        TokenType type = token.getType();
+
+        if (type == TOKEN_NUMBER) {
+            const NumberToken& num = dynamic_cast<const NumberToken&>(token);
+            double value = num.getNumber();
+            postfix.push_back(std::make_unique<NumberToken>(value));
+        } else if (isUnaryOperator(token)) {
+            opStack.push(cloneToken(token));
+        } else if (type == TOKEN_LPAREN) {
+            opStack.push(cloneToken(token));
+        } else if (type == TOKEN_RPAREN) {
+            while (!opStack.empty() && opStack.top()->getType() != TOKEN_LPAREN) {
+                postfix.push_back(std::move(opStack.top()));
                 opStack.pop();
             }
 
@@ -39,66 +34,80 @@ std::vector<std::string> InfixToPostfixConverter::convert(const std::vector<std:
 
             opStack.pop();
 
-            if (!opStack.empty() && isUnaryOperator(opStack.top())) {
-                postfix.push_back(opStack.top());
+            if (!opStack.empty() && isUnaryOperator(*opStack.top())) {
+                postfix.push_back(std::move(opStack.top()));
                 opStack.pop();
             }
-        }
-        else if (isOperator(token)) {
+        } else if (isBinaryOperator(token)) {
             while (!opStack.empty() &&
-                   !isLeftParenthesis(opStack.top()) &&
-                   (isUnaryOperator(opStack.top()) ||
-                    getPrecedence(opStack.top()) >= getPrecedence(token))) {
-                postfix.push_back(opStack.top());
+                   opStack.top()->getType() != TOKEN_LPAREN &&
+                   (isUnaryOperator(*opStack.top()) ||
+                    getPrecedence(*opStack.top()) >= getPrecedence(token))) {
+                postfix.push_back(std::move(opStack.top()));
                 opStack.pop();
             }
-            opStack.push(token);
+            opStack.push(cloneToken(token));
         }
     }
 
     while (!opStack.empty()) {
-        if (isLeftParenthesis(opStack.top())) {
-            throw std::invalid_argument("ERR_MISMATCHED_PARENTHESES");
+        if (opStack.top()->getType() == TOKEN_LPAREN) {
+            throw std::invalid_argument(ERR_MISMATCHED_PARENTHESES);
         }
-        postfix.push_back(opStack.top());
+        postfix.push_back(std::move(opStack.top()));
         opStack.pop();
     }
 
     return postfix;
 }
 
-bool InfixToPostfixConverter::isNumber(const std::string& token) const {
-    bool isValid = !token.empty();
-    size_t dotCount = 0;
+bool InfixToPostfixConverter::isBinaryOperator(const Token& token) const {
+    bool result = false;
+    TokenType type = token.getType();
 
-    for (size_t i = 0; isValid && i < token.size(); ++i) {
-        if (token[i] == '.') {
-            isValid = (++dotCount <= 1);
-        } else {
-            isValid = isdigit(token[i]) != 0;
-        }
+    if (type == TOKEN_PLUS || type == TOKEN_MINUS || type == TOKEN_MULTIPLY || type == TOKEN_DIVIDE) {
+        result = true;
     }
 
-    return isValid;
+    return result;
 }
 
-bool InfixToPostfixConverter::isLeftParenthesis(const std::string& token) const {
-    return token == PAREN_OPEN;
+bool InfixToPostfixConverter::isUnaryOperator(const Token& token) const {
+    bool result = false;
+    TokenType type = token.getType();
+
+    if (type == TOKEN_UNARY_PLUS || type == TOKEN_UNARY_MINUS) {
+        result = true;
+    }
+
+    return result;
 }
 
-bool InfixToPostfixConverter::isRightParenthesis(const std::string& token) const {
-    return token == PAREN_CLOSE;
+int InfixToPostfixConverter::getPrecedence(const Token& token) const {
+    int precedence = 0;
+    TokenType type = token.getType();
+
+    if (type == TOKEN_UNARY_PLUS || type == TOKEN_UNARY_MINUS) {
+        precedence = 3;
+    } else if (type == TOKEN_MULTIPLY || type == TOKEN_DIVIDE) {
+        precedence = 2;
+    } else if (type == TOKEN_PLUS || type == TOKEN_MINUS) {
+        precedence = 1;
+    }
+
+    return precedence;
 }
 
-bool InfixToPostfixConverter::isOperator(const std::string& token) const {
-    return token == OP_PLUS || token == OP_MINUS || token == OP_MULTIPLY || token == OP_DIVIDE;
-}
+std::unique_ptr<Token> InfixToPostfixConverter::cloneToken(const Token& token) {
+    TokenType type = token.getType();
+    std::unique_ptr<Token> result = nullptr;
 
-bool InfixToPostfixConverter::isUnaryOperator(const std::string& token) const {
-    return token.size() == 2 && token[0] == 'u';
-}
+    if (type == TOKEN_NUMBER) {
+        const NumberToken& num = dynamic_cast<const NumberToken&>(token);
+        result = std::make_unique<NumberToken>(num.getNumber());
+    } else {
+        result = std::make_unique<Token>(type);
+    }
 
-int InfixToPostfixConverter::getPrecedence(const std::string& op) const {
-    auto it = precedence.find(op);
-    return it != precedence.end() ? it->second : 0;
+    return result;
 }

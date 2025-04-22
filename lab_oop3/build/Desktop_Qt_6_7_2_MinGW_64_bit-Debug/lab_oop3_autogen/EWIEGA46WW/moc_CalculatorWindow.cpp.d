@@ -375,6 +375,8 @@ C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/build/Desktop_Qt_6_7_2_MinGW_
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
   C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/CalculatorCore.h \
   C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/CalculatorFacade.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/Constants.h \
   C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/InfixToPostfixConverter.h \
   C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/PostfixEvaluator.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/Token.h \
   C:/Users/user/Desktop/Projects/Labs_sem_2/lab_oop3/Tokenizer.h

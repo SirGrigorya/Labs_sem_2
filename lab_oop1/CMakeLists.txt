@@ -20,7 +20,11 @@ add_executable(lab_oop1 main.cpp
     Triangle.cpp
     ConvexPolygon.cpp
     ShapeContainer.h
-    ShapeContainer.cpp)
+    ShapeContainer.cpp
+    ShapeFactory.h
+    ShapeFactory.cpp
+    GeometryUtils.cpp
+    GeometryUtils.h)
 
 include(GNUInstallDirs)
 install(TARGETS lab_oop1

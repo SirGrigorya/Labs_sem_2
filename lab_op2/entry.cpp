@@ -4,51 +4,69 @@
 #include "statistics.h"
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX_LINE_LENGTH 512
+#define ERROR_MESSAGE_SIZE 256
 #define MIN_COLUMN_INDEX 1
 #define MAX_COLUMN_INDEX 5
 
 void init_context(AppContext* ctx) {
     if (ctx) {
-        init_data_array(&ctx->data);
+        ctx->data = (DataArray*)malloc(sizeof(DataArray));
+        if (ctx->data) {
+            init_data_array(ctx->data);
+        }
+
+        ctx->last_error = (char*)malloc(ERROR_MESSAGE_SIZE);
+        if (ctx->last_error) {
+            ctx->last_error[0] = '\0';
+        }
+
         ctx->total_lines = 0;
         ctx->error_lines = 0;
         ctx->valid_lines = 0;
         ctx->min = 0;
         ctx->max = 0;
         ctx->median = 0;
-        ctx->last_error[0] = '\0';
     }
 }
 
 void free_context(AppContext* ctx) {
     if (ctx) {
-        free_data_array(&ctx->data);
+        if (ctx->data) {
+            free_data_array(ctx->data);
+            free(ctx->data);
+            ctx->data = NULL;
+        }
+
+        if (ctx->last_error) {
+            free(ctx->last_error);
+            ctx->last_error = NULL;
+        }
     }
 }
 
 bool load_csv_file(AppContext* ctx, const char* filepath) {
     bool success = false;
 
-    if (ctx && filepath) {
+    if (ctx && ctx->data && ctx->last_error && filepath) {
         FILE* file = fopen(filepath, "r");
         if (file) {
             char* line = (char*)malloc(MAX_LINE_LENGTH);
             if (line) {
                 int line_num = 0;
 
-                if (fgets(line, MAX_LINE_LENGTH, file)) { // Пропускаем заголовок
+                if (fgets(line, MAX_LINE_LENGTH, file)) {
                     while (fgets(line, MAX_LINE_LENGTH, file)) {
                         ctx->total_lines++;
-                        line[strcspn(line, "\r\n")] = '\0'; // Удаляем \n и \r
+                        line[strcspn(line, "\r\n")] = '\0';
 
                         DataEntry entry;
                         if (parse_csv_line(line, &entry) && is_valid_entry(&entry)) {
-                            if (!add_data_entry(&ctx->data, entry)) {
-                                snprintf(ctx->last_error, sizeof(ctx->last_error), "Memory allocation failed.");
+                            if (!add_data_entry(ctx->data, entry)) {
+                                snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Memory allocation failed.");
                                 break;
                             }
                             ctx->valid_lines++;
@@ -58,17 +76,17 @@ bool load_csv_file(AppContext* ctx, const char* filepath) {
                     }
                     success = true;
                 } else {
-                    snprintf(ctx->last_error, sizeof(ctx->last_error), "Empty file.");
+                    snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Empty file.");
                 }
 
                 free(line);
             } else {
-                snprintf(ctx->last_error, sizeof(ctx->last_error), "Memory allocation failed.");
+                snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Memory allocation failed.");
             }
 
             fclose(file);
         } else {
-            snprintf(ctx->last_error, sizeof(ctx->last_error), "Can't open file.");
+            snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Can't open file.");
         }
     }
 
@@ -78,14 +96,19 @@ bool load_csv_file(AppContext* ctx, const char* filepath) {
 bool calculate_metrics(AppContext* ctx, const char* region, int column_index) {
     bool success = false;
 
-    if (ctx) {
+    if (ctx && ctx->data && ctx->last_error) {
         if (column_index >= MIN_COLUMN_INDEX && column_index <= MAX_COLUMN_INDEX) {
-            success = calculate_statistics(&ctx->data, region, column_index, &ctx->min, &ctx->max, &ctx->median);
-            if (!success) {
-                snprintf(ctx->last_error, sizeof(ctx->last_error), "Not enough valid data for statistics.");
+            StatisticsResult stats;
+            success = calculate_statistics(ctx->data, region, column_index, &stats);
+            if (success) {
+                ctx->min = stats.min;
+                ctx->max = stats.max;
+                ctx->median = stats.median;
+            } else {
+                snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Not enough valid data for statistics.");
             }
         } else {
-            snprintf(ctx->last_error, sizeof(ctx->last_error), "Invalid column index.");
+            snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Invalid column index.");
         }
     }
 

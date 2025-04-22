@@ -32,11 +32,16 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         csv_parser.h
         filters.h
         statistics.h
-        constants.h
+
         data_structures.cpp
         csv_parser.cpp
         filters.cpp
         statistics.cpp
+        data_iterator.h
+        data_iterator.cpp
+        app_runner.h
+        app_runner.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET lab_op2 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
