@@ -89,18 +89,12 @@ void MainWindow::chooseFile() {
 void MainWindow::loadData() {
     bool success = false;
 
-    free_context(&context);
-    init_context(&context);
+    success = run_app(&context, APP_RUN_LOAD, selectedFile.toStdString().c_str(), 0);
 
-    if (!selectedFile.isEmpty()) {
-        success = run_app(&context, APP_RUN_LOAD, selectedFile.toStdString().c_str(), 0);
-        if (success) {
-            updateTable();
-            showInfoMessage();
-        }
-    }
-
-    if (!success) {
+    if (success) {
+        updateTable();
+        showInfoMessage();
+    } else {
         showError(selectedFile.isEmpty() ? "Файл не выбран" : context.last_error);
     }
 }

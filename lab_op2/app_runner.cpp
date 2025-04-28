@@ -11,6 +11,8 @@ bool run_app(AppContext* ctx, AppRunMode mode, const char* filepath_or_region, i
 
     if (ctx && filepath_or_region) {
         if (mode == APP_RUN_LOAD) {
+            free_context(ctx);
+            init_context(ctx);
             result = load_csv_file(ctx, filepath_or_region);
         } else if (mode == APP_RUN_CALCULATE) {
             if (column >= MIN_COLUMN_INDEX && column <= MAX_COLUMN_INDEX) {
