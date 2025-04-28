@@ -51,10 +51,12 @@ bool calculate_statistics(
             for (int i = 0; i < array->size && count < MAX_VALUES; ++i) {
                 const DataEntry* entry = &array->entries[i];
 
-                if (is_valid_entry(entry) && is_region_match(entry, region)) {
-                    float value;
-                    if (get_column_value(entry, column_index, &value)) {
-                        values[count++] = value;
+                if (is_valid_entry(entry)) {
+                    if (region == nullptr || region[0] == '\0' || is_region_match(entry, region)) {
+                        float value;
+                        if (get_column_value(entry, column_index, &value)) {
+                            values[count++] = value;
+                        }
                     }
                 }
             }

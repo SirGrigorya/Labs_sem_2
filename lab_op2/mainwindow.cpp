@@ -105,8 +105,13 @@ void MainWindow::calculateMetrics() {
     int column = columnInput->text().toInt(&ok);
     bool success = false;
 
-    if (!region.isEmpty() && ok && column >= COLUMN_INDEX_MIN && column <= COLUMN_INDEX_MAX) {
-        success = run_app(&context, APP_RUN_CALCULATE, region.toStdString().c_str(), column);
+    if (ok && column >= COLUMN_INDEX_MIN && column <= COLUMN_INDEX_MAX) {
+        if (region.isEmpty()) {
+            success = run_app(&context, APP_RUN_CALCULATE, "", column);
+        } else {
+            success = run_app(&context, APP_RUN_CALCULATE, region.toStdString().c_str(), column);
+        }
+
         if (success) {
             updateStats();
         }

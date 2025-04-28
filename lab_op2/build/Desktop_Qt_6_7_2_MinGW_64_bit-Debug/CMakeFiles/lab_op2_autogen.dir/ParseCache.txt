@@ -2,10 +2,10 @@
 C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/app_runner.h
 C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/filters.cpp
 C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/csv_parser.h
-C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/statistics.h
-C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/filters.h
-C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/data_structures.h
 C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/data_iterator.h
+C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/data_structures.h
+C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/filters.h
+C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/statistics.h
 C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/entry.h
 C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op2/mainwindow.h
  mmc:Q_OBJECT
