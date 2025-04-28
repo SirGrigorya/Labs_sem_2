@@ -24,9 +24,9 @@ Triangle::Triangle(const std::string& name, const Point& a, const Point& b, cons
 std::string Triangle::info() const {
     std::ostringstream oss;
     oss << "Triangle \"" << name << "\" | Vertices: ("
-        << a.x << ", " << a.y << "), ("
-        << b.x << ", " << b.y << "), ("
-        << c.x << ", " << c.y << ")";
+        << a.getX() << ", " << a.getY() << "), ("
+        << b.getX() << ", " << b.getY() << "), ("
+        << c.getX() << ", " << c.getY() << ")";
     return oss.str();
 }
 

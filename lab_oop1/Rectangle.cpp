@@ -7,8 +7,8 @@
 Rectangle::Rectangle(const std::string& name, const Point& topLeft, const Point& bottomRight)
     : Shape(name), topLeft(topLeft), bottomRight(bottomRight) {
 
-    double width = bottomRight.x - topLeft.x;
-    double height = topLeft.y - bottomRight.y;
+    double width = bottomRight.getX() - topLeft.getX();
+    double height = topLeft.getY() - bottomRight.getY();
 
     if (width <= EPS || height <= EPS) {
         throw InvalidShapeParameters("Rectangle must have positive width and height.");
@@ -16,8 +16,8 @@ Rectangle::Rectangle(const std::string& name, const Point& topLeft, const Point&
 }
 
 double Rectangle::area() const {
-    double width = bottomRight.x - topLeft.x;
-    double height = topLeft.y - bottomRight.y;
+    double width = bottomRight.getX() - topLeft.getX();
+    double height = topLeft.getY() - bottomRight.getY();
     return width * height;
 }
 
@@ -28,8 +28,8 @@ std::string Rectangle::type() const {
 std::string Rectangle::info() const {
     std::ostringstream oss;
     oss << "Rectangle \"" << name << "\" | Top-left: ("
-        << topLeft.x << ", " << topLeft.y << ") | Bottom-right: ("
-        << bottomRight.x << ", " << bottomRight.y << ")";
+        << topLeft.getX() << ", " << topLeft.getY() << ") | Bottom-right: ("
+        << bottomRight.getX() << ", " << bottomRight.getY() << ")";
     return oss.str();
 }
 

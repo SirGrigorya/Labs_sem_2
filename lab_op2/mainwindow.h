@@ -13,7 +13,7 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -23,11 +23,11 @@ private slots:
 
 private:
     void updateTable();
+    void updateStats();
     void showInfoMessage();
     void showError(const QString& message);
 
     AppContext context;
-
     QString selectedFile;
 
     QLineEdit *regionInput;
@@ -35,9 +35,7 @@ private:
     QPushButton *chooseFileButton;
     QPushButton *loadButton;
     QPushButton *calcButton;
-
     QTableWidget *table;
-
     QLabel *fileLabel;
     QLabel *minLabel;
     QLabel *maxLabel;

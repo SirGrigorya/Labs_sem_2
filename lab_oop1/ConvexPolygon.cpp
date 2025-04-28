@@ -69,7 +69,7 @@ std::string ConvexPolygon::info() const {
     std::ostringstream oss;
     oss << "Convex Polygon \"" << name << "\" | Vertices:";
     for (const auto& p : vertices) {
-        oss << " (" << p.x << ", " << p.y << ")";
+        oss << " (" << p.getX() << ", " << p.getY() << ")";
     }
     std::string result = oss.str();
     return result;

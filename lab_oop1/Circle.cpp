@@ -25,7 +25,7 @@ std::string Circle::type() const {
 std::string Circle::info() const {
     std::ostringstream oss;
     oss << "Circle \"" << name << "\" | Center: ("
-        << center.x << ", " << center.y << ") | Radius: " << radius;
+        << center.getX() << ", " << center.getY() << ") | Radius: " << radius;
     return oss.str();
 }
 

@@ -6,18 +6,18 @@
 namespace GeometryUtils {
 
 double crossProduct(const Point& a, const Point& b, const Point& c) {
-    double dx1 = b.x - a.x;
-    double dy1 = b.y - a.y;
-    double dx2 = c.x - b.x;
-    double dy2 = c.y - b.y;
+    double dx1 = b.getX() - a.getX();
+    double dy1 = b.getY() - a.getY();
+    double dx2 = c.getX() - b.getX();
+    double dy2 = c.getY() - b.getY();
 
     double result = dx1 * dy2 - dy1 * dx2;
     return result;
 }
 
 double distance(const Point& p1, const Point& p2) {
-    double dx = p1.x - p2.x;
-    double dy = p1.y - p2.y;
+    double dx = p1.getX() - p2.getX();
+    double dy = p1.getY() - p2.getY();
 
     double result = std::hypot(dx, dy);
     return result;
@@ -30,7 +30,7 @@ double shoelaceArea(const std::vector<Point>& points) {
     for (size_t i = 0; i < n; ++i) {
         const Point& p1 = points[i];
         const Point& p2 = points[(i + 1) % n];
-        sum += (p1.x * p2.y - p2.x * p1.y);
+        sum += (p1.getX() * p2.getY() - p2.getX() * p1.getY());
     }
 
     double result = std::abs(sum) / 2.0;
