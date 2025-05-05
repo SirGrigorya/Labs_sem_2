@@ -14,6 +14,7 @@ public:
     std::string type() const override;
     std::string parameters() const override;
     std::string info() const override;
+    double sarea();
 
 
     const Point& getA() const { return a; }

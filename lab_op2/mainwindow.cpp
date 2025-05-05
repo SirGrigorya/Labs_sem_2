@@ -1,6 +1,7 @@
 #include "mainwindow.h"
-#include "filters.h"
 #include "app_runner.h"
+#include "filters.h"
+#include "setup_ui.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -15,56 +16,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    QWidget *central = new QWidget(this);
-    QVBoxLayout *mainLayout = new QVBoxLayout(central);
-
-    QHBoxLayout *fileLayout = new QHBoxLayout;
-    chooseFileButton = new QPushButton("Выбрать файл");
-    fileLabel = new QLabel("Файл не выбран");
-    fileLayout->addWidget(chooseFileButton);
-    fileLayout->addWidget(fileLabel);
-
-    QHBoxLayout *inputLayout = new QHBoxLayout;
-    regionInput = new QLineEdit();
-    columnInput = new QLineEdit();
-    regionInput->setPlaceholderText("Название региона");
-    columnInput->setPlaceholderText("Номер колонки (1-5)");
-    inputLayout->addWidget(regionInput);
-    inputLayout->addWidget(columnInput);
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
-    loadButton = new QPushButton("Load Data");
-    calcButton = new QPushButton("Calculate Metrics");
-    buttonLayout->addWidget(loadButton);
-    buttonLayout->addWidget(calcButton);
-
-    table = new QTableWidget();
-    table->setColumnCount(COLUMN_COUNT);
-    table->setHorizontalHeaderLabels({
-        "Year", "Region", "Nat.Pop.Growth", "Birth Rate",
-        "Death Rate", "Dem.Weight", "Urbanization"
-    });
-    table->horizontalHeader()->setStretchLastSection(true);
-    table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    QHBoxLayout *statLayout = new QHBoxLayout;
-    minLabel = new QLabel("Min: ");
-    maxLabel = new QLabel("Max: ");
-    medianLabel = new QLabel("Median: ");
-    statLayout->addWidget(minLabel);
-    statLayout->addWidget(maxLabel);
-    statLayout->addWidget(medianLabel);
-
-    mainLayout->addLayout(fileLayout);
-    mainLayout->addLayout(inputLayout);
-    mainLayout->addLayout(buttonLayout);
-    mainLayout->addWidget(table, 1);
-    mainLayout->addLayout(statLayout);
-
-    setCentralWidget(central);
-    setWindowTitle("CSV Visualizer");
-
+    setupUi(this);
     init_context(&context);
 
     connect(chooseFileButton, &QPushButton::clicked, this, &MainWindow::chooseFile);
@@ -103,26 +55,26 @@ void MainWindow::calculateMetrics() {
     QString region = regionInput->text();
     bool ok = false;
     int column = columnInput->text().toInt(&ok);
-    bool success = false;
 
-    if (ok && column >= COLUMN_INDEX_MIN && column <= COLUMN_INDEX_MAX) {
-        if (region.isEmpty()) {
-            success = run_app(&context, APP_RUN_CALCULATE, "", column);
-        } else {
-            success = run_app(&context, APP_RUN_CALCULATE, region.toStdString().c_str(), column);
-        }
-
-        if (success) {
-            updateStats();
-        }
+    if (!ok || column < COLUMN_INDEX_MIN || column > COLUMN_INDEX_MAX) {
+        showError("Неверный номер колонки");
+        return;
     }
 
-    if (!success) {
-        QString message = !ok ? "Неверный номер колонки"
-                              : (region.isEmpty() ? "Введите название региона" : context.last_error);
-        showError(message);
+    bool success = run_app(&context, APP_RUN_CALCULATE, region.toStdString().c_str(), column);
+
+    if (success) {
+        bool statsSuccess = calculate_statistics(context.data, region.toStdString().c_str(), column, &lastStats);
+        if (statsSuccess) {
+            updateStats();
+        } else {
+            showError(context.last_error);
+        }
+    } else {
+        showError(context.last_error);
     }
 }
+
 
 void MainWindow::updateTable() {
     table->setRowCount(0);
@@ -150,10 +102,11 @@ void MainWindow::updateTable() {
 }
 
 void MainWindow::updateStats() {
-    minLabel->setText(QString("Min: %1").arg(get_min_value(&context)));
-    maxLabel->setText(QString("Max: %1").arg(get_max_value(&context)));
-    medianLabel->setText(QString("Median: %1").arg(get_median_value(&context)));
+    minLabel->setText(QString("Min: %1").arg(lastStats.min));
+    maxLabel->setText(QString("Max: %1").arg(lastStats.max));
+    medianLabel->setText(QString("Median: %1").arg(lastStats.median));
 }
+
 
 void MainWindow::showInfoMessage() {
     QString message = QString("Всего строк: %1\nОшибочных: %2\nУспешно считано: %3")

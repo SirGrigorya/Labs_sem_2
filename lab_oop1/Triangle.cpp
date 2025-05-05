@@ -9,14 +9,9 @@
 Triangle::Triangle(const std::string& name, const Point& a, const Point& b, const Point& c)
     : Shape(name), a(a), b(b), c(c) {
 
-    double ab = GeometryUtils::distance(a, b);
-    double bc = GeometryUtils::distance(b, c);
-    double ca = GeometryUtils::distance(c, a);
+    double ar = area();
 
-    double s = (ab + bc + ca) / 2.0;
-    double area = std::sqrt(s * (s - ab) * (s - bc) * (s - ca));
-
-    if (area < EPS) {
+    if (ar < EPS) {
         throw InvalidShapeParameters("Degenerate triangle (zero area).");
     }
 }
@@ -47,4 +42,9 @@ std::string Triangle::parameters() const {
     std::ostringstream oss;
     oss << "Vertices: " << a.toString() << ", " << b.toString() << ", " << c.toString();
     return oss.str();
+
+}
+
+double sarea(double s, double ab, double bc, double ca) {
+    return std::sqrt(s * (s - ab) * (s - bc) * (s - ca));
 }

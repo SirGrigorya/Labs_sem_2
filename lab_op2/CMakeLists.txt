@@ -41,6 +41,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         data_iterator.cpp
         app_runner.h
         app_runner.cpp
+        setup_ui.h
+        setup_ui.cpp
 
     )
 # Define target properties for Android with Qt 6 as:

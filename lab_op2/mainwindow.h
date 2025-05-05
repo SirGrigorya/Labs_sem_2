@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QString>
+#include <qboxlayout.h>
 #include "entry.h"
 
 class MainWindow : public QMainWindow {
@@ -27,8 +28,17 @@ private:
     void showInfoMessage();
     void showError(const QString& message);
 
+    friend void setupUi(MainWindow* window);
+    friend void setupFileLayout(MainWindow* window, QHBoxLayout* fileLayout);
+    friend void setupInputLayout(MainWindow* window, QHBoxLayout* inputLayout);
+    friend void setupButtonLayout(MainWindow* window, QHBoxLayout* buttonLayout);
+    friend void setupTableWidget(MainWindow* window);
+    friend void setupStatLayout(MainWindow* window, QHBoxLayout* statLayout);
+
     AppContext context;
     QString selectedFile;
+
+    StatisticsResult lastStats;
 
     QLineEdit *regionInput;
     QLineEdit *columnInput;

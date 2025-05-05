@@ -16,7 +16,7 @@ bool run_app(AppContext* ctx, AppRunMode mode, const char* filepath_or_region, i
             result = load_csv_file(ctx, filepath_or_region);
         } else if (mode == APP_RUN_CALCULATE) {
             if (column >= MIN_COLUMN_INDEX && column <= MAX_COLUMN_INDEX) {
-                result = calculate_metrics(ctx, filepath_or_region, column);
+                result = calculate_metrics(ctx, filepath_or_region, column, &ctx->stats);
             } else {
                 if (ctx->last_error) {
                     snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Invalid column index.");
@@ -38,6 +38,7 @@ bool run_app(AppContext* ctx, AppRunMode mode, const char* filepath_or_region, i
 
     return result;
 }
+
 
 int get_total_lines(const AppContext* ctx) {
     int value = 0;
@@ -82,7 +83,7 @@ const DataArray* get_data_array(const AppContext* ctx) {
 double get_min_value(const AppContext* ctx) {
     double value = 0.0;
     if (ctx) {
-        value = ctx->min;
+        value = (double)ctx->stats.min;
     }
     return value;
 }
@@ -90,7 +91,7 @@ double get_min_value(const AppContext* ctx) {
 double get_max_value(const AppContext* ctx) {
     double value = 0.0;
     if (ctx) {
-        value = ctx->max;
+        value = (double)ctx->stats.max;
     }
     return value;
 }
@@ -98,7 +99,8 @@ double get_max_value(const AppContext* ctx) {
 double get_median_value(const AppContext* ctx) {
     double value = 0.0;
     if (ctx) {
-        value = ctx->median;
+        value = (double)ctx->stats.median;
     }
     return value;
 }
+

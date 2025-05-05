@@ -27,9 +27,6 @@ void init_context(AppContext* ctx) {
         ctx->total_lines = 0;
         ctx->error_lines = 0;
         ctx->valid_lines = 0;
-        ctx->min = 0;
-        ctx->max = 0;
-        ctx->median = 0;
     }
 }
 
@@ -56,8 +53,6 @@ bool load_csv_file(AppContext* ctx, const char* filepath) {
         if (file) {
             char* line = (char*)malloc(MAX_LINE_LENGTH);
             if (line) {
-                int line_num = 0;
-
                 if (fgets(line, MAX_LINE_LENGTH, file)) {
                     while (fgets(line, MAX_LINE_LENGTH, file)) {
                         ctx->total_lines++;
@@ -78,12 +73,10 @@ bool load_csv_file(AppContext* ctx, const char* filepath) {
                 } else {
                     snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Empty file.");
                 }
-
                 free(line);
             } else {
                 snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Memory allocation failed.");
             }
-
             fclose(file);
         } else {
             snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Can't open file.");
@@ -93,18 +86,13 @@ bool load_csv_file(AppContext* ctx, const char* filepath) {
     return success;
 }
 
-bool calculate_metrics(AppContext* ctx, const char* region, int column_index) {
+bool calculate_metrics(AppContext* ctx, const char* region, int column_index, StatisticsResult* result) {
     bool success = false;
 
-    if (ctx && ctx->data && ctx->last_error) {
+    if (ctx && ctx->data && ctx->last_error && result) {
         if (column_index >= MIN_COLUMN_INDEX && column_index <= MAX_COLUMN_INDEX) {
-            StatisticsResult stats;
-            success = calculate_statistics(ctx->data, region, column_index, &stats);
-            if (success) {
-                ctx->min = stats.min;
-                ctx->max = stats.max;
-                ctx->median = stats.median;
-            } else {
+            success = calculate_statistics(ctx->data, region, column_index, result);
+            if (!success) {
                 snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Not enough valid data for statistics.");
             }
         } else {
