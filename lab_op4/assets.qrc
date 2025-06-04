@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/file_open.png</file>
+        <file>res/hov.png</file>
+        <file>res/arrow_downward.png</file>
+        <file>res/dot.png</file>
+        <file>res/arrow_downward.png</file>
+        <file>res/arrow_back.png</file>
+        <file>res/arrow_forward.png</file>
+        <file>res/arrow_upward.png</file>
+        <file>res/remove.png</file>
+        <file>res/add.png</file>
+    </qresource>
+</RCC>

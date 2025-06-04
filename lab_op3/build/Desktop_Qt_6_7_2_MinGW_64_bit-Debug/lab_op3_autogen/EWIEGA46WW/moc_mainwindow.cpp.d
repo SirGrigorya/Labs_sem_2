@@ -1,5 +1,5 @@
-C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op3_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/mainwindow.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op3_autogen/moc_predefs.h \
+C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op3_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op3/mainwindow.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op3/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/lab_op3_autogen/moc_predefs.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/QString \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20memory.h \
@@ -169,6 +169,7 @@ C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/build/Desktop_Qt_6_7_2_MinGW_6
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qabstractslider.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qabstractspinbox.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qboxlayout.h \
+  C:/Qt/6.7.2/mingw_64/include/QtWidgets/qcombobox.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qframe.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgridlayout.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qlabel.h \
@@ -389,7 +390,7 @@ C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/build/Desktop_Qt_6_7_2_MinGW_6
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/data_structures.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/entry.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/graph_widget.h \
-  C:/Users/User/Desktop/Projects/Labs_sem_2/lab_op3/statistics.h
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op3/data_structures.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op3/entry.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op3/graph_widget.h \
+  C:/Users/user/Desktop/Projects/Labs_sem_2/lab_op3/statistics.h

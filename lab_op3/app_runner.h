@@ -5,7 +5,9 @@
 
 typedef enum {
     APP_RUN_LOAD,
-    APP_RUN_CALCULATE
+    APP_RUN_CALCULATE,
+    APP_RUN_GET_SERIES,
+    APP_RUN_CHECK_REGION
 } AppRunMode;
 
 bool run_app(AppContext* ctx, AppRunMode mode, const char* filepath_or_region, int column);

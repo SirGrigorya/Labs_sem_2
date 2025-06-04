@@ -6,34 +6,30 @@
 #define MIN_COLUMN_INDEX 1
 #define MAX_COLUMN_INDEX 5
 
-bool run_app(AppContext* ctx, AppRunMode mode, const char* filepath_or_region, int column) {
+bool run_app(AppContext* ctx, AppRunMode mode, const char* region, int column) {
     bool result = false;
 
-    if (ctx && filepath_or_region) {
+    if (ctx && region) {
         if (mode == APP_RUN_LOAD) {
             free_context(ctx);
             init_context(ctx);
-            result = load_csv_file(ctx, filepath_or_region);
+            result = load_csv_file(ctx, region);
         } else if (mode == APP_RUN_CALCULATE) {
             if (column >= MIN_COLUMN_INDEX && column <= MAX_COLUMN_INDEX) {
-                result = calculate_metrics(ctx, filepath_or_region, column, &ctx->stats);
+                result = calculate_metrics(ctx, region, column, &ctx->stats);
             } else {
-                if (ctx->last_error) {
-                    snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Invalid column index.");
-                }
-                result = false;
+                snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Invalid column index.");
+            }
+        } else if (mode == APP_RUN_GET_SERIES) {
+            result = extract_series(ctx, region, column, &ctx->series);
+            if (!result) {
+                snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Failed to extract series.");
             }
         } else {
-            if (ctx->last_error) {
-                snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Unknown mode.");
-            }
-            result = false;
+            snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Unknown mode.");
         }
-    } else {
-        if (ctx && ctx->last_error) {
-            snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Invalid arguments.");
-        }
-        result = false;
+    } else if (ctx && ctx->last_error) {
+        snprintf(ctx->last_error, ERROR_MESSAGE_SIZE, "Invalid arguments.");
     }
 
     return result;

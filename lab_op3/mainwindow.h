@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QString>
 #include <qboxlayout.h>
+#include <qcombobox.h>
 #include "entry.h"
 #include "graph_widget.h"
 
@@ -42,7 +43,7 @@ private:
     StatisticsResult lastStats;
 
     QLineEdit *regionInput;
-    QLineEdit *columnInput;
+    QComboBox* columnInputCombo;
     QPushButton *chooseFileButton;
     QPushButton *loadButton;
     QPushButton *calcButton;

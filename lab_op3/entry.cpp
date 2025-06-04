@@ -86,6 +86,89 @@ bool load_csv_file(AppContext* ctx, const char* filepath) {
     return success;
 }
 
+bool allocate_series_memory(DataSeries* out_series, size_t count) {
+    bool result = true;
+    out_series->years = (int*)malloc(sizeof(int) * count);
+    out_series->values = (double*)malloc(sizeof(double) * count);
+
+    if (!out_series->years || !out_series->values) {
+        result = false;
+    }
+
+    return result;
+}
+
+bool get_value_by_column_index(int column_index, DataEntry* entry, double* value) {
+    bool result = false;
+
+    if (column_index == 1) {
+        *value = entry->natural_population_growth;
+        result = true;
+    } else if (column_index == 2) {
+        *value = entry->birth_rate;
+        result = true;
+    } else if (column_index == 3) {
+        *value = entry->death_rate;
+        result = true;
+    } else if (column_index == 4) {
+        *value = entry->general_demographic_weight;
+        result = true;
+    } else if (column_index == 5) {
+        *value = entry->urbanization;
+        result = true;
+    }
+
+    return result;
+}
+
+bool extract_series(const AppContext* ctx, const char* region, int column_index, DataSeries* out_series) {
+    bool result = false;
+
+    if (ctx && ctx->data && region && out_series) {
+        size_t count = 0;
+
+        for (int i = 0; i < ctx->data->size; ++i) {
+            DataEntry* entry = &ctx->data->entries[i];
+            if (is_region_match(entry, region)) {
+                count++;
+            }
+        }
+
+        if (count > 0) {
+            if (allocate_series_memory(out_series, count)) {
+                size_t index = 0;
+                bool valid = true;
+
+                for (int i = 0; i < ctx->data->size; ++i) {
+                    DataEntry* entry = &ctx->data->entries[i];
+                    if (is_region_match(entry, region)) {
+                        out_series->years[index] = entry->year;
+
+                        double value = 0;
+                        if (get_value_by_column_index(column_index, entry, &value)) {
+                            out_series->values[index] = value;
+                            index++;
+                        } else {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (valid) {
+                    out_series->size = count;
+                    result = true;
+                } else {
+                    free(out_series->years);
+                    free(out_series->values);
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
 bool calculate_metrics(AppContext* ctx, const char* region, int column_index, StatisticsResult* result) {
     bool success = false;
 

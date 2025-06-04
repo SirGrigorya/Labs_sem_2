@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QHeaderView>
+#include <qcombobox.h>
 
 #define COLUMN_COUNT 7
 
@@ -16,11 +17,17 @@ void setupFileLayout(MainWindow* window, QHBoxLayout* fileLayout) {
 
 void setupInputLayout(MainWindow* window, QHBoxLayout* inputLayout) {
     window->regionInput = new QLineEdit();
-    window->columnInput = new QLineEdit();
     window->regionInput->setPlaceholderText("Название региона");
-    window->columnInput->setPlaceholderText("Номер колонки (1-5)");
+
+    window->columnInputCombo = new QComboBox();
+    window->columnInputCombo->addItem("Nat.Pop.Growth", 1);
+    window->columnInputCombo->addItem("Birth Rate", 2);
+    window->columnInputCombo->addItem("Death Rate", 3);
+    window->columnInputCombo->addItem("Dem.Weight", 4);
+    window->columnInputCombo->addItem("Urbanization", 5);
+
     inputLayout->addWidget(window->regionInput);
-    inputLayout->addWidget(window->columnInput);
+    inputLayout->addWidget(window->columnInputCombo);
 }
 
 void setupButtonLayout(MainWindow* window, QHBoxLayout* buttonLayout) {
@@ -40,7 +47,9 @@ void setupTableWidget(MainWindow* window) {
     window->table->horizontalHeader()->setStretchLastSection(true);
     window->table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     window->table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    window->table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
+
 
 void setupStatLayout(MainWindow* window, QHBoxLayout* statLayout) {
     window->minLabel = new QLabel("Min: ");
@@ -76,7 +85,7 @@ void setupUi(MainWindow* window) {
     mainLayout->addLayout(statLayout);
 
     window->graphWidget = new GraphWidget();
-    window->graphWidget->setMinimumHeight(200);
+    window->graphWidget->setMinimumHeight(600);
     mainLayout->addWidget(window->graphWidget);
 
     window->setCentralWidget(central);

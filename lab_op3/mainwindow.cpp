@@ -29,12 +29,13 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::chooseFile() {
-    QString path = QFileDialog::getOpenFileName(this, "Выбрать CSV", "", "CSV (*.csv)");
-    if (path.isEmpty()) {
-        fileLabel->setText("Файл не выбран");
+    QString fileName = QFileDialog::getOpenFileName(this, "Выбор CSV-файла", "", "CSV Files (*.csv)");
+    if (!fileName.isEmpty()) {
+        selectedFile = fileName;
+        fileLabel->setText(fileName);
     } else {
-        selectedFile = path;
-        fileLabel->setText(path);
+        selectedFile.clear();
+        fileLabel->setText("Файл не выбран");
     }
 }
 
@@ -54,52 +55,38 @@ void MainWindow::loadData() {
 void MainWindow::calculateMetrics() {
     QString region = regionInput->text();
     bool ok = false;
-    int column = columnInput->text().toInt(&ok);
+    int column = columnInputCombo->currentData().toInt(&ok);
+
+    bool errorOccurred = false;
+    QString errorMessage;
 
     if (!ok || column < COLUMN_INDEX_MIN || column > COLUMN_INDEX_MAX) {
-        showError("Неверный номер колонки");
-        return;
+        errorMessage = "Неверный номер колонки";
+        errorOccurred = true;
     }
 
-    bool success = run_app(&context, APP_RUN_CALCULATE, region.toStdString().c_str(), column);
+    if (!errorOccurred && !run_app(&context, APP_RUN_CALCULATE, region.toStdString().c_str(), column)) {
+        errorMessage = context.last_error;
+        errorOccurred = true;
+    }
 
-    if (success) {
-        bool statsSuccess = calculate_statistics(context.data, region.toStdString().c_str(), column, &lastStats);
-        if (statsSuccess) {
-            updateStats();
+    if (!errorOccurred && !run_app(&context, APP_RUN_GET_SERIES, region.toStdString().c_str(), column)) {
+        errorMessage = context.last_error;
+        errorOccurred = true;
+    }
 
-            std::vector<int> years;
-            std::vector<double> values;
+    if (errorOccurred) {
+        showError(errorMessage);
+    } else {
+        updateStats();
+        std::vector<int> years(context.series.years, context.series.years + context.series.size);
+        std::vector<double> values(context.series.values, context.series.values + context.series.size);
 
-            for (int i = 0; i < context.data->size; ++i) {
-                DataEntry* e = &context.data->entries[i];
-                if (!is_region_match(e, region.toStdString().c_str())) {
-                    continue;
-                }
 
-                years.push_back(e->year);
-
-                if (column == 1) {
-                    values.push_back(e->natural_population_growth);
-                } else if (column == 2) {
-                    values.push_back(e->birth_rate);
-                } else if (column == 3) {
-                    values.push_back(e->death_rate);
-                } else if (column == 4) {
-                    values.push_back(e->general_demographic_weight);
-                } else if (column == 5) {
-                    values.push_back(e->urbanization);
-                }
-            }
-
-            if (!years.empty() && years.size() == values.size()) {
-                graphWidget->setData(years, values, lastStats.min, lastStats.max, lastStats.median);
-            }
-        } else {
-            showError(context.last_error);
-        }
+        graphWidget->setData(years, values, context.stats);
     }
 }
+
 
 void MainWindow::updateTable() {
     table->setRowCount(0);
